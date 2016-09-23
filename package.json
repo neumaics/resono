@@ -13,6 +13,7 @@
   "author": "neumaics@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.14.0",
     "electron": "^1.4.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
