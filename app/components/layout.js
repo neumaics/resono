@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Menu from './menu';
-import SearchForm from './search-form';
+import PodcastSearch from './podcast-search';
 
 export default class Layout extends React.Component {
   render() {
     return (
       <div>
         <Menu />
-        <SearchForm />
+        <PodcastSearch />
       </div>
     );
   }
