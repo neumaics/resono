@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as search from '../../actions/podcast-search-actions'
 
-let SearchInput = ({ dispatch }) => {
+const searchInput = ({ dispatch }) => {
   let input
   const onSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +25,7 @@ let SearchInput = ({ dispatch }) => {
     </form>
   );
 }
-SearchInput = connect()(SearchInput)
+
+const SearchInput = connect()(searchInput);
 
 export default SearchInput
