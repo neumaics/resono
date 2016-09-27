@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import * as search from '../actions/podcast-search-actions'
-import PodcastList from './podcast-search/podcast-list'
+import * as search from '../../actions/podcast-search-actions'
+import PodcastList from './podcast-list'
 
 const mapStateToProps = (state) => {
   const podcasts = state.podcastSearch.get('podcasts');
-  const query = state.podcastSearch.get('query');
+  const query = state.query;
 
   return {
     query: query,
@@ -13,8 +13,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log('ownProps', ownProps);
   return {
-    onSearch: dispatch(search.searchPodcasts(ownProps.query))
+    onSearchClick: dispatch(search.fetchPodcasts(ownProps.query))
   }
 }
 

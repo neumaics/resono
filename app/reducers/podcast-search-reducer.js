@@ -1,26 +1,43 @@
-import { SEARCH_PODCASTS } from '../actions/types';
-import axios from 'axios';
+import {
+  SEARCH_PODCASTS, PODCASTS_REQUEST,
+  PODCASTS_RECEIVE, PODCASTS_FAILURE
+} from '../actions/types';
+
 import Immutable from 'immutable';
 
 const initialSearchState = Immutable.fromJS({
-  query: '',
+  fetching: false,
   podcasts: []
 });
 
-function podcastSearch(state = initialSearchState, action) {
+export const query = (state = '', action) => {
   switch (action.type) {
     case SEARCH_PODCASTS: {
-      const newState = state.withMutations(map => {
-        map.set('query', action.query).set('podcasts', Immutable.fromJS([{title: 'hello'}, {title: 'goodbye'}]));
+      return action.query || '';
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const podcastSearch = (state = initialSearchState, action) => {
+  switch (action.type) {
+    case PODCASTS_REQUEST: {
+      return state.set('fetching', true);
+    }
+    case PODCASTS_RECEIVE: {
+      return state.withMutations((mut) => {
+        return mut.set('fetching', false).set('podcasts', Immutable.fromJS(action.podcasts));
       });
-
-      // console.log(newState.get('query'), newState.get('podcasts'));
-
-      return newState;
+    }
+    case PODCASTS_FAILURE: {
+      // TODO: Add some sort of message passing
+      return state.withMutations((mut) => {
+        return mut.set('fetching', false).set('podcasts', Immutable.fromJS([]));
+      });
     }
     default:
       return state;
   }
 }
-
-export default podcastSearch;

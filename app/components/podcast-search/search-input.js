@@ -1,9 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import * as search from '../../actions/podcast-search-actions'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import * as search from '../../actions/podcast-search-actions';
 
-const searchInput = ({ dispatch }) => {
-  let input
+const searchInput = ({ onSearchClick }) => {
+  let input;
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -11,7 +11,7 @@ const searchInput = ({ dispatch }) => {
       return;
     }
 
-    dispatch(search.searchPodcasts(input.value));
+    onSearchClick();
   }
 
   return (
@@ -26,6 +26,10 @@ const searchInput = ({ dispatch }) => {
   );
 }
 
+searchInput.propTypes = {
+  onSearchClick: PropTypes.func.isRequired
+};
+
 const SearchInput = connect()(searchInput);
 
-export default SearchInput
+export default SearchInput;

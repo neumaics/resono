@@ -1,0 +1,85 @@
+{
+    "rss": {
+        "xmlns:dc": "http://purl.org/dc/elements/1.1/",
+        "xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+        "xmlns:media": "http://search.yahoo.com/mrss/",
+        "xmlns:feedburner": "http://rssnamespace.org/feedburner/ext/1.0",
+        "version": "2.0",
+        "xml:base": "http://www.thisamericanlife.org",
+        "channel": {
+            "title": "This American Life",
+            "link": "http://www.thisamericanlife.org",
+            "description": "This American Life is a weekly public radio show, heard by 2.2 million people on more than 500 stations. Another 1.5 million people download the weekly podcast. It is hosted by Ira Glass, produced in collaboration with Chicago Public Media, delivered to stations by PRX The Public Radio Exchange, and has won all of the major broadcasting awards.",
+            "language": "en",
+            "copyright": "Copyright 1995-2016 Ira Glass",
+            "itunes:new-feed-url": "http://feed.thisamericanlife.org/talpodcast",
+            "atom10:link": [{
+                "xmlns:atom10": "http://www.w3.org/2005/Atom",
+                "rel": "self",
+                "type": "application/rss+xml",
+                "href": "http://feed.thisamericanlife.org/talpodcast"
+            }, {
+                "xmlns:atom10": "http://www.w3.org/2005/Atom",
+                "rel": "hub",
+                "href": "http://pubsubhubbub.appspot.com/"
+            }],
+            "feedburner:info": {
+                "uri": "talpodcast"
+            },
+            "media:copyright": "Copyright 1995-2016 Ira Glass",
+            "media:thumbnail": {
+                "url": "http://www.thisamericanlife.org/sites/all/themes/thislife/images/logo-square-1400.jpg"
+            },
+            "media:category": [{
+                "scheme": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+                "$t": "Society & Culture"
+            }, {
+                "scheme": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+                "$t": "Arts"
+            }, {
+                "scheme": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+                "$t": "News & Politics"
+            }],
+            "itunes:author": "This American Life",
+            "itunes:explicit": "no",
+            "itunes:image": {
+                "href": "http://www.thisamericanlife.org/sites/all/themes/thislife/images/logo-square-1400.jpg"
+            },
+            "itunes:subtitle": "This American Life is a weekly public radio show, heard by 2.2 million people on more than 500 stations. Another 1.5 million people download the weekly podcast. It is hosted by Ira Glass, produced in collaboration with Chicago Public Media, delivered to s",
+            "itunes:category": [{
+                "text": "Society & Culture"
+            }, {
+                "text": "Arts"
+            }, {
+                "text": "News & Politics"
+            }],
+            "feedburner:feedFlare": [{
+                "href": "http://www.podnova.com/add.srf?url=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast",
+                "src": "http://www.podnova.com/img_chicklet_podnova.gif",
+                "$t": "Subscribe with Podnova"
+            }, {
+                "href": "http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast",
+                "src": "//www.netvibes.com/img/add2netvibes.gif",
+                "$t": "Subscribe with Netvibes"
+            }, {
+                "href": "https://add.my.yahoo.com/rss?url=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast",
+                "src": "http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif",
+                "$t": "Subscribe with My Yahoo!"
+            }, {
+                "href": "http://feedly.com/#subscription/feed/http://feed.thisamericanlife.org/talpodcast",
+                "src": "http://s3.feedly.com/feedburner/feedly.png",
+                "$t": "Subscribe with Feedly"
+            }, {
+                "href": "https://www.subtome.com/#/subscribe?feeds=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast",
+                "src": "http://www.subtome.com/subtome-feedburner.png",
+                "$t": "Subscribe with SubToMe"
+            }, {
+                "href": "http://fusion.google.com/add?feedurl=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast",
+                "src": "http://buttons.googlesyndication.com/fusion/add.gif",
+                "$t": "Subscribe with Google"
+            }],
+            "item": [{
+                        "title": "#562: The Problem We All Live With",
+                        "link": "http://feed.thisamericanlife.org/~r/talpodcast/~3/TgQ-xR7Gww4/the-problem-we-all-live-with",
+                        "description": "Right now, all sorts of people are trying to rethink and reinvent education, to get poor minority kids performing as well as white kids. But there\'s one thing nobody tries anymore, despite lots of evidence that it works: desegregation. Nikole Hannah-Jones looks at a district that, not long ago, accidentally launched a desegregation program.<img src=\\"
+                        http: //feeds.feedburner.com/~r/talpodcast/~4/TgQ-xR7Gww4\\" height=\\"1\\" width=\\"1\\" alt=\\"\\"/>","pubDate":"Mon, 19 Sep 2016 00:00:00 +0000","dc:creator":"This American Life","guid":{"isPermaLink":"false","$t":"6809 at http://www.thisamericanlife.org"},"itunes:duration":"01:01:32","media:content":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/YMQXG-8jGWU/562.mp3","type":"audio/mpeg"},"itunes:explicit":"no","itunes:subtitle":"Right now, all sorts of people are trying to rethink and reinvent education, to get poor minority kids performing as well as white kids. But there\'s one thing nobody tries anymore, despite lots of evidence that it works: desegregation. Nikole Hannah-Jones","itunes:author":"This American Life","itunes:summary":"Right now, all sorts of people are trying to rethink and reinvent education, to get poor minority kids performing as well as white kids. But there\'s one thing nobody tries anymore, despite lots of evidence that it works: desegregation. Nikole Hannah-Jones looks at a district that, not long ago, accidentally launched a desegregation program.","feedburner:origLink":"http://www.thisamericanlife.org/radio-archives/episode/562/the-problem-we-all-live-with","enclosure":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/YMQXG-8jGWU/562.mp3","length":"0","type":"audio/mpeg"},"feedburner:origEnclosureLink":"http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/podcast/562.mp3"},{"title":"#596: Becoming a Badger","link":"http://feed.thisamericanlife.org/~r/talpodcast/~3/85KF2yU5X2E/becoming-a-badger","description":"This week, stories about people trying their best to turn themselves into something else—like a badger. Or a professional comedian, in a language they didn’t grow up speaking.<img src=\\"http://feeds.feedburner.com/~r/talpodcast/~4/85KF2yU5X2E\\" height=\\"1\\" width=\\"1\\" alt=\\"\\"/>","pubDate":"Mon, 12 Sep 2016 00:00:00 +0000","dc:creator":"This American Life","guid":{"isPermaLink":"false","$t":"7160 at http://www.thisamericanlife.org"},"itunes:duration":"01:00:34","media:content":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/7dAEuZCdSdM/596.mp3","type":"audio/mpeg"},"itunes:explicit":"no","itunes:subtitle":"This week, stories about people trying their best to turn themselves into something else—like a badger. Or a professional comedian, in a language they didn’t grow up speaking.","itunes:author":"This American Life","itunes:summary":"This week, stories about people trying their best to turn themselves into something else—like a badger. Or a professional comedian, in a language they didn’t grow up speaking.","feedburner:origLink":"http://www.thisamericanlife.org/radio-archives/episode/596/becoming-a-badger","enclosure":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/7dAEuZCdSdM/596.mp3","length":"0","type":"audio/mpeg"},"feedburner:origEnclosureLink":"http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/extended/596.mp3"},{"title":"#567: What’s Going On In There?","link":"http://feed.thisamericanlife.org/~r/talpodcast/~3/OxxwBTNsJ24/whats-going-on-in-there","description":"Often we see someone’s situation from the outside and think we know exactly what’s going on.  This week we get inside and find out just how much more interesting the reality of it is. Including a teenaged girl who records a remarkable story about the boyfriend who abuses her, and why it’s so hard to break up with him. Here are <a href=\\"http://www.thisamericanlife.org/blog/2015/09/our-new-video\\">the videos by Bianca Giaever</a> mentioned in the episode.<img src=\\"http://feeds.feedburner.com/~r/talpodcast/~4/OxxwBTNsJ24\\" height=\\"1\\" width=\\"1\\" alt=\\"\\"/>","pubDate":"Mon, 05 Sep 2016 00:00:00 +0000","dc:creator":"This American Life","guid":{"isPermaLink":"false","$t":"6833 at http://www.thisamericanlife.org"},"itunes:duration":"01:00:56","media:content":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/VqXtPR6QDFA/567.mp3","type":"audio/mpeg"},"itunes:explicit":"no","itunes:subtitle":"Often we see someone’s situation from the outside and think we know exactly what’s going on. This week we get inside and find out just how much more interesting the reality of it is. Including a teenaged girl who records a remarkable story about the boyfr","itunes:author":"This American Life","itunes:summary":"Often we see someone’s situation from the outside and think we know exactly what’s going on. This week we get inside and find out just how much more interesting the reality of it is. Including a teenaged girl who records a remarkable story about the boyfriend who abuses her, and why it’s so hard to break up with him. Here are the videos by Bianca Giaever mentioned in the episode.","feedburner:origLink":"http://www.thisamericanlife.org/radio-archives/episode/567/whats-going-on-in-there","enclosure":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/VqXtPR6QDFA/567.mp3","length":"0","type":"audio/mpeg"},"feedburner:origEnclosureLink":"http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/extended/567.mp3"},{"title":"#595: Deep End of the Pool","link":"http://feed.thisamericanlife.org/~r/talpodcast/~3/NEPGWmY2s1I/deep-end-of-the-pool","description":"What do you do when you\'re thrown into a situation you’re not prepared for? And while you’re flailing around—what happens to the people who depend on you? This week we present stories of people who find themselves in over their heads, including an attorney who knows little about criminal law assigned to defend a young man facing twenty years in prison. <a href=\\"http://www.thisamericanlife.org/jack-bailey/\\">ANNOTATED COURT DOCUMENT</a><img src=\\"http://feeds.feedburner.com/~r/talpodcast/~4/NEPGWmY2s1I\\" height=\\"1\\" width=\\"1\\" alt=\\"\\"/>","pubDate":"Mon, 29 Aug 2016 00:00:00 +0000","dc:creator":"This American Life","guid":{"isPermaLink":"false","$t":"7148 at http://www.thisamericanlife.org"},"itunes:duration":"01:01:25","media:content":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/Z5z4fpzUgoM/595.mp3","type":"audio/mpeg"},"itunes:explicit":"no","itunes:subtitle":"What do you do when you\'re thrown into a situation you’re not prepared for? And while you’re flailing around—what happens to the people who depend on you? This week we present stories of people who find themselves in over their heads, including an attorne","itunes:author":"This American Life","itunes:summary":"What do you do when you\'re thrown into a situation you’re not prepared for? And while you’re flailing around—what happens to the people who depend on you? This week we present stories of people who find themselves in over their heads, including an attorney who knows little about criminal law assigned to defend a young man facing twenty years in prison. ANNOTATED COURT DOCUMENT","feedburner:origLink":"http://www.thisamericanlife.org/radio-archives/episode/595/deep-end-of-the-pool","enclosure":{"url":"http://feed.thisamericanlife.org/~r/talpodcast/~5/Z5z4fpzUgoM/595.mp3","length":"0","type":"audio/mpeg"},"feedburner:origEnclosureLink":"http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/extended/595.mp3"}],"media:credit":{"role":"author","$t":"This American Life"},"media:rating":"nonadult"}}}

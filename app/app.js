@@ -5,8 +5,9 @@ import { Provider } from 'react-redux';
 import Layout from './components/layout';
 
 import store from './store';
+const root = document.getElementById('app');
 
 ReactDom.render(
   <Provider store={store}>
     <Layout />
-  </Provider>, document.getElementById('app'));
+  </Provider>, root);
