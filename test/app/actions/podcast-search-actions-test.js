@@ -1,15 +1,15 @@
 import configureMockStore from 'redux-mock-store'
 import expect from 'expect'
-import * as actions from '../../../app/actions/podcast-search-actions'
-import * as types from '../../../app/actions/types'
-import sampleItunesResponse from '../../data/itunes-response.json'
 import thunk from 'redux-thunk'
 import nock from 'nock'
 import Immutable from 'immutable'
 
+import sampleItunesResponse from '../../data/itunes-response.json'
+import * as actions from '../../../app/actions/podcast-search-actions'
+import * as types from '../../../app/actions/types'
+
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
-
 
 describe('podcast search actions', () => {
   it('should create an action for searching for podcasts', () => {
@@ -90,7 +90,7 @@ describe('podcast search actions', () => {
       const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
 
       return store.dispatch(actions.fetchPodcasts('this am'))
-        .then(() => { // return of async actions
+        .then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
     });
@@ -116,7 +116,7 @@ describe('podcast search actions', () => {
         const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
 
         return store.dispatch(actions.fetchPodcasts(query))
-          .then(() => { // return of async actions
+          .then(() => {
             expect(store.getActions()).toEqual(expectedActions);
           });
     });

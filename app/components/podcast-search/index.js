@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import * as search from '../../actions/podcast-search-actions'
 import PodcastList from './podcast-list'
 
@@ -12,16 +13,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log('ownProps', ownProps);
-  return {
-    onSearchClick: dispatch(search.fetchPodcasts(ownProps.query))
-  }
-}
-
 const PodcastSearch = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(PodcastList);
 
 export default PodcastSearch;
