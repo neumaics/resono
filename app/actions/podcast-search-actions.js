@@ -3,6 +3,7 @@ import {
   PODCASTS_RECEIVE, PODCASTS_FAILURE
 } from './types';
 import axios from 'axios';
+import uuid from 'uuid';
 
 export const searchPodcasts = (query) => {
   return { type: SEARCH_PODCASTS, query: query }
@@ -41,7 +42,7 @@ export const fetchPodcasts = (query) => {
     return axios.get('https://itunes.apple.com/search', { params })
       .then((response) => {
         return response.data.results.map((item) => {
-          return { id: item.artistId, title: item.artistName };
+          return { id: item.artistId, title: item.artistName, feedUrl: item.feedUrl };
         });
       })
       .then((results) => {

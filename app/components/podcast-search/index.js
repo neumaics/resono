@@ -1,7 +1,19 @@
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import * as search from '../../actions/podcast-search-actions'
 import PodcastList from './podcast-list'
+import SearchInput from './search-input'
+
+const searchContainer = ({ podcasts, query, onSearchClick }) => {
+
+  return(
+    <div>
+      <SearchInput onSearchClick={onSearchClick} />
+      <PodcastList podcasts={podcasts} />
+    </div>
+  );
+}
 
 const mapStateToProps = (state) => {
   const podcasts = state.podcastSearch.get('podcasts');
@@ -13,8 +25,15 @@ const mapStateToProps = (state) => {
   }
 }
 
-const PodcastSearch = connect(
-  mapStateToProps
-)(PodcastList);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); }
+  }
+}
 
-export default PodcastSearch;
+const Search = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(searchContainer);
+
+export default Search;

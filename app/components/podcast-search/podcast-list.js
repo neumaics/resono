@@ -8,15 +8,16 @@ let PodcastList = ({ podcasts }) => {
   };
 
   const podcastItems = podcasts.map((item, index) => {
-    return <PodcastItem onClick={onClick} title={item.title} key={index} />
+    return <PodcastItem onClick={() => onClick(item)} title={item.title} key={index} />
   });
 
   return (
     <div>
-      <SearchInput />
-      <ul>
-        {podcastItems}
-      </ul>
+      <table className='table table-sm table-hover'>
+        <tbody>
+          {podcastItems}
+        </tbody>
+      </table>
     </div>
   );
 };

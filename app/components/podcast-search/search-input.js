@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as search from '../../actions/podcast-search-actions'
 
-const searchInput = ({ dispatch }) => {
+const searchInput = ({ onSearchClick }) => {
   let input;
   const onSubmit = (e) => {
     e.preventDefault();
@@ -11,7 +10,7 @@ const searchInput = ({ dispatch }) => {
       return;
     }
 
-    dispatch(search.fetchPodcasts(input.value));
+    onSearchClick(input.value);
   }
 
   return (
@@ -19,9 +18,6 @@ const searchInput = ({ dispatch }) => {
       <input ref={node => {
         input = node
       }} />
-      <button type="submit">
-        search
-      </button>
     </form>
   );
 }

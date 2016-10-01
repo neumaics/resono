@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
 const PodcastItem = ({ onClick, title }) => (
-  <li onClick={onClick}>
-    {title}
-  </li>
+  <tr onClick={onClick}>
+    <td>{title}</td>
+  </tr>
 );
 
 PodcastItem.propTypes = {
