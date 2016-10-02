@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?>
+<?xml-stylesheet type="text/css" media="screen" href="http://feed.thisamericanlife.org/~d/styles/itemcontent.css"?>
+<rss
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+    xmlns:media="http://search.yahoo.com/mrss/"
+    xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0"
+    version="2.0"
+    xml:base="http://www.thisamericanlife.org">
+    <channel>
+        <title>This American Life</title>
+        <link>http://www.thisamericanlife.org</link>
+        <description>This American Life is a weekly public radio show, heard by 2.2 million people on more than 500 stations. Another 1.5 million people download the weekly podcast. It is hosted by Ira Glass, produced in collaboration with Chicago Public
+            Media, delivered to stations by PRX The Public Radio Exchange, and has won all of the major broadcasting awards.</description>
+        <language>en</language>
+        <copyright>Copyright 1995-2016 Ira Glass</copyright>
+        <itunes:new-feed-url>http://feed.thisamericanlife.org/talpodcast</itunes:new-feed-url>
+        <atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feed.thisamericanlife.org/talpodcast"/><feedburner:info uri="talpodcast"/><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/"/>
+        <media:copyright>Copyright 1995-2016 Ira Glass</media:copyright><media:thumbnail url="http://www.thisamericanlife.org/sites/all/themes/thislife/images/logo-square-1400.jpg"/>
+        <media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Society &amp; Culture</media:category>
+        <media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Arts</media:category>
+        <media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">News &amp; Politics</media:category>
+        <itunes:author>This American Life</itunes:author>
+        <itunes:explicit>no</itunes:explicit><itunes:image href="http://www.thisamericanlife.org/sites/all/themes/thislife/images/logo-square-1400.jpg"/>
+        <itunes:subtitle>This American Life is a weekly public radio show, heard by 2.2 million people on more than 500 stations. Another 1.5 million people download the weekly podcast. It is hosted by Ira Glass, produced in collaboration with Chicago Public
+            Media, delivered to s</itunes:subtitle><itunes:category text="Society &amp; Culture"/><itunes:category text="Arts"/><itunes:category text="News &amp; Politics"/>
+        <feedburner:feedFlare href="http://www.podnova.com/add.srf?url=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast" src="http://www.podnova.com/img_chicklet_podnova.gif">Subscribe with Podnova</feedburner:feedFlare>
+        <feedburner:feedFlare href="http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast" src="//www.netvibes.com/img/add2netvibes.gif">Subscribe with Netvibes</feedburner:feedFlare>
+        <feedburner:feedFlare href="https://add.my.yahoo.com/rss?url=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast" src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif">Subscribe with My Yahoo!</feedburner:feedFlare>
+        <feedburner:feedFlare href="http://feedly.com/#subscription/feed/http://feed.thisamericanlife.org/talpodcast" src="http://s3.feedly.com/feedburner/feedly.png">Subscribe with Feedly</feedburner:feedFlare>
+        <feedburner:feedFlare href="https://www.subtome.com/#/subscribe?feeds=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast" src="http://www.subtome.com/subtome-feedburner.png">Subscribe with SubToMe</feedburner:feedFlare>
+        <feedburner:feedFlare href="http://fusion.google.com/add?feedurl=http%3A%2F%2Ffeed.thisamericanlife.org%2Ftalpodcast" src="http://buttons.googlesyndication.com/fusion/add.gif">Subscribe with Google</feedburner:feedFlare>
+        <item>
+            <title>#597: One Last Thing Before I Go</title>
+            <link>http://feed.thisamericanlife.org/~r/talpodcast/~3/NJONqrRSVIQ/one-last-thing-before-i-go</link>
+            <description>Words can seem so puny and ineffective sometimes. On this show, we have stories in which ordinary people make last ditch efforts to get through to their loved ones, using a combination of small talk and not-so-small talk.&lt;img
+                src="http://feeds.feedburner.com/~r/talpodcast/~4/NJONqrRSVIQ" height="1" width="1" alt=""/&gt;</description>
+            <pubDate>Mon, 26 Sep 2016 00:00:00 +0000</pubDate>
+            <dc:creator>This American Life</dc:creator>
+            <guid isPermaLink="false">7169 at http://www.thisamericanlife.org</guid>
+
+            <itunes:duration>01:02:30</itunes:duration>
+            <media:content url="http://feed.thisamericanlife.org/~r/talpodcast/~5/O1JUM8C1Yn8/597.mp3" type="audio/mpeg"/>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:subtitle>
+                Words can seem so puny and ineffective sometimes. On this show, we have stories in which ordinary people make last ditch efforts to get through to their loved ones, using a combination of small talk and not-so-small talk.
+            </itunes:subtitle>
+            <itunes:author>This American Life</itunes:author>
+            <itunes:summary>
+                Words can seem so puny and ineffective sometimes. On this show, we have stories in which ordinary people make last ditch efforts to get through to their loved ones, using a combination of small talk and not-so-small talk.
+            </itunes:summary>
+            <feedburner:origLink>http://www.thisamericanlife.org/radio-archives/episode/597/one-last-thing-before-i-go</feedburner:origLink><enclosure url="http://feed.thisamericanlife.org/~r/talpodcast/~5/O1JUM8C1Yn8/597.mp3" length="0" type="audio/mpeg"/>
+            <feedburner:origEnclosureLink>http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/podcast/597.mp3</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>#562: The Problem We All Live With</title>
+            <link>http://feed.thisamericanlife.org/~r/talpodcast/~3/TgQ-xR7Gww4/the-problem-we-all-live-with</link>
+            <description>Right now, all sorts of people are trying to rethink and reinvent education, to get poor minority kids performing as well as white kids. But there's one thing nobody tries anymore, despite lots of evidence that it works: desegregation.
+                Nikole Hannah-Jones looks at a district that, not long ago, accidentally launched a desegregation program.&lt;img src="http://feeds.feedburner.com/~r/talpodcast/~4/TgQ-xR7Gww4" height="1" width="1" alt=""/&gt;</description>
+            <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
+            <dc:creator>This American Life</dc:creator>
+            <guid isPermaLink="false">6809 at http://www.thisamericanlife.org</guid>
+
+            <itunes:duration>01:01:32</itunes:duration>
+            <media:content url="http://feed.thisamericanlife.org/~r/talpodcast/~5/pefLQQnXt-g/562.mp3" type="audio/mpeg"/>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:subtitle>Right now, all sorts of people are trying to rethink and reinvent education, to get poor minority kids performing as well as white kids. But there's one thing nobody tries anymore, despite lots of evidence that it works:
+                desegregation. Nikole Hannah-Jones</itunes:subtitle>
+            <itunes:author>This American Life</itunes:author>
+            <itunes:summary>Right now, all sorts of people are trying to rethink and reinvent education, to get poor minority kids performing as well as white kids. But there's one thing nobody tries anymore, despite lots of evidence that it works:
+                desegregation. Nikole Hannah-Jones looks at a district that, not long ago, accidentally launched a desegregation program.</itunes:summary>
+            <feedburner:origLink>http://www.thisamericanlife.org/radio-archives/episode/562/the-problem-we-all-live-with</feedburner:origLink><enclosure url="http://feed.thisamericanlife.org/~r/talpodcast/~5/pefLQQnXt-g/562.mp3" length="0" type="audio/mpeg"/>
+            <feedburner:origEnclosureLink>http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/extended/562.mp3</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>#596: Becoming a Badger</title>
+            <link>http://feed.thisamericanlife.org/~r/talpodcast/~3/85KF2yU5X2E/becoming-a-badger</link>
+            <description>This week, stories about people trying their best to turn themselves into something else—like a badger. Or a professional comedian, in a language they didn’t grow up speaking.&lt;img
+                src="http://feeds.feedburner.com/~r/talpodcast/~4/85KF2yU5X2E" height="1" width="1" alt=""/&gt;</description>
+            <pubDate>Mon, 12 Sep 2016 00:00:00 +0000</pubDate>
+            <dc:creator>This American Life</dc:creator>
+            <guid isPermaLink="false">7160 at http://www.thisamericanlife.org</guid>
+
+            <itunes:duration>01:00:34</itunes:duration>
+            <media:content url="http://feed.thisamericanlife.org/~r/talpodcast/~5/7dAEuZCdSdM/596.mp3" type="audio/mpeg"/>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:subtitle>This week, stories about people trying their best to turn themselves into something else—like a badger. Or a professional comedian, in a language they didn’t grow up speaking.
+            </itunes:subtitle>
+            <itunes:author>This American Life</itunes:author>
+            <itunes:summary>This week, stories about people trying their best to turn themselves into something else—like a badger. Or a professional comedian, in a language they didn’t grow up speaking.
+            </itunes:summary>
+            <feedburner:origLink>http://www.thisamericanlife.org/radio-archives/episode/596/becoming-a-badger</feedburner:origLink><enclosure url="http://feed.thisamericanlife.org/~r/talpodcast/~5/7dAEuZCdSdM/596.mp3" length="0" type="audio/mpeg"/>
+            <feedburner:origEnclosureLink>http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/extended/596.mp3</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>#567: What’s Going On In There?</title>
+            <link>http://feed.thisamericanlife.org/~r/talpodcast/~3/OxxwBTNsJ24/whats-going-on-in-there</link>
+            <description>Often we see someone’s situation from the outside and think we know exactly what’s going on. This week we get inside and find out just how much more interesting the reality of it is. Including a teenaged girl who records a remarkable
+                story about the boyfriend who abuses her, and why it’s so hard to break up with him. Here are &lt;a href="http://www.thisamericanlife.org/blog/2015/09/our-new-video"&gt;the videos by Bianca Giaever&lt;/a&gt; mentioned in the episode.&lt;img
+                src="http://feeds.feedburner.com/~r/talpodcast/~4/OxxwBTNsJ24" height="1" width="1" alt=""/&gt;</description>
+            <pubDate>Mon, 05 Sep 2016 00:00:00 +0000</pubDate>
+            <dc:creator>This American Life</dc:creator>
+            <guid isPermaLink="false">6833 at http://www.thisamericanlife.org</guid>
+
+            <itunes:duration>01:00:56</itunes:duration>
+            <media:content url="http://feed.thisamericanlife.org/~r/talpodcast/~5/VqXtPR6QDFA/567.mp3" type="audio/mpeg"/>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:subtitle>Often we see someone’s situation from the outside and think we know exactly what’s going on. This week we get inside and find out just how much more interesting the reality of it is. Including a teenaged girl who records a remarkable
+                story about the boyfr</itunes:subtitle>
+            <itunes:author>This American Life</itunes:author>
+            <itunes:summary>Often we see someone’s situation from the outside and think we know exactly what’s going on. This week we get inside and find out just how much more interesting the reality of it is. Including a teenaged girl who records a remarkable
+                story about the boyfriend who abuses her, and why it’s so hard to break up with him. Here are the videos by Bianca Giaever mentioned in the episode.
+            </itunes:summary>
+            <feedburner:origLink>http://www.thisamericanlife.org/radio-archives/episode/567/whats-going-on-in-there</feedburner:origLink><enclosure url="http://feed.thisamericanlife.org/~r/talpodcast/~5/VqXtPR6QDFA/567.mp3" length="0" type="audio/mpeg"/>
+            <feedburner:origEnclosureLink>http://www.podtrac.com/pts/redirect.mp3/podcast.thisamericanlife.org/extended/567.mp3</feedburner:origEnclosureLink>
+        </item>
+        <media:credit role="author">This American Life</media:credit>
+        <media:rating>nonadult</media:rating>
+    </channel>
+</rss>

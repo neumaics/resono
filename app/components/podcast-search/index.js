@@ -2,15 +2,16 @@ import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as search from '../../actions/podcast-search-actions'
+import * as rss from '../../actions/rss-actions'
 import PodcastList from './podcast-list'
 import SearchInput from './search-input'
 
-const searchContainer = ({ podcasts, query, onSearchClick }) => {
+const searchContainer = ({ podcasts, query, onSearchClick, onItemSelect }) => {
 
   return(
     <div>
       <SearchInput onSearchClick={onSearchClick} />
-      <PodcastList podcasts={podcasts} />
+      <PodcastList podcasts={podcasts} onItemSelect={onItemSelect} />
     </div>
   );
 }
@@ -27,7 +28,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); }
+    onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); },
+    onItemSelect: (item) => { dispatch(rss.fetchRssFeed(item.feedUrl)); }
   }
 }
 

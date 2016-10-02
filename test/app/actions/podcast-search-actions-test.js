@@ -75,10 +75,12 @@ describe('podcast search actions', () => {
 
       const podcasts = [{
         id: 364380278,
-        title: "This American Life"
+        title: 'This American Life',
+        feedUrl: 'http://feed.thisamericanlife.org/talpodcast'
       }, {
         id: 364380278,
-        title: "This American Life"
+        title: 'This American Life',
+        feedUrl: 'http://feeds.serialpodcast.org/serialpodcast'
       }];
 
       const query = 'this am';

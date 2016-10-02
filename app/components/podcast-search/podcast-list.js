@@ -2,13 +2,10 @@ import React, { PropTypes } from 'react';
 import SearchInput from './search-input';
 import PodcastItem from './podcast-item';
 
-let PodcastList = ({ podcasts }) => {
-  let onClick = (item) => {
-    console.log(item);
-  };
+let PodcastList = ({ podcasts, onItemSelect }) => {
 
   const podcastItems = podcasts.map((item, index) => {
-    return <PodcastItem onClick={() => onClick(item)} title={item.title} key={index} />
+    return <PodcastItem onClick={() => onItemSelect(item)} title={item.title} key={index} />
   });
 
   return (
@@ -24,7 +21,8 @@ let PodcastList = ({ podcasts }) => {
 
 
 PodcastList.propTypes = {
-  podcasts: PropTypes.array
+  podcasts: PropTypes.array,
+  onItemSelect: PropTypes.func
 };
 
 export default PodcastList;
