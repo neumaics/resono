@@ -1,6 +1,12 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import statePersistence from './middleware/save-state'
 
 import reducers from './reducers';
 
-export default createStore(reducers, applyMiddleware(thunkMiddleware));
+const middleware = [
+  thunkMiddleware,
+  statePersistence
+]
+
+export default createStore(reducers, applyMiddleware(...middleware));

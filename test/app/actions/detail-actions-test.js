@@ -5,13 +5,13 @@ import nock from 'nock'
 import Immutable from 'immutable'
 
 import sampleItunesResponse from '../../data/example-rss.json'
-import * as actions from '../../../app/actions/rss-actions'
+import * as actions from '../../../app/actions/detail-actions'
 import * as types from '../../../app/actions/types'
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
-describe('rss actions', () => {
+describe('detail actions', () => {
   it('should create an action for initiating rss feed detail', () => {
     const feedUrl = 'www.feed.rss';
     const expectedAction = {
@@ -23,14 +23,16 @@ describe('rss actions', () => {
   });
 
   it('should create an action for receiving rss feed data', () => {
-    const json = [{ title: 'planet money' }];
+    const id = 5;
+    const json = [{ id: id, title: 'planet money' }];
 
     const expectedAction = {
       type: types.RSS_RECEIVE,
+      id: id,
       data: json
     };
 
-    expect(actions.rssReceive(json)).toEqual(expectedAction);
+    expect(actions.rssReceive(id, json)).toEqual(expectedAction);
   });
 
   it('should create an action to notify of podcast search failures', () => {
@@ -53,6 +55,8 @@ describe('rss actions', () => {
 
     it('should create actions to organize rss feed detail requests', () => {
       const feedUrl = 'https://feed.rss/';
+      const id = 6;
+
       nock(feedUrl)
         .get('/')
         .reply(200, '<?xml version="1.0" encoding="UTF-8"?><rss>yep</rss>');
@@ -60,12 +64,12 @@ describe('rss actions', () => {
       const data = { rss: 'yep' };
       const expectedActions = [
         { type: types.RSS_REQUEST, feedUrl: feedUrl },
-        { type: types.RSS_RECEIVE, data: data }
+        { type: types.RSS_RECEIVE, id: id, data: data }
       ];
 
       const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
 
-      return store.dispatch(actions.fetchRssFeed(feedUrl)).then(() => {
+      return store.dispatch(actions.fetchRssFeed(id, feedUrl)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
     });
@@ -73,6 +77,7 @@ describe('rss actions', () => {
     it('should create actions for api request failures', () => {
       const feedUrl = 'https://nothing-here.rss/';
       const error = { message: 'hah, nice try' };
+      const id = 7;
 
       nock(feedUrl)
         .get('/')
@@ -85,7 +90,7 @@ describe('rss actions', () => {
 
         const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
 
-        return store.dispatch(actions.fetchRssFeed(feedUrl)).then(() => {
+        return store.dispatch(actions.fetchRssFeed(id, feedUrl)).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
           });
     });

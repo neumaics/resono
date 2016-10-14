@@ -1,5 +1,5 @@
 import expect from 'expect'
-import * as reducers from '../../../app/reducers/podcast-search-reducer'
+import * as reducers from '../../../app/reducers/search-reducer'
 import * as actions from '../../../app/actions/types'
 import Immutable from 'immutable'
 

@@ -1,6 +1,8 @@
 import {
-  SEARCH_PODCASTS, PODCASTS_REQUEST,
-  PODCASTS_RECEIVE, PODCASTS_FAILURE
+  SEARCH_PODCASTS,
+  PODCASTS_REQUEST,
+  PODCASTS_RECEIVE,
+  PODCASTS_FAILURE
 } from '../actions/types';
 
 import Immutable from 'immutable';

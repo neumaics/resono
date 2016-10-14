@@ -5,13 +5,13 @@ import nock from 'nock'
 import Immutable from 'immutable'
 
 import sampleItunesResponse from '../../data/itunes-response.json'
-import * as actions from '../../../app/actions/podcast-search-actions'
+import * as actions from '../../../app/actions/search-actions'
 import * as types from '../../../app/actions/types'
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
-describe('podcast search actions', () => {
+describe('search actions', () => {
   it('should create an action for searching for podcasts', () => {
     const query = 'freq eq';
     const expectedAction = {
@@ -74,12 +74,12 @@ describe('podcast search actions', () => {
         .reply(200, sampleItunesResponse);
 
       const podcasts = [{
-        id: 364380278,
+        id: 201671138,
         title: 'This American Life',
         feedUrl: 'http://feed.thisamericanlife.org/talpodcast'
       }, {
-        id: 364380278,
-        title: 'This American Life',
+        id: 917918570,
+        title: 'Serial',
         feedUrl: 'http://feeds.serialpodcast.org/serialpodcast'
       }];
 

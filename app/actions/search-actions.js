@@ -1,19 +1,23 @@
 import {
-  SEARCH_PODCASTS, PODCASTS_REQUEST,
-  PODCASTS_RECEIVE, PODCASTS_FAILURE
-} from './types';
-import axios from 'axios';
-import uuid from 'uuid';
+  SEARCH_PODCASTS,
+  PODCASTS_REQUEST,
+  PODCASTS_RECEIVE,
+  PODCASTS_FAILURE,
+  PODCASTS_DETAIL_REQUEST,
+  PODCASTS_DETAIL_RECEIVE
+} from './types'
+import axios from 'axios'
+import uuid from 'uuid'
 
-export const searchPodcasts = (query) => {
+export function searchPodcasts(query) {
   return { type: SEARCH_PODCASTS, query: query }
 }
 
-export const podcastsRequest = (query) => {
+export function podcastsRequest(query) {
   return { type: PODCASTS_REQUEST, query: query }
 }
 
-export const podcastsReceive = (query, json) => {
+export function podcastsReceive(query, json) {
   return {
     type: PODCASTS_RECEIVE,
     query: query,
@@ -21,7 +25,7 @@ export const podcastsReceive = (query, json) => {
   }
 }
 
-export const podcastsRequestFailure = (query, error) => {
+export function podcastsRequestFailure(query, error) {
   return {
     type: PODCASTS_FAILURE,
     query: query,
@@ -29,7 +33,7 @@ export const podcastsRequestFailure = (query, error) => {
   }
 }
 
-export const fetchPodcasts = (query) => {
+export function fetchPodcasts(query) {
   return function (dispatch) {
     dispatch(podcastsRequest(query));
 
@@ -42,7 +46,7 @@ export const fetchPodcasts = (query) => {
     return axios.get('https://itunes.apple.com/search', { params })
       .then((response) => {
         return response.data.results.map((item) => {
-          return { id: item.artistId, title: item.artistName, feedUrl: item.feedUrl };
+          return { id: item.collectionId, title: item.collectionName, feedUrl: item.feedUrl };
         });
       })
       .then((results) => {
@@ -51,5 +55,19 @@ export const fetchPodcasts = (query) => {
       .catch((error) => {
         dispatch(podcastsRequestFailure(query, error));
       });
+  }
+}
+
+export function requestPodcastDetail(podcastId) {
+  return {
+    type: PODCASTS_DETAIL_REQUEST,
+    id: podcastId
+  }
+}
+
+export function receivePodcastDetail(details) {
+  return {
+    type: PODCASTS_DETAIL_RECEIVE,
+    podcast: details
   }
 }
