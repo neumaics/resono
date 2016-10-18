@@ -1,6 +1,5 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as search from '../../actions/search-actions'
 import * as detail from '../../actions/detail-actions'

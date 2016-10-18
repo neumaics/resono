@@ -7,7 +7,6 @@ export default function statePersistence({ getState }) {
 
     const state = Immutable.fromJS(getState()).toJS();
 
-    console.log(JSON.stringify(state));
     return returnValue;
   }
 }

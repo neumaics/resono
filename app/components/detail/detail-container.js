@@ -1,11 +1,10 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchRssFeed } from '../../actions/detail-actions'
-import Spinner from '../common/spinner'
-import _ from 'lodash'
+import { changePodcast } from '../../actions/player-actions'
 
+import Spinner from '../common/spinner'
 import DetailList from './detail-list'
 
 class DetailContainer extends React.Component {
@@ -15,16 +14,16 @@ class DetailContainer extends React.Component {
   }
 
   render() {
-    const { params, isFetchingRss, feedData } = this.props;
+    const { params, isFetchingRss, feedData, onPodcastSelect } = this.props;
 
     let detailjsx;
-    if (isFetchingRss) {
+    if (isFetchingRss || feedData === undefined) {
       detailjsx = <Spinner visible={isFetchingRss} />
     } else {
       detailjsx = (
         <div>
           <p>{feedData.channel.title}</p>
-          <DetailList items={feedData.channel.item} onItemSelect={() => console.log('hi')} />
+          <DetailList items={feedData.channel.item} onItemSelect={onPodcastSelect} />
         </div>
       );
     }
@@ -39,6 +38,7 @@ class DetailContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const detail = state.detail.get('rss');
 
   if (state.isFetchingRss) {
     return {
@@ -47,14 +47,19 @@ const mapStateToProps = (state) => {
   } else {
     return {
       isFetchingRss: state.isFetchingRss,
-      feedData: state.detail.get('rss').toJS()
+      feedData: detail !== undefined ? detail.toJS() : undefined // TODO: eugh.
     };
   }
 
 }
 
-const mapDispatchToProps = (dispatch, params) => {
-  return { };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPodcastSelect: (item) => {
+      const url = item['media:content'] === undefined ? (item.enclosure === undefined ? '/' : item.enclosure.url) : item['media:content'].url;
+      dispatch(changePodcast(url))
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailContainer);

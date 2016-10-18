@@ -9,3 +9,14 @@ export const PODCASTS_DETAIL_RECEIVE = 'PODCASTS_DETAIL_RECEIVE'
 export const RSS_REQUEST = 'RSS_REQUEST'
 export const RSS_RECEIVE = 'RSS_RECEIVE'
 export const RSS_FAILURE = 'RSS_FAILURE'
+
+export const CHANGE_PODCAST = 'CHANGE_PODCAST'
+export const PLAY_PODCAST = 'PLAY_PODCAST'
+export const PAUSE_PODCAST = 'PAUSE_PODCAST'
+export const STOP_PODCAST = 'STOP_PODCAST'
+
+export const statusTypes = {
+  PLAYING: 'PLAYING',
+  PAUSED: 'PAUSED',
+  STOPPED: 'STOPPED'
+}

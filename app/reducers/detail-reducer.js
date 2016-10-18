@@ -5,7 +5,7 @@ import {
   RSS_FAILURE
 } from '../actions/types';
 
-import { browserHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({});
@@ -29,10 +29,9 @@ export function detail(state = initialState, action) {
   switch (action.type) {
     case RSS_RECEIVE: {
       //TODO: find react way of doing this:
-      if (browserHistory) browserHistory.push(`/detail/${action.id}`);
+      if (hashHistory) hashHistory.push(`/detail/${action.id}`);
 
-      const rss = Immutable.fromJS(action.data.rss);
-
+      const rss = Immutable.fromJS(action.data.rss) || initialState;
       return state.withMutations((mut) => {
         return mut.set('id', action.id).set('rss', rss);
       });
@@ -47,7 +46,7 @@ export function detailErrors(state = initialState, action) {
   switch (action.type) {
     case RSS_FAILURE: {
       const error = Immutable.fromJS(action.error);
-      
+
       return state.set('error', error);
     }
     default: {

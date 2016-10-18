@@ -7,14 +7,9 @@ export default class DetailList extends React.Component {
     this.onItemSelect = onItemSelect;
   }
 
-  onItemClick(event) {
-    event.preventDefault();
-    this.onItemSelect();
-  }
-
   render() {
     const detailItems = this.items.map((item, index) => {
-      return <tr key={index}><td>{item.title}</td></tr>
+      return <tr onClick={(e) => this.onItemSelect(item)} key={index}><td>{item.title}</td></tr>
     });
 
     return (
