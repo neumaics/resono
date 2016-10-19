@@ -5,29 +5,45 @@ import {
   STOP_PODCAST,
   statusTypes
 } from '../actions/types'
-
+import { combineReducers } from 'redux'
 import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({
   status: statusTypes.STOPPED
 });
 
-export function player(state = initialState, action) {
+function status(state = statusTypes.STOPPED, action) {
   switch (action.type) {
     case CHANGE_PODCAST: {
-      return state.set('currentPodcast', action.mediaUrl);
+      return statusTypes.STOPPED;
     }
     case PLAY_PODCAST: {
-      return state.set('status', action.status);
+      return action.status;
     }
     case PAUSE_PODCAST: {
-      return state.set('status', action.status);
+      return action.status;
     }
     case STOP_PODCAST:{
-      return state.set('status', action.status);
+      return action.status;
     }
     default: {
       return state;
     }
   }
 }
+
+function currentPodcast(state = '/', action) {
+  switch (action.type) {
+    case CHANGE_PODCAST: {
+      return action.mediaUrl;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const player = combineReducers({
+  status,
+  currentPodcast
+})

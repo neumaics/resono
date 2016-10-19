@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.14.0",
     "electron": "^1.4.0",
+    "font-awesome": "^4.6.3",
     "immutable": "^3.8.1",
     "jsonfile": "^2.4.0",
     "lodash": "^4.16.1",

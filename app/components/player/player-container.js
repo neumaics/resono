@@ -57,8 +57,8 @@ class PlayerContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.player.get('currentPodcast') || '/',
-    status: state.player.get('status')
+    url: state.player.currentPodcast,
+    status: state.player.status
   };
 }
 
