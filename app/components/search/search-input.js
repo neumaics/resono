@@ -15,9 +15,18 @@ const searchInput = ({ onSearchClick }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <input ref={node => {
-        input = node
-      }} />
+      <div className="input-group">
+        <input
+          className="form-control"
+          ref={node => { input = node }}
+          type="text"
+          placeholder="Search podcasts..." />
+        <span className="input-group-btn">
+          <button className="btn btn-secondary" type="button" onClick={onSubmit}>
+            <i className="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </span>
+      </div>
     </form>
   );
 }

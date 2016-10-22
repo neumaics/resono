@@ -1,15 +1,20 @@
 import React, { PropTypes } from 'react';
 
-export default class DetailList extends React.Component {
-  constructor({items, onItemSelect}) {
-    super();
-    this.items = items;
-    this.onItemSelect = onItemSelect;
-  }
+const propTypes = {
+  items: PropTypes.array,
+  onItemSelect: PropTypes.func
+};
 
+export default class DetailList extends React.Component {
   render() {
-    const detailItems = this.items.map((item, index) => {
-      return <tr onClick={(e) => this.onItemSelect(item)} key={index}><td>{item.title}</td></tr>
+    const { items, onItemSelect } = this.props;
+
+    const detailItems = items.map((item, index) => {
+      return (
+        <tr style={{cursor: 'pointer'}} onClick={(e) => onItemSelect(item)} key={index}>
+          <td>{item.title}</td>
+        </tr>
+      );
     });
 
     return (
@@ -22,7 +27,4 @@ export default class DetailList extends React.Component {
   }
 }
 
-DetailList.propTypes = {
-  items: PropTypes.array,
-  onItemSelect: PropTypes.func
-};
+DetailList.propTypes = propTypes;

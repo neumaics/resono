@@ -12,7 +12,6 @@ export default class Spinner extends React.Component {
     );
 
     return isVisible ? spinner : <div></div>;
-
   }
 }
 

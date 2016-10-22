@@ -30,8 +30,10 @@ class DetailContainer extends React.Component {
 
     return (
       <div>
+        <button className="btn btn-primary btn-sm" onClick={this.onClick}>
+          <i className="fa fa-chevron-left" aria-hidden="true"></i>
+        </button>
         {detailjsx}
-        <button className="btn btn-primary" onClick={this.onClick}>back</button>
       </div>
     );
   }
@@ -56,8 +58,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onPodcastSelect: (item) => {
-      const url = item['media:content'] === undefined ? (item.enclosure === undefined ? '/' : item.enclosure.url) : item['media:content'].url;
-      dispatch(changePodcast(url))
+      const url = item.enclosure === undefined ? '/' : item.enclosure.url;
+      dispatch(changePodcast(url));
     }
   };
 }

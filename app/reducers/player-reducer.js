@@ -6,11 +6,6 @@ import {
   statusTypes
 } from '../actions/types'
 import { combineReducers } from 'redux'
-import Immutable from 'immutable';
-
-const initialState = Immutable.fromJS({
-  status: statusTypes.STOPPED
-});
 
 function status(state = statusTypes.STOPPED, action) {
   switch (action.type) {
