@@ -1,4 +1,7 @@
 {
+  "ecmaFeatures": {
+    "jsx": true
+  },
   "extends": "eslint:recommended",
   "env": {
     "node": true,
@@ -6,11 +9,22 @@
     "mocha": true,
     "jasmine": true
   },
+  "globals": {
+    "React": true
+  },
   "rules": {
     "no-console": 0,
-    "indent": [2, 2, {"SwitchCase: 1"}],
+    "indent": ["error", 2],
     "one-var": [2, "never"],
     "semi": [2, "always"],
-    "no-var": 2
-  }
+    "no-var": 2,
+    "react/jsx-uses-vars": "error"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react"]
 }

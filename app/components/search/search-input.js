@@ -1,36 +1,45 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 
-const searchInput = ({ onSearchClick }) => {
-  let input;
-  const onSubmit = (e) => {
-    e.preventDefault();
+class SearchInput extends React.Component {
+  constructor(props) {
+    super(props);
 
-    if (!input.value.trim()) {
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(event, onSearchClick) {
+    event.preventDefault();
+
+    if (!this.input.value.trim()) {
       return;
     }
 
-    onSearchClick(input.value);
+    onSearchClick(this.input.value);
   }
 
-  return (
-    <form onSubmit={onSubmit}>
-      <div className="input-group">
-        <input
-          className="form-control"
-          ref={node => { input = node }}
-          type="text"
-          placeholder="Search podcasts..." />
-        <span className="input-group-btn">
-          <button className="btn btn-secondary" type="button" onClick={onSubmit}>
-            <i className="fa fa-search" aria-hidden="true"></i>
-          </button>
-        </span>
-      </div>
-    </form>
-  );
+  render() {
+    const { onSearchClick } = this.props;
+
+    return (
+      <form onSubmit={(event) => {this.onSubmit(event, onSearchClick);}}>
+        <div className="input-group">
+          <input
+            className="form-control"
+            ref={(node) => { this.input = node; }}
+            type="text"
+            placeholder="Search podcasts..." />
+          <span className="input-group-btn">
+            <button className="btn btn-secondary"
+              type="button"
+              onClick={(event) => {this.onSubmit(event, onSearchClick);}}>
+              <i className="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+    );
+  }
 }
 
-const SearchInput = connect()(searchInput);
-
-export default SearchInput;
+export default connect()(SearchInput);

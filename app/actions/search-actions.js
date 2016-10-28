@@ -2,19 +2,22 @@ import {
   SEARCH_PODCASTS,
   PODCASTS_REQUEST,
   PODCASTS_RECEIVE,
-  PODCASTS_FAILURE,
-  PODCASTS_DETAIL_REQUEST,
-  PODCASTS_DETAIL_RECEIVE
-} from './types'
-import axios from 'axios'
-import uuid from 'uuid'
+  PODCASTS_FAILURE
+} from './types';
+import axios from 'axios';
 
 export function searchPodcasts(query) {
-  return { type: SEARCH_PODCASTS, query: query }
+  return {
+    type: SEARCH_PODCASTS,
+    query: query
+  };
 }
 
 export function podcastsRequest(query) {
-  return { type: PODCASTS_REQUEST, query: query }
+  return {
+    type: PODCASTS_REQUEST,
+    query: query
+  };
 }
 
 export function podcastsReceive(query, json) {
@@ -22,7 +25,7 @@ export function podcastsReceive(query, json) {
     type: PODCASTS_RECEIVE,
     query: query,
     podcasts: json
-  }
+  };
 }
 
 export function podcastsRequestFailure(query, error) {
@@ -30,7 +33,7 @@ export function podcastsRequestFailure(query, error) {
     type: PODCASTS_FAILURE,
     query: query,
     error: error
-  }
+  };
 }
 
 export function fetchPodcasts(query) {
@@ -50,24 +53,10 @@ export function fetchPodcasts(query) {
         });
       })
       .then((results) => {
-        dispatch(podcastsReceive(query, results))
+        dispatch(podcastsReceive(query, results));
       })
       .catch((error) => {
         dispatch(podcastsRequestFailure(query, error));
       });
-  }
-}
-
-export function requestPodcastDetail(podcastId) {
-  return {
-    type: PODCASTS_DETAIL_REQUEST,
-    id: podcastId
-  }
-}
-
-export function receivePodcastDetail(details) {
-  return {
-    type: PODCASTS_DETAIL_RECEIVE,
-    podcast: details
-  }
+  };
 }

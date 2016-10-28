@@ -1,11 +1,10 @@
-import React from 'react'
-import { browserHistory } from 'react-router'
-import { connect } from 'react-redux'
-import { fetchRssFeed } from '../../actions/detail-actions'
-import { changePodcast } from '../../actions/player-actions'
+import React from 'react';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { changePodcast } from '../../actions/player-actions';
 
-import Spinner from '../common/spinner'
-import DetailList from './detail-list'
+import Spinner from '../common/spinner';
+import DetailList from './detail-list';
 
 class DetailContainer extends React.Component {
   onClick(event) {
@@ -14,11 +13,11 @@ class DetailContainer extends React.Component {
   }
 
   render() {
-    const { params, isFetchingRss, feedData, onPodcastSelect } = this.props;
+    const { isFetchingRss, feedData, onPodcastSelect } = this.props;
 
     let detailjsx;
     if (isFetchingRss || feedData === undefined) {
-      detailjsx = <Spinner visible={isFetchingRss} />
+      detailjsx = <Spinner visible={isFetchingRss} />;
     } else {
       detailjsx = (
         <div>
@@ -33,13 +32,16 @@ class DetailContainer extends React.Component {
         <button className="btn btn-primary btn-sm" onClick={this.onClick}>
           <i className="fa fa-chevron-left" aria-hidden="true"></i>
         </button>
+        <button className="btn btn-primary btn-sm">
+          <i className="fa fa-refresh" aria-hidden="true"></i>
+        </button>
         {detailjsx}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
   const detail = state.detail.get('rss');
 
   if (state.isFetchingRss) {
@@ -55,7 +57,7 @@ const mapStateToProps = (state) => {
 
 }
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     onPodcastSelect: (item) => {
       const url = item.enclosure === undefined ? '/' : item.enclosure.url;

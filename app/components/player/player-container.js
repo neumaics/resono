@@ -1,15 +1,15 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { playPodcast, pausePodcast } from '../../actions/player-actions'
-import { statusTypes } from '../../actions/types'
-import ProgressBar from './progress-bar'
+import React from 'react';
+import { connect } from 'react-redux';
+import { playPodcast, pausePodcast } from '../../actions/player-actions';
+import { statusTypes } from '../../actions/types';
+import ProgressBar from './progress-bar';
 
-import Sound from 'react-sound'
+import Sound from 'react-sound';
 const statusMap = {
   PLAYING: Sound.status.PLAYING,
   PAUSED: Sound.status.PAUSED,
   STOPPED: Sound.status.STOPPED
-}
+};
 
 class PlayerContainer extends React.Component {
   constructor(props) {
@@ -18,9 +18,15 @@ class PlayerContainer extends React.Component {
       position: 0,
       duration: 1
     };
+
+    this.skipBack = this.skipBack.bind(this);
+    this.skipForward = this.skipForward.bind(this);
+    this.onChangePosition = this.onChangePosition.bind(this);
+    this.whileLoading = this.whileLoading.bind(this);
+    this.whilePlaying = this.whilePlaying.bind(this);
   }
 
-  whileLoading(event) { }
+  whileLoading() { }
 
   whilePlaying(event) {
     this.setState({
@@ -30,9 +36,23 @@ class PlayerContainer extends React.Component {
   }
 
   onChangePosition(newPosition) {
-    this.setState({
-      position: newPosition
-    });
+    this.setState({ position: newPosition });
+  }
+
+  skipBack() {
+    const newPosition = this.state.position - 10000;
+
+    if (newPosition >= 0.0) {
+      this.setState({ position: newPosition });
+    }
+  }
+
+  skipForward() {
+    const newPosition = this.state.position + 10000;
+
+    if (newPosition < this.state.duration) {
+      this.setState({ position: newPosition });
+    }
   }
 
   render() {
@@ -44,22 +64,28 @@ class PlayerContainer extends React.Component {
     const buttonClass = mediaSelected ? 'btn-outline-primary' : 'btn-outline-secondary';
 
     return (
-      <div className='player'>
+      <div className="player">
         <button onClick={clickAction} className={`btn ${buttonClass}`} disabled={!mediaSelected}>
           <i className={`fa ${icon}`} aria-hidden="true"></i>
         </button>
-        <div style={{width: "70%"}}>
+        <button onClick={this.skipBack} className="btn btn-outline-info">
+          <i className="fa fa-angle-double-left" aria-hidden="true"></i>
+        </button>
+        <div style={{width: '60%'}}>
           <ProgressBar
             duration={this.state.duration}
             position={this.state.position}
-            onPositionChange={this.onChangePosition.bind(this)} />
+            onPositionChange={this.onChangePosition} />
         </div>
+        <button onClick={this.skipForward} className="btn btn-outline-info">
+          <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+        </button>
         <Sound
           url={url}
           playStatus={statusMap[status]}
           position={this.state.position}
-          onLoading={this.whileLoading.bind(this)}
-          onPlaying={this.whilePlaying.bind(this)} />
+          onLoading={this.whileLoading}
+          onPlaying={this.whilePlaying} />
       </div>
     );
   }
@@ -70,13 +96,13 @@ const mapStateToProps = (state) => {
     url: state.player.currentPodcast,
     status: state.player.status
   };
-}
+};
 
-const mapDispatchToProps = (dispatch, params) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     play: () => { dispatch(playPodcast()); },
     pause: () => { dispatch(pausePodcast()); }
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerContainer);

@@ -1,14 +1,13 @@
-import React from 'react'
-import { browserHistory } from 'react-router'
-import { connect } from 'react-redux'
-import * as search from '../../actions/search-actions'
-import * as detail from '../../actions/detail-actions'
-import SearchList from './search-list'
-import SearchInput from './search-input'
+import React from 'react';
+import { connect } from 'react-redux';
+import * as search from '../../actions/search-actions';
+import * as detail from '../../actions/detail-actions';
+import SearchList from './search-list';
+import SearchInput from './search-input';
 
 class SearchContainer extends React.Component {
   render() {
-    const { podcasts, query, onSearchClick, onItemClick } = this.props;
+    const { podcasts, onSearchClick, onItemClick } = this.props;
 
     return(
       <div>
@@ -19,7 +18,7 @@ class SearchContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
   const podcasts = state.podcastSearch.get('podcasts');
   const query = state.query;
 
@@ -29,7 +28,7 @@ const mapStateToProps = (state) => {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); },
     onItemClick: (id, feedUrl) => { dispatch(detail.fetchRssFeed(id, feedUrl)); }

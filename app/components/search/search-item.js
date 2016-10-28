@@ -1,5 +1,10 @@
 import React, { PropTypes } from 'react';
 
+const propTypes = {
+  onClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
+};
+
 export default class SearchItem extends React.Component {
   render() {
     const { onClick, title } = this.props;
@@ -12,7 +17,4 @@ export default class SearchItem extends React.Component {
   }
 }
 
-SearchItem.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
-};
+SearchItem.propTypes = propTypes;

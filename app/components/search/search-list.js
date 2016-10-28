@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
-import SearchInput from './search-input';
 import PodcastItem from './search-item';
+
+const propTypes = {
+  podcasts: PropTypes.array,
+  onItemSelect: PropTypes.func
+};
 
 export default class SearchList extends React.Component {
   render() {
     const { podcasts, onItemSelect } = this.props;
 
     const podcastItems = podcasts.map((item, index) => {
-      return <PodcastItem onClick={(e) => onItemSelect(item.id, item.feedUrl)} title={item.title} key={index} />
+      return <PodcastItem onClick={() => onItemSelect(item.id, item.feedUrl)} title={item.title} key={index} />;
     });
 
     return (
@@ -20,7 +24,4 @@ export default class SearchList extends React.Component {
   }
 }
 
-SearchList.propTypes = {
-  podcasts: PropTypes.array,
-  onItemSelect: PropTypes.func
-};
+SearchList.propTypes = propTypes;

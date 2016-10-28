@@ -1,6 +1,6 @@
-import expect from 'expect'
-import * as actions from '../../../app/actions/player-actions'
-import * as types from '../../../app/actions/types'
+import expect from 'expect';
+import * as actions from '../../../app/actions/player-actions';
+import * as types from '../../../app/actions/types';
 
 describe('player actions', () => {
   describe('changePodcast', () => {

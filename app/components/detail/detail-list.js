@@ -11,7 +11,7 @@ export default class DetailList extends React.Component {
 
     const detailItems = items.map((item, index) => {
       return (
-        <tr style={{cursor: 'pointer'}} onClick={(e) => onItemSelect(item)} key={index}>
+        <tr style={{cursor: 'pointer'}} onClick={() => onItemSelect(item)} key={index}>
           <td>{item.title}</td>
         </tr>
       );

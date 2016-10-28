@@ -1,12 +1,8 @@
-import Immutable from 'immutable'
-import jsonfile from 'jsonFile'
 
-export default function statePersistence({ getState }) {
+export default function statePersistence() {
   return (next) => (action) => {
     let returnValue = next(action);
 
-    const state = Immutable.fromJS(getState()).toJS();
-
     return returnValue;
-  }
+  };
 }
