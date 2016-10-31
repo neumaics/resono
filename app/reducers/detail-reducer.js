@@ -1,11 +1,8 @@
 import {
-  DETAIL_REQUEST,
   RSS_REQUEST,
   RSS_RECEIVE,
   RSS_FAILURE
 } from '../actions/types';
-
-import { hashHistory } from 'react-router'
 import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({});
@@ -13,11 +10,11 @@ const initialState = Immutable.fromJS({});
 export function isFetchingRss(state = false, action) {
   switch (action.type) {
     case RSS_REQUEST: {
-      return true
+      return true;
     }
     case RSS_RECEIVE:
     case RSS_FAILURE: {
-      return false
+      return false;
     }
     default: {
       return state;
@@ -28,9 +25,6 @@ export function isFetchingRss(state = false, action) {
 export function detail(state = initialState, action) {
   switch (action.type) {
     case RSS_RECEIVE: {
-      //TODO: find react way of doing this:
-      if (hashHistory) hashHistory.push(`/detail/${action.id}`);
-
       const rss = Immutable.fromJS(action.data.rss) || initialState;
       return state.withMutations((mut) => {
         return mut.set('id', action.id).set('rss', rss);

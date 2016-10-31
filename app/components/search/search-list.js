@@ -8,10 +8,10 @@ const propTypes = {
 
 export default class SearchList extends React.Component {
   render() {
-    const { podcasts, onItemSelect } = this.props;
+    const { podcasts } = this.props;
 
     const podcastItems = podcasts.map((item, index) => {
-      return <PodcastItem onClick={() => onItemSelect(item.id, item.feedUrl)} title={item.title} key={index} />;
+      return <PodcastItem title={item.title} key={index} podcastId={item.id} />;
     });
 
     return (

@@ -46,7 +46,7 @@ export function fetchPodcasts(query) {
       entity: 'podcast'
     };
 
-    return axios.get('https://itunes.apple.com/search', { params })
+    return axios.get('http://itunes.apple.com/search', { params })
       .then((response) => {
         return response.data.results.map((item) => {
           return { id: item.collectionId, title: item.collectionName, feedUrl: item.feedUrl };

@@ -10,11 +10,12 @@
     "jasmine": true
   },
   "globals": {
-    "React": true
+    "React": true,
+    "document": true
   },
   "rules": {
     "no-console": 0,
-    "indent": ["error", 2],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "one-var": [2, "never"],
     "semi": [2, "always"],
     "no-var": 2,

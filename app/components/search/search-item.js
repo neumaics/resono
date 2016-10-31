@@ -1,17 +1,18 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 const propTypes = {
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  podcastId: PropTypes.number.isRequired
 };
 
 export default class SearchItem extends React.Component {
   render() {
-    const { onClick, title } = this.props;
+    const { title, podcastId } = this.props;
 
     return (
-      <tr onClick={onClick}>
-        <td>{title}</td>
+      <tr>
+        <td><Link to={`/podcast/${podcastId}`}>{title}</Link></td>
       </tr>
     );
   }

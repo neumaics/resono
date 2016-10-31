@@ -5,18 +5,6 @@ import {
 } from './types';
 import axios from 'axios';
 import parser from 'xml2json';
-import Loki from 'lokijs';
-
-const db = new Loki('podcasts.db');
-let podcasts;
-let episodes;
-db.loadDatabase('podcasts.db', (err) => {
-  if (err) {
-    console.log(err);
-  }
-  podcasts = db.getCollection('podcasts');
-  episodes = db.getCollection('episodes');
-});
 
 export function rssRequest(feedUrl) {
   return {
@@ -39,21 +27,6 @@ export function rssRequestFailure(feedUrl, error) {
     feedUrl: feedUrl,
     error: error
   };
-}
-
-export function shouldFetchRssFeed(id) {
-
-}
-
-export function fetchRssFeedOrCached(id, feedUrl) {
-  /*episodes.insert(data.rss.channel.item.map((episode) => {
-    episode.channel = id;
-    return episode;
-  }));
-
-  db.saveDatabase(() => {
-    dispatch(rssReceive(id, data));
-  });*/
 }
 
 export function fetchRssFeed(id, feedUrl) {
