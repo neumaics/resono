@@ -60,18 +60,11 @@ function mapStateToProps(state, ownProps) {
   const info = _.find(state.search.results.toJS(), (o) => { return o.id == id; });
   const detail = state.detail.feed;
 
-  if (state.isFetchingRss) {
-    return {
-      isFetchingRss: state.isFetchingRss,
-      feedUrl: info.feedUrl
-    };
-  } else {
-    return {
-      isFetchingRss: state.isFetchingRss,
-      feedData: detail !== undefined ? detail.toJS() : undefined, // TODO: eugh.
-      feedUrl: info.feedUrl
-    };
-  }
+  return {
+    isFetchingRss: state.detail.isFetching,
+    feedData: detail.size > 0 ? detail.toJS() : undefined, // TODO: eugh.
+    feedUrl: info.feedUrl
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 
   return {
     query,
-    podcasts: results === undefined ? [] : results.toJS()
+    results: results === undefined ? [] : results.toJS()
   };
 }
 

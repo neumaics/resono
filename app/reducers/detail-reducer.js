@@ -37,10 +37,8 @@ function error(state = Immutable.Map(), action) {
 function feed(state = Immutable.Map(), action) {
   switch (action.type) {
     case RSS_RECEIVE: {
-      const rss = Immutable.fromJS(action.data.rss) || initialState;
-      return state.withMutations((mut) => {
-        return mut.set('id', action.id).set('rss', rss);
-      });
+      // TODO: add error checking
+      return Immutable.fromJS(action.data);
     }
     default: {
       return state;

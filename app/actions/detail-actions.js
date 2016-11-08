@@ -36,7 +36,7 @@ export function fetchRssFeed(id, feedUrl) {
     return (axios.get(feedUrl)
       .then((response) => {
         const data = parser.toJson(response.data, { object: true });
-        dispatch(rssReceive(id, data));
+        dispatch(rssReceive(id, data.rss));
       })
       .catch((error) => {
         dispatch(rssRequestFailure(feedUrl, error));
