@@ -1,20 +1,22 @@
 import React, { PropTypes } from 'react';
 
+const propTypes = {
+  visible: PropTypes.bool
+};
+
 export default class Spinner extends React.Component {
   render() {
     const isVisible = this.props.visible;
 
     const spinner = (
-      <div className="spinner">
+      <span className="spinner">
         <div className="double-bounce1"></div>
         <div className="double-bounce2"></div>
-      </div>
+      </span>
     );
 
-    return isVisible ? spinner : <div></div>;
+    return isVisible ? spinner : <span></span>;
   }
 }
 
-Spinner.propTypes = {
-  visible: PropTypes.bool
-};
+Spinner.propTypes = propTypes;

@@ -1,37 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as search from '../../actions/search-actions';
-import * as detail from '../../actions/detail-actions';
 import SearchList from './search-list';
 import SearchInput from './search-input';
 
 class SearchContainer extends React.Component {
   render() {
-    const { podcasts, onSearchClick, onItemClick } = this.props;
+    const { results, onSearchClick, onItemClick } = this.props;
 
     return(
       <div>
         <SearchInput onSearchClick={onSearchClick} />
-        <SearchList podcasts={podcasts} onItemSelect={onItemClick} />
+        <SearchList podcasts={results} onItemSelect={onItemClick} />
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const podcasts = state.podcastSearch.get('podcasts');
-  const query = state.query;
+  const results = state.search.results;
+  const query = state.search.query;
 
   return {
-    query: query,
-    podcasts: podcasts === undefined ? [] : podcasts.toJS()
+    query,
+    podcasts: results === undefined ? [] : results.toJS()
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); },
-    onItemClick: (id, feedUrl) => { dispatch(detail.fetchRssFeed(id, feedUrl)); }
+    onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); }
   };
 }
 

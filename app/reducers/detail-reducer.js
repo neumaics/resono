@@ -4,10 +4,11 @@ import {
   RSS_FAILURE
 } from '../actions/types';
 import Immutable from 'immutable';
+import { combineReducers } from 'redux';
 
 const initialState = Immutable.fromJS({});
 
-export function isFetchingRss(state = false, action) {
+function isFetching(state = false, action) {
   switch (action.type) {
     case RSS_REQUEST: {
       return true;
@@ -22,7 +23,18 @@ export function isFetchingRss(state = false, action) {
   }
 }
 
-export function detail(state = initialState, action) {
+function error(state = Immutable.Map(), action) {
+  switch (action.type) {
+    case RSS_FAILURE: {
+      return Immutable.fromJS(action.error);
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+function feed(state = Immutable.Map(), action) {
   switch (action.type) {
     case RSS_RECEIVE: {
       const rss = Immutable.fromJS(action.data.rss) || initialState;
@@ -36,15 +48,8 @@ export function detail(state = initialState, action) {
   }
 }
 
-export function detailErrors(state = initialState, action) {
-  switch (action.type) {
-    case RSS_FAILURE: {
-      const error = Immutable.fromJS(action.error);
-
-      return state.set('error', error);
-    }
-    default: {
-      return state;
-    }
-  }
-}
+export const detail = combineReducers({
+  isFetching,
+  error,
+  feed
+});

@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import { playPodcast, pausePodcast } from '../../actions/player-actions';
 import { statusTypes } from '../../actions/types';
 import ProgressBar from './progress-bar';
-
 import Sound from 'react-sound';
+
 const statusMap = {
   PLAYING: Sound.status.PLAYING,
   PAUSED: Sound.status.PAUSED,
   STOPPED: Sound.status.STOPPED
 };
+
+const skipForwardDuration = 10000;
+const skipBackwardDuration = 10000;
 
 class PlayerContainer extends React.Component {
   constructor(props) {
@@ -40,7 +43,7 @@ class PlayerContainer extends React.Component {
   }
 
   skipBack() {
-    const newPosition = this.state.position - 10000;
+    const newPosition = this.state.position - skipBackwardDuration;
 
     if (newPosition >= 0.0) {
       this.setState({ position: newPosition });
@@ -48,7 +51,7 @@ class PlayerContainer extends React.Component {
   }
 
   skipForward() {
-    const newPosition = this.state.position + 10000;
+    const newPosition = this.state.position + skipForwardDuration;
 
     if (newPosition < this.state.duration) {
       this.setState({ position: newPosition });

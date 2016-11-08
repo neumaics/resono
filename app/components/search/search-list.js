@@ -2,8 +2,7 @@ import React, { PropTypes } from 'react';
 import PodcastItem from './search-item';
 
 const propTypes = {
-  podcasts: PropTypes.array,
-  onItemSelect: PropTypes.func
+  podcasts: PropTypes.array
 };
 
 export default class SearchList extends React.Component {

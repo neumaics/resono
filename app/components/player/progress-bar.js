@@ -1,5 +1,11 @@
 import React, { PropTypes } from 'react';
 
+const propTypes = {
+  duration: PropTypes.number.isRequired,
+  position: PropTypes.number.isRequired,
+  onPositionChange: PropTypes.func.isRequired
+};
+
 export default class ProgressBar extends React.Component {
   render() {
     const { duration, position, onPositionChange } = this.props;
@@ -21,8 +27,4 @@ export default class ProgressBar extends React.Component {
   }
 }
 
-ProgressBar.propTypes = {
-  duration: PropTypes.number.isRequired,
-  position: PropTypes.number.isRequired,
-  onPositionChange: PropTypes.func.isRequired
-};
+ProgressBar.propTypes = propTypes;

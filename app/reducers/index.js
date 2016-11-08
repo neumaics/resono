@@ -1,15 +1,14 @@
-import { combineReducers } from 'redux'
-import { podcastSearch, query } from './search-reducer'
-import { isFetchingRss, detailErrors, detail } from './detail-reducer'
-import { player } from './player-reducer'
+import { combineReducers } from 'redux';
+import { search } from './search-reducer';
+import { detail } from './detail-reducer';
+import { player } from './player-reducer';
+import { subscriptions } from './subscriptions-reducer';
 
 const app = combineReducers({
-  podcastSearch,
-  query,
+  search,
   detail,
-  isFetchingRss,
-  detailErrors,
-  player
+  player,
+  subscriptions
 });
 
 export default app;

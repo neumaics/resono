@@ -20,3 +20,6 @@ export const statusTypes = {
   PAUSED: 'PAUSED',
   STOPPED: 'STOPPED'
 };
+
+export const SUBSCRIBE = 'SUBSCRIBE_PODCAST';
+export const UNSUBSCRIBE = 'UNSUBSCRIBE_PODCAST';

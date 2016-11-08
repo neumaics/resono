@@ -12,6 +12,11 @@ function getPodcastData(props) {
 }
 
 class DetailContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
   onClick(event) {
     event.preventDefault();
     browserHistory.goBack();
@@ -52,8 +57,8 @@ class DetailContainer extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   const { id } = ownProps.params;
-  const info = _.find(state.podcastSearch.get('podcasts').toJS(), (o) => { return o.id == id; });
-  const detail = state.detail.get('rss');
+  const info = _.find(state.search.results.toJS(), (o) => { return o.id == id; });
+  const detail = state.detail.feed;
 
   if (state.isFetchingRss) {
     return {

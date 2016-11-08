@@ -1,10 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
 
-class SearchInput extends React.Component {
+const propTypes = {
+  onSearchClick: PropTypes.func.isRequired
+};
+
+export default class SearchInput extends React.Component {
   constructor(props) {
     super(props);
-
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -42,4 +44,4 @@ class SearchInput extends React.Component {
   }
 }
 
-export default connect()(SearchInput);
+SearchInput.propTypes = propTypes;

@@ -4,8 +4,8 @@ import {
   PAUSE_PODCAST,
   STOP_PODCAST,
   statusTypes
-} from '../actions/types'
-import { combineReducers } from 'redux'
+} from '../actions/types';
+import { combineReducers } from 'redux';
 
 function status(state = statusTypes.STOPPED, action) {
   switch (action.type) {
@@ -41,4 +41,4 @@ function currentPodcast(state = '/', action) {
 export const player = combineReducers({
   status,
   currentPodcast
-})
+});

@@ -4,18 +4,13 @@ import {
   PODCASTS_RECEIVE,
   PODCASTS_FAILURE
 } from '../actions/types';
-
+import { combineReducers } from 'redux';
 import Immutable from 'immutable';
 
-const initialSearchState = Immutable.fromJS({
-  fetching: false,
-  podcasts: []
-});
-
-export const query = (state = '', action) => {
+function query(state = '', action) {
   switch (action.type) {
     case SEARCH_PODCASTS: {
-      return action.query || '';
+      return action.query;
     }
     default: {
       return state;
@@ -23,23 +18,38 @@ export const query = (state = '', action) => {
   }
 }
 
-export const podcastSearch = (state = initialSearchState, action) => {
+function isFetching(state = false, action) {
   switch (action.type) {
     case PODCASTS_REQUEST: {
-      return state.set('fetching', true);
+      return true;
     }
     case PODCASTS_RECEIVE: {
-      return state.withMutations((mut) => {
-        return mut.set('fetching', false).set('podcasts', Immutable.fromJS(action.podcasts));
-      });
+      return false;
     }
     case PODCASTS_FAILURE: {
-      // TODO: Add some sort of message passing
-      return state.withMutations((mut) => {
-        return mut.set('fetching', false).set('podcasts', Immutable.fromJS([]));
-      });
+      return false;
     }
     default:
       return state;
   }
 }
+
+function results(state = Immutable.List(), action) {
+  switch (action.type) {
+    case PODCASTS_RECEIVE: {
+      return Immutable.List(action.podcasts);
+    }
+    case PODCASTS_FAILURE: {
+      return state;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const search = combineReducers({
+  query,
+  isFetching,
+  results
+});

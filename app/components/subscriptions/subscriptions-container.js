@@ -11,12 +11,16 @@ class SubscriptionsContainer extends React.Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {};
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   return {};
-// }
+function mapStateToProps(state) {
+  const subs = state.subscriptions.toJS();
 
-export default connect()(SubscriptionsContainer);
+  return {
+    subscriptions: subs
+  };
+}
+
+function mapDispatchToProps(/*dispatch*/) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionsContainer);

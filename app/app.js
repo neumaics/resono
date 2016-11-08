@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDom from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
