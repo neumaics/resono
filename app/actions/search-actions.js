@@ -49,7 +49,8 @@ export function fetchPodcasts(query) {
     return axios.get('http://itunes.apple.com/search', { params })
       .then((response) => {
         return response.data.results.map((item) => {
-          return { id: item.collectionId, title: item.collectionName, feedUrl: item.feedUrl };
+          // TODO: Remove 'item' from return object
+          return { id: item.collectionId, title: item.collectionName, feedUrl: item.feedUrl, item };
         });
       })
       .then((results) => {

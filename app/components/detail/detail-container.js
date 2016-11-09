@@ -1,33 +1,22 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { changePodcast } from '../../actions/player-actions';
+import { subscribeAndSave } from '../../actions/subscription-actions';
 import { fetchRssFeed } from '../../actions/detail-actions';
 import { _ } from 'lodash';
+import { Link } from 'react-router';
 import Spinner from '../common/spinner';
-import DetailList from './detail-list';
 
 function getPodcastData(props) {
   props.fetchRssFeed(props.params.id, props.feedUrl);
 }
 
 class DetailContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(event) {
-    event.preventDefault();
-    browserHistory.goBack();
-  }
-
   componentWillMount() {
     getPodcastData(this.props);
   }
 
   render() {
-    const { isFetchingRss, feedData, onPodcastSelect } = this.props;
+    const { params, isFetchingRss, feedData, onSubscribeClick } = this.props;
 
     let detailjsx;
     if (isFetchingRss || feedData === undefined) {
@@ -36,17 +25,17 @@ class DetailContainer extends React.Component {
       detailjsx = (
         <div>
           <p>{feedData.channel.title}</p>
-          <DetailList items={feedData.channel.item} onItemSelect={onPodcastSelect} />
+          <p>{feedData.channel.description}</p>
         </div>
       );
     }
 
     return (
       <div>
-        <button className="btn btn-primary btn-sm" onClick={this.onClick}>
+        <Link to={'/podcast'} className="btn btn-primary btn-sm">
           <i className="fa fa-chevron-left" aria-hidden="true"></i>
-        </button>
-        <button className="btn btn-primary btn-sm">
+        </Link>
+        <button className="btn btn-primary btn-sm" onClick={() => onSubscribeClick(params.id)}>
           <i className="fa fa-plus" aria-hidden="true"></i>
         </button>
         {detailjsx}
@@ -69,13 +58,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchRssFeed: (id, feedUrl) => {
-      dispatch(fetchRssFeed(id, feedUrl));
-    },
-    onPodcastSelect: (item) => {
-      const url = item.enclosure === undefined ? '/' : item.enclosure.url;
-      dispatch(changePodcast(url));
-    }
+    fetchRssFeed: (id, feedUrl) => { dispatch(fetchRssFeed(id, feedUrl)); },
+    onSubscribeClick: (id) => { dispatch(subscribeAndSave(id)); }
   };
 }
 
