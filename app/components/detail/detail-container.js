@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { subscribeAndSave } from '../../actions/subscription-actions';
-import { fetchRssFeed } from '../../actions/detail-actions';
-import { _ } from 'lodash';
+import { getAllPodcastData } from '../../actions/detail-actions';
 import { Link } from 'react-router';
 import Spinner from '../common/spinner';
 
 function getPodcastData(props) {
-  props.fetchRssFeed(props.params.id, props.feedUrl);
+  props.getAllPodcastData(props.params.id);
 }
 
 class DetailContainer extends React.Component {
@@ -44,21 +43,20 @@ class DetailContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const { id } = ownProps.params;
-  const info = _.find(state.search.results.toJS(), (o) => { return o.id == id; });
-  const detail = state.detail.feed;
+function mapStateToProps(state) {
+  const feedUrl = state.detail.feedUrl;
+  const feed = state.detail.feed;
 
   return {
     isFetchingRss: state.detail.isFetching,
-    feedData: detail.size > 0 ? detail.toJS() : undefined, // TODO: eugh.
-    feedUrl: info.feedUrl
+    feedData: feed.size > 0 ? feed.toJS() : undefined, // TODO: eugh
+    feedUrl: feedUrl || ''
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchRssFeed: (id, feedUrl) => { dispatch(fetchRssFeed(id, feedUrl)); },
+    getAllPodcastData: (id) => { return dispatch(getAllPodcastData(id)); },
     onSubscribeClick: (id) => { dispatch(subscribeAndSave(id)); }
   };
 }

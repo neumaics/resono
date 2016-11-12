@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as search from '../../actions/search-actions';
+import { fetchPodcasts } from '../../actions/search-actions';
 import SearchList from './search-list';
 import SearchInput from './search-input';
 
@@ -8,7 +8,7 @@ class SearchContainer extends React.Component {
   render() {
     const { results, onSearchClick, onItemClick } = this.props;
 
-    return(
+    return (
       <div>
         <SearchInput onSearchClick={onSearchClick} />
         <SearchList podcasts={results} onItemSelect={onItemClick} />
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSearchClick: (query) => { dispatch(search.fetchPodcasts(query)); }
+    onSearchClick: (query) => { dispatch(fetchPodcasts(query)); }
   };
 }
 

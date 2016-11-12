@@ -6,9 +6,15 @@ import {
 } from './types';
 import Loki from 'lokijs';
 
-const db = new Loki('subscriptions.json');
+// TODO: inject this dependency on loki
+const dbOpts = {
+  autosave: true,
+  autosaveInterval: 2000,
+  autoload: true,
+};
+
+const db = new Loki('subscriptions.json', dbOpts);
 const podcasts = db.getCollection('podcasts') || db.addCollection('podcasts', { indices: [ 'id' ]});
-console.log(podcasts);
 
 export function subscribeAndSave(id) {
   return function (dispatch) {
@@ -45,9 +51,9 @@ export function subscribeFailure(id) {
   };
 }
 
-export function getSubscriptions() {
+export function fetchSubscriptions() {
   return {
     type: FETCH_SUBSCRIPTIONS,
-    data: podcasts.find({ id: { $regex: /.*/ }})
+    data: podcasts.find({ id: { $regex: '.*' }})
   };
 }
