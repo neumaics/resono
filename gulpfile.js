@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const childProcess = require('child_process');
 const electron = require('electron-prebuilt');
 const babel = require('gulp-babel');
-const concat = require('gulp-concat');
 const less = require('gulp-less');
 const path = require('path');
 const clean = require('gulp-clean');

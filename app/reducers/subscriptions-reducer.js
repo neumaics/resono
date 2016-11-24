@@ -11,13 +11,18 @@ const initialState = Immutable.Map();
 export function subscriptions(state = initialState, action) {
   switch (action.type) {
     case FETCH_SUBSCRIPTIONS: {
-      return Immutable.fromJS(action.data);
+      console.log(action.data);
+      const a = state.merge(action.data);
+      return a;
     }
     case SUBSCRIBE_FAILURE: {
       return state;
     }
     case SUBSCRIBE: {
-      return state;
+      console.log(action.id);
+      const a = state.merge({id: action.id});
+      console.log(a);
+      return a;
     }
     case UNSUBSCRIBE: {
       return state;

@@ -47,7 +47,7 @@ export function subscribeFailure(id) {
   return {
     type: SUBSCRIBE_FAILURE,
     id: id,
-    message: `Podcast with id [${id}] is already subscribed`
+    message: `Podcast with id [${id}] has already been subscribed`
   };
 }
 

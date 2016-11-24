@@ -12,17 +12,24 @@ export default class ProgressBar extends React.Component {
     const progress = ((position / duration) * 100).toFixed(0);
 
     return (
-      <div className="progress-bar">
-        <input
-          type="range"
-          name="range"
-          min="1"
-          max={duration}
-          value={position}
-          step="1"
-          onChange={(e) => onPositionChange(e.target.value)} />
-        <output id="range">{progress}%</output>
+      <div class="progress-bar-container">
+        <div>
+
+        </div>
+        {// <div className="progress-bar">
+        //   <input
+        //     type="range"
+        //     name="range"
+        //     min="1"
+        //     max={duration}
+        //     value={position}
+        //     step="1"
+        //     onChange={(e) => onPositionChange(e.target.value)} />
+        //   <output id="range">{progress}%</output>
+        // </div>
+        }
       </div>
+
     );
   }
 }

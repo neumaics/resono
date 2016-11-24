@@ -1,130 +1,134 @@
-.progress-bar {
-  display: table;
-  position: relative;
-  height: 25px;
-  background-color: rgb(245, 245, 245);
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-
-  input[type="range"] {
-    -webkit-appearance: none !important;
-    appearance: none !important;
-
-    display: table-cell;
-    width: 100%;
-    background-color: transparent;
-    height: 25px;
-    cursor: pointer;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
-    appearance: none !important;
-
-    width: 11px;
-    height: 25px;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 0px;
-    background-color: rgb(153, 153, 153);
-    margin-top: 4px;
-  }
-
-  output {
-    display: table-cell;
-    padding: 3px 5px 2px;
-    min-width: 40px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(153, 153, 153);
-    text-align: center;
-    text-decoration: none;
-    border-radius: 4px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    width: 1%;
-    white-space: nowrap;
-    vertical-align: middle;
-
-    -webkit-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  input[type="range"] {
-    outline: none;
-  }
-
-  .range-primary {
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: rgb(66, 139, 202);
-    }
-
-    output {
-      background-color: rgb(66, 139, 202);
-    }
-
-    input[type="range"] {
-      outline-color: rgb(66, 139, 202);
-    }
-  }
-
-  .range-success {
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: rgb(92, 184, 92);
-    }
-
-    output {
-      background-color: rgb(92, 184, 92);
-    }
-
-    input[type="range"] {
-      outline-color: rgb(92, 184, 92);
-    }
-  }
-
-  .range-info {
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: rgb(91, 192, 222);
-    }
-
-    output {
-      background-color: rgb(91, 192, 222);
-    }
-
-    input[type="range"] {
-      outline-color: rgb(91, 192, 222);
-    }
-  }
-
-  .range-warning {
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: rgb(240, 173, 78);
-    }
-
-    output {
-      background-color: rgb(240, 173, 78);
-    }
-
-    input[type="range"] {
-      outline-color: rgb(240, 173, 78);
-    }
-  }
-
-  .range-danger {
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: rgb(217, 83, 79);
-    }
-
-    output {
-      background-color: rgb(217, 83, 79);
-    }
-    
-    input[type="range"] {
-      outline-color: rgb(217, 83, 79);
-    }
-  }
+.progress-bar-container {
+  
 }
+
+// .progress-bar {
+//   display: table;
+//   position: relative;
+//   height: 25px;
+//   background-color: rgb(245, 245, 245);
+//   border-radius: 4px;
+//   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+//   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+//   cursor: pointer;
+//
+//   input[type="range"] {
+//     -webkit-appearance: none !important;
+//     appearance: none !important;
+//
+//     display: table-cell;
+//     width: 100%;
+//     background-color: transparent;
+//     height: 25px;
+//     cursor: pointer;
+//   }
+//
+//   input[type="range"]::-webkit-slider-thumb {
+//     -webkit-appearance: none !important;
+//     appearance: none !important;
+//
+//     width: 11px;
+//     height: 25px;
+//     color: rgb(255, 255, 255);
+//     text-align: center;
+//     border-radius: 0px;
+//     background-color: rgb(153, 153, 153);
+//     margin-top: 4px;
+//   }
+//
+//   output {
+//     display: table-cell;
+//     padding: 3px 5px 2px;
+//     min-width: 40px;
+//     color: rgb(255, 255, 255);
+//     background-color: rgb(153, 153, 153);
+//     text-align: center;
+//     text-decoration: none;
+//     border-radius: 4px;
+//     border-bottom-left-radius: 0;
+//     border-top-left-radius: 0;
+//     width: 1%;
+//     white-space: nowrap;
+//     vertical-align: middle;
+//
+//     -webkit-transition: all 0.5s ease;
+//     transition: all 0.5s ease;
+//
+//     -webkit-user-select: none;
+//     user-select: none;
+//   }
+//
+//   input[type="range"] {
+//     outline: none;
+//   }
+//
+//   .range-primary {
+//     input[type="range"]::-webkit-slider-thumb {
+//       background-color: rgb(66, 139, 202);
+//     }
+//
+//     output {
+//       background-color: rgb(66, 139, 202);
+//     }
+//
+//     input[type="range"] {
+//       outline-color: rgb(66, 139, 202);
+//     }
+//   }
+//
+//   .range-success {
+//     input[type="range"]::-webkit-slider-thumb {
+//       background-color: rgb(92, 184, 92);
+//     }
+//
+//     output {
+//       background-color: rgb(92, 184, 92);
+//     }
+//
+//     input[type="range"] {
+//       outline-color: rgb(92, 184, 92);
+//     }
+//   }
+//
+//   .range-info {
+//     input[type="range"]::-webkit-slider-thumb {
+//       background-color: rgb(91, 192, 222);
+//     }
+//
+//     output {
+//       background-color: rgb(91, 192, 222);
+//     }
+//
+//     input[type="range"] {
+//       outline-color: rgb(91, 192, 222);
+//     }
+//   }
+//
+//   .range-warning {
+//     input[type="range"]::-webkit-slider-thumb {
+//       background-color: rgb(240, 173, 78);
+//     }
+//
+//     output {
+//       background-color: rgb(240, 173, 78);
+//     }
+//
+//     input[type="range"] {
+//       outline-color: rgb(240, 173, 78);
+//     }
+//   }
+//
+//   .range-danger {
+//     input[type="range"]::-webkit-slider-thumb {
+//       background-color: rgb(217, 83, 79);
+//     }
+//
+//     output {
+//       background-color: rgb(217, 83, 79);
+//     }
+//
+//     input[type="range"] {
+//       outline-color: rgb(217, 83, 79);
+//     }
+//   }
+// }

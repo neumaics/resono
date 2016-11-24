@@ -10,14 +10,14 @@ import axios from 'axios';
 import parser from 'xml2json';
 import _ from 'lodash';
 
-export function rssRequest(feedUrl) {
+function rssRequest(feedUrl) {
   return {
     type: RSS_REQUEST,
     feedUrl: feedUrl
   };
 }
 
-export function rssReceive(id, data) {
+function rssReceive(id, data) {
   return {
     type: RSS_RECEIVE,
     id: id,
@@ -25,7 +25,7 @@ export function rssReceive(id, data) {
   };
 }
 
-export function rssRequestFailure(feedUrl, error) {
+function rssRequestFailure(feedUrl, error) {
   return {
     type: RSS_FAILURE,
     feedUrl: feedUrl,
@@ -33,7 +33,7 @@ export function rssRequestFailure(feedUrl, error) {
   };
 }
 
-export function fetchRssFeed(id, feedUrl) {
+function fetchRssFeed(id, feedUrl) {
   return function (dispatch) {
     dispatch(rssRequest(feedUrl));
 
@@ -48,28 +48,28 @@ export function fetchRssFeed(id, feedUrl) {
   };
 }
 
-export function lookupRequest(id) {
+function lookupRequest(id) {
   return {
     type: PODCAST_LOOKUP_REQUEST,
     id: id
   };
 }
 
-export function lookupRecieve(data) {
+function lookupRecieve(data) {
   return {
     type: PODCAST_LOOKUP_RECIEVE,
     data: data
   };
 }
 
-export function lookupFailure(error) {
+function lookupFailure(error) {
   return {
     type: PODCAST_LOOKUP_FAILURE,
     error: error
   };
 }
 
-export function lookupPodcastInfo(id) {
+function lookupPodcastInfo(id) {
   return function (dispatch, getState) {
     const info = _.find(getState().search.results.toJS(), (o) => { return o.id == id; });
 
