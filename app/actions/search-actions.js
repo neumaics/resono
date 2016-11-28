@@ -46,6 +46,7 @@ export function fetchPodcasts(query) {
       entity: 'podcast'
     };
 
+    // TODO: make endpoint configurable.
     return axios.get('http://itunes.apple.com/search', { params })
       .then((response) => {
         return response.data.results.map((item) => {

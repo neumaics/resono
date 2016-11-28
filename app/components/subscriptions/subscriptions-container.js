@@ -1,21 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSubscriptions } from '../../actions/subscription-actions';
+import _ from 'lodash';
 
-function getGetSubscriptions(props) {
+function getSubscriptions(props) {
   props.fetchSubscriptions();
 }
 
 class SubscriptionsContainer extends React.Component {
   componentWillMount() {
-    getGetSubscriptions(this.props);
+    getSubscriptions(this.props);
   }
 
   render() {
     const { subscriptions } = this.props;
+    const subjs = _.values(subscriptions.toJS());
+    console.log(subscriptions);
 
-    const subs = subscriptions.map ? subscriptions.map((item) => {
-      return <p>{item.id}</p>;
+    const subs = subjs.map ? subjs.map((item) => {
+      return (
+        <div>
+          <p>{item.detail.title}</p>
+          <p>{item.detail.description}</p>
+        </div>
+      );
     }) : <span></span>;
 
     return(
@@ -28,10 +36,8 @@ class SubscriptionsContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const subs = state.subscriptions.toJS();
-
   return {
-    subscriptions: subs
+    subscriptions: state.subscriptions
   };
 }
 

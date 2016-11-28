@@ -11,21 +11,16 @@ const initialState = Immutable.Map();
 export function subscriptions(state = initialState, action) {
   switch (action.type) {
     case FETCH_SUBSCRIPTIONS: {
-      console.log(action.data);
-      const a = state.merge(action.data);
-      return a;
+      return state;
     }
     case SUBSCRIBE_FAILURE: {
       return state;
     }
     case SUBSCRIBE: {
-      console.log(action.id);
-      const a = state.merge({id: action.id});
-      console.log(a);
-      return a;
+      return state.set(action.id, { id: action.id, feedUrl: action.feedUrl, detail: action.detail });
     }
     case UNSUBSCRIBE: {
-      return state;
+      return state.delete(action.id);
     }
     default: {
       return state;

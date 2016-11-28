@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPodcasts } from '../../actions/search-actions';
+import { subscribeAndSave } from '../../actions/subscription-actions';
 import SearchList from './search-list';
 import SearchInput from './search-input';
 
 class SearchContainer extends React.Component {
   render() {
-    const { results, onSearchClick, onItemClick } = this.props;
+    const { results, onSearchClick, onSubscribeClick } = this.props;
 
     return (
       <div>
         <SearchInput onSearchClick={onSearchClick} />
-        <SearchList podcasts={results} onItemSelect={onItemClick} />
+        <SearchList podcasts={results} onSubscribeClick={onSubscribeClick} />
       </div>
     );
   }
@@ -29,7 +30,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSearchClick: (query) => { dispatch(fetchPodcasts(query)); }
+    onSearchClick: (query) => { dispatch(fetchPodcasts(query)); },
+    onSubscribeClick: (id, feedUrl) => { dispatch(subscribeAndSave(id, feedUrl)); }
   };
 }
 

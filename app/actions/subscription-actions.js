@@ -4,7 +4,9 @@ import {
   UNSUBSCRIBE,
   SUBSCRIBE_FAILURE
 } from './types';
+import { fetchRssFeed } from './detail-actions';
 import Loki from 'lokijs';
+import _ from 'lodash';
 
 // TODO: inject this dependency on loki
 const dbOpts = {
@@ -16,23 +18,26 @@ const dbOpts = {
 const db = new Loki('subscriptions.json', dbOpts);
 const podcasts = db.getCollection('podcasts') || db.addCollection('podcasts', { indices: [ 'id' ]});
 
-export function subscribeAndSave(id) {
+export function subscribeAndSave(id, feedUrl) {
   return function (dispatch) {
-    const sub = podcasts.findOne({ id });
-
-    if (!sub) {
-      podcasts.insert({ id });
-      dispatch(subscribe(id));
-    } else {
-      dispatch(subscribeFailure(id));
-    }
+    return dispatch(fetchRssFeed(id, feedUrl))
+      .then((detail) => {
+        podcasts.insert({ id, feedUrl, detail });
+        dispatch(subscribe(id, feedUrl, detail));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(subscribeFailure(id));
+      });
   };
 }
 
-export function subscribe(id) {
+export function subscribe(id, feedUrl, detail) {
   return {
     type: SUBSCRIBE,
-    id: id
+    id: id,
+    feedUrl: feedUrl,
+    detail: detail
   };
 }
 
@@ -52,8 +57,11 @@ export function subscribeFailure(id) {
 }
 
 export function fetchSubscriptions() {
+  const p = podcasts.find({ id: { $regex: '.*' }});
+  const podcastMap = _.fromPairs(_.map(p, i => [i.id, i]));
+
   return {
     type: FETCH_SUBSCRIPTIONS,
-    data: podcasts.find({ id: { $regex: '.*' }})
+    data: podcastMap
   };
 }

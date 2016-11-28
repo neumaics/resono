@@ -2,23 +2,22 @@ import React, { PropTypes } from 'react';
 import PodcastItem from './search-item';
 
 const propTypes = {
-  podcasts: PropTypes.array
+  podcasts: PropTypes.array,
+  onSubscribeClick: PropTypes.func
 };
 
 export default class SearchList extends React.Component {
   render() {
-    const { podcasts } = this.props;
+    const { podcasts, onSubscribeClick } = this.props;
 
     const podcastItems = podcasts.map((item, index) => {
-      return <PodcastItem title={item.title} key={index} podcastId={item.id} />;
+      return <PodcastItem title={item.title} key={index} podcastId={item.id} item={item.item} onSubscribeClick={onSubscribeClick}/>;
     });
 
     return (
-      <table className='table table-sm table-hover'>
-        <tbody>
-          {podcastItems}
-        </tbody>
-      </table>
+      <div>
+        {podcastItems}
+      </div>
     );
   }
 }

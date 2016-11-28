@@ -33,7 +33,7 @@ function rssRequestFailure(feedUrl, error) {
   };
 }
 
-function fetchRssFeed(id, feedUrl) {
+export function fetchRssFeed(id, feedUrl) {
   return function (dispatch) {
     dispatch(rssRequest(feedUrl));
 
@@ -41,6 +41,7 @@ function fetchRssFeed(id, feedUrl) {
       .then((response) => {
         const data = parser.toJson(response.data, { object: true });
         dispatch(rssReceive(id, data.rss));
+        return data.rss.channel;
       })
       .catch((error) => {
         dispatch(rssRequestFailure(feedUrl, error));
