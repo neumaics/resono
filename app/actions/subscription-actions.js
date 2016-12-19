@@ -23,6 +23,7 @@ export function subscribeAndSave(id, feedUrl) {
     return dispatch(fetchRssFeed(id, feedUrl))
       .then((detail) => {
         podcasts.insert({ id, feedUrl, detail });
+
         dispatch(subscribe(id, feedUrl, detail));
       })
       .catch((err) => {

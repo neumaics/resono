@@ -70,6 +70,7 @@ function lookupFailure(error) {
   };
 }
 
+// TODO: Refactor
 function lookupPodcastInfo(id) {
   return function (dispatch, getState) {
     const info = _.find(getState().search.results.toJS(), (o) => { return o.id == id; });
