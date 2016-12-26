@@ -1,44 +1,37 @@
 import {
+  RSS_REQUEST,
+  RSS_RECEIVE,
+  RSS_FAILURE,
   FETCH_SUBSCRIPTIONS,
   SUBSCRIBE,
   UNSUBSCRIBE,
-  SUBSCRIBE_FAILURE
+  SUBSCRIBE_FAILURE,
+  UPDATE_REQUEST,
+  UPDATE_COMPLETE,
+  UPDATE_ERROR
 } from './types';
-import { fetchRssFeed } from './detail-actions';
-import Loki from 'lokijs';
-import _ from 'lodash';
-
-// TODO: inject this dependency on loki
-const dbOpts = {
-  autosave: true,
-  autosaveInterval: 2000,
-  autoload: true,
-};
-
-const db = new Loki('subscriptions.json', dbOpts);
-const podcasts = db.getCollection('podcasts') || db.addCollection('podcasts', { indices: [ 'id' ]});
+import Podcast from '../models/Podcast';
+import axios from 'axios';
+import parser from 'xml2json';
 
 export function subscribeAndSave(id, feedUrl) {
   return function (dispatch) {
     return dispatch(fetchRssFeed(id, feedUrl))
       .then((detail) => {
-        podcasts.insert({ id, feedUrl, detail });
-
-        dispatch(subscribe(id, feedUrl, detail));
+        const podcast = new Podcast(id, feedUrl, detail);
+        dispatch(subscribe(podcast.toMap()));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         dispatch(subscribeFailure(id));
       });
   };
 }
 
-export function subscribe(id, feedUrl, detail) {
+export function subscribe(podcast) {
   return {
     type: SUBSCRIBE,
-    id: id,
-    feedUrl: feedUrl,
-    detail: detail
+    podcast: podcast
   };
 }
 
@@ -58,11 +51,87 @@ export function subscribeFailure(id) {
 }
 
 export function fetchSubscriptions() {
-  const p = podcasts.find({ id: { $regex: '.*' }});
-  const podcastMap = _.fromPairs(_.map(p, i => [i.id, i]));
-
   return {
     type: FETCH_SUBSCRIPTIONS,
-    data: podcastMap
+  };
+}
+
+function updateRequest(id) {
+  return {
+    type: UPDATE_REQUEST,
+    id: id
+  };
+}
+
+function updateComplete(podcast) {
+  return {
+    type: UPDATE_COMPLETE,
+    podcast: podcast
+  };
+}
+
+function updateError(id, error) {
+  return {
+    type: UPDATE_ERROR,
+    id: id,
+    error: error
+  };
+}
+
+export function updateSubscription(id) {
+  return function (dispatch, getState) {
+    dispatch(updateRequest(id));
+
+    const subscription = getState().subscriptions.get(id);
+    const feedUrl = subscription.get('feedUrl');
+
+    return dispatch(fetchRssFeed(id, feedUrl))
+      .then((detail) => {
+        const podcast = new Podcast(id, feedUrl, detail);
+        dispatch(updateComplete(podcast.toMap()));
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(updateError(id, err));
+      });
+  };
+}
+
+function rssRequest(feedUrl) {
+  return {
+    type: RSS_REQUEST,
+    feedUrl: feedUrl
+  };
+}
+
+function rssReceive(id, data) {
+  return {
+    type: RSS_RECEIVE,
+    id: id,
+    data: data
+  };
+}
+
+function rssRequestFailure(feedUrl, error) {
+  return {
+    type: RSS_FAILURE,
+    feedUrl: feedUrl,
+    error: error
+  };
+}
+
+export function fetchRssFeed(id, feedUrl) {
+  return function (dispatch) {
+    dispatch(rssRequest(feedUrl));
+
+    return (axios.get(feedUrl)
+      .then((response) => {
+        const data = parser.toJson(response.data, { object: true });
+        dispatch(rssReceive(id, data.rss));
+        return data.rss.channel;
+      })
+      .catch((error) => {
+        dispatch(rssRequestFailure(feedUrl, error));
+      }));
   };
 }

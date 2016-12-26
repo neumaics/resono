@@ -37,7 +37,9 @@ export function podcastsRequestFailure(query, error) {
 }
 
 export function fetchPodcasts(query) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const config = getState().config.get('itunes').toJS();
+
     dispatch(podcastsRequest(query));
 
     const params = {
@@ -46,8 +48,7 @@ export function fetchPodcasts(query) {
       entity: 'podcast'
     };
 
-    // TODO: make endpoint configurable.
-    return axios.get('http://itunes.apple.com/search', { params })
+    return axios.get(config.searchEndpoint, { params })
       .then((response) => {
         return response.data.results.map((item) => {
           // TODO: Remove 'item' from return object

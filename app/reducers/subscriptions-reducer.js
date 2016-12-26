@@ -2,7 +2,8 @@ import {
   FETCH_SUBSCRIPTIONS,
   SUBSCRIBE_FAILURE,
   SUBSCRIBE,
-  UNSUBSCRIBE
+  UNSUBSCRIBE,
+  UPDATE_COMPLETE
 } from '../actions/types';
 import Immutable from 'immutable';
 
@@ -17,7 +18,12 @@ export function subscriptions(state = initialState, action) {
       return state;
     }
     case SUBSCRIBE: {
-      return state.set(action.id, { id: action.id, feedUrl: action.feedUrl, detail: action.detail });
+      return state.set(action.podcast.get('id'), action.podcast);
+    }
+    case UPDATE_COMPLETE: {
+      const updated = Immutable.Map().set(action.podcast.get('id'), action.podcast);
+
+      return state.mergeDeep(updated);
     }
     case UNSUBSCRIBE: {
       return state.delete(action.id);

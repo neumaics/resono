@@ -1,3 +1,5 @@
 {
-  "hello": "earth"
+  "itunes": {
+    "searchEndpoint": "http://itunes.apple.com/search"
+  }
 }

@@ -1,27 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSubscriptions } from '../../actions/subscription-actions';
+import { updateSubscription } from '../../actions/subscription-actions';
 import _ from 'lodash';
 
-function getSubscriptions(props) {
-  props.fetchSubscriptions();
-}
-
 class SubscriptionsContainer extends React.Component {
-  componentWillMount() {
-    getSubscriptions(this.props);
-  }
 
   render() {
-    const { subscriptions } = this.props;
+    const { subscriptions, updateSubscription } = this.props;
     const subjs = _.values(subscriptions.toJS());
-    console.log(subscriptions);
 
     const subs = subjs.map ? subjs.map((item) => {
       return (
         <div>
-          <p>{item.detail.title}</p>
-          <p>{item.detail.description}</p>
+          <p>{item.title}</p>
+          <p>{`Las Updated: ${item.lastUpdated.toString()}`}</p>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => updateSubscription(item.id)}>
+            <i className="fa fa-refresh"></i>
+          </button>
+          <ul>
+            {item.episodes.map((ep) => { return <li>{ep.title}</li>; })}
+          </ul>
         </div>
       );
     }) : <span></span>;
@@ -43,7 +43,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchSubscriptions: () => { dispatch(fetchSubscriptions()); },
+    updateSubscription: (id) => { dispatch(updateSubscription(id)); }
   };
 }
 

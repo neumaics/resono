@@ -8,7 +8,7 @@ const propTypes = {
 
 export default class SearchItem extends React.Component {
   onClick(event, item) {
-    console.log(event, item);
+    console.info(event, item);
   }
 
   render() {

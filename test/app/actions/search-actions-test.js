@@ -1,12 +1,12 @@
-import configureMockStore from 'redux-mock-store'
-import expect from 'expect'
-import thunk from 'redux-thunk'
-import nock from 'nock'
-import Immutable from 'immutable'
+import configureMockStore from 'redux-mock-store';
+import expect from 'expect';
+import thunk from 'redux-thunk';
+import nock from 'nock';
+import Immutable from 'immutable';
 
-import sampleItunesResponse from '../../data/itunes-response.json'
-import * as actions from '../../../app/actions/search-actions'
-import * as types from '../../../app/actions/types'
+import sampleItunesResponse from '../../data/itunes-response.json';
+import * as actions from '../../../app/actions/search-actions';
+import * as types from '../../../app/actions/types';
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
@@ -110,17 +110,17 @@ describe('search actions', () => {
         })
         .replyWithError(error);
 
-        const expectedActions = [
-          { type: types.PODCASTS_REQUEST, query: query },
-          { type: types.PODCASTS_FAILURE, query: query, error: error }
-        ];
+      const expectedActions = [
+        { type: types.PODCASTS_REQUEST, query: query },
+        { type: types.PODCASTS_FAILURE, query: query, error: error }
+      ];
 
-        const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
+      const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
 
-        return store.dispatch(actions.fetchPodcasts(query))
-          .then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-          });
+      return store.dispatch(actions.fetchPodcasts(query))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
     });
   });
 });
