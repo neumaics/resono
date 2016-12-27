@@ -1,7 +1,7 @@
 import { configChanged, configLoaded } from '../actions/config-actions';
 
 export default function createConfigMiddleware(readFile, watchFile, options = {}) {
-  const path = options.path || '../app/config.js';
+  const path = options.path || './app/config.js';
 
   return (store) => {
     setupConfig(readFile, watchFile, store, path);

@@ -13,16 +13,16 @@ class SubscriptionsContainer extends React.Component {
 
     const subs = subjs.map ? subjs.map((item) => {
       return (
-        <div>
+        <div key={item.id}>
           <p>{item.title}</p>
-          <p>{`Las Updated: ${item.lastUpdated.toString()}`}</p>
+          <p>{`Last Updated: ${item.lastUpdated}`}</p>
           <button
             className="btn btn-primary btn-sm"
             onClick={() => updateSubscription(item.id)}>
             <i className="fa fa-refresh"></i>
           </button>
           <ul>
-            {item.episodes.map((ep) => { return <li onClick={() => changePodcast(ep.url)}>{ep.title}</li>; })}
+            {item.episodes.map((ep) => { return <li key={ep.id} onClick={() => changePodcast(ep.url)}>{ep.title}</li>; })}
           </ul>
         </div>
       );

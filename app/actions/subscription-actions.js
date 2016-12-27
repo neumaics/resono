@@ -8,18 +8,26 @@ import {
   SUBSCRIBE_FAILURE,
   UPDATE_REQUEST,
   UPDATE_COMPLETE,
-  UPDATE_ERROR
+  UPDATE_ERROR,
+  SUBSCRIPTIONS_LOADED
 } from './types';
 import Podcast from '../models/Podcast';
 import axios from 'axios';
 import parser from 'xml2json';
 
+export function subscriptionsLoaded(subscriptions) {
+  return {
+    type: SUBSCRIPTIONS_LOADED,
+    subscriptions: subscriptions
+  };
+}
+
 export function subscribeAndSave(id, feedUrl) {
   return function (dispatch) {
     return dispatch(fetchRssFeed(id, feedUrl))
       .then((detail) => {
-        const podcast = new Podcast(id, feedUrl, detail);
-        dispatch(subscribe(podcast.toMap()));
+        const podcast = Podcast.fromRss(id, feedUrl, detail);
+        dispatch(subscribe(Podcast.toMap(podcast)));
       })
       .catch((err) => {
         console.error(err);
@@ -82,13 +90,14 @@ export function updateSubscription(id) {
   return function (dispatch, getState) {
     dispatch(updateRequest(id));
 
-    const subscription = getState().subscriptions.get(id);
+    const subscription = getState().subscriptions.get(id.toString());
     const feedUrl = subscription.get('feedUrl');
 
     return dispatch(fetchRssFeed(id, feedUrl))
       .then((detail) => {
-        const podcast = new Podcast(id, feedUrl, detail);
-        dispatch(updateComplete(podcast.toMap()));
+        const podcast = Podcast.fromRss(id, feedUrl, detail);
+
+        dispatch(updateComplete(Podcast.toMap(podcast)));
       })
       .catch((err) => {
         console.error(err);
