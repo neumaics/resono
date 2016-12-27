@@ -7,7 +7,7 @@ export default class Episode {
     this.title = rssItem.title;
     this.description = rssItem.description;
     this.pubDate = rssItem.pubDate;
-    this.mediaUrl = rssItem.enclosure.url;
+    this.url = rssItem.enclosure.url;
     this.listened = false;
   }
 

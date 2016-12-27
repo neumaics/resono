@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateSubscription } from '../../actions/subscription-actions';
+import { changePodcast } from '../../actions/player-actions';
+
 import _ from 'lodash';
 
 class SubscriptionsContainer extends React.Component {
 
   render() {
-    const { subscriptions, updateSubscription } = this.props;
+    const { subscriptions, updateSubscription, changePodcast } = this.props;
     const subjs = _.values(subscriptions.toJS());
 
     const subs = subjs.map ? subjs.map((item) => {
@@ -20,7 +22,7 @@ class SubscriptionsContainer extends React.Component {
             <i className="fa fa-refresh"></i>
           </button>
           <ul>
-            {item.episodes.map((ep) => { return <li>{ep.title}</li>; })}
+            {item.episodes.map((ep) => { return <li onClick={() => changePodcast(ep.url)}>{ep.title}</li>; })}
           </ul>
         </div>
       );
@@ -43,7 +45,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateSubscription: (id) => { dispatch(updateSubscription(id)); }
+    updateSubscription: (id) => { dispatch(updateSubscription(id)); },
+    changePodcast: (url) => { dispatch(changePodcast(url)); }
   };
 }
 

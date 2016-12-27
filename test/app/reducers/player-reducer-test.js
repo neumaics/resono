@@ -70,16 +70,16 @@ describe('player reducer', () => {
     });
 
     it('should handle the CHANGE_PODCAST action', () => {
-      const mediaUrl = 'www.feed.rss/pocast.mp3';
+      const url = 'www.feed.rss/pocast.mp3';
 
       const action = {
         type: actions.CHANGE_PODCAST,
-        mediaUrl: mediaUrl
+        url: url
       };
 
       const actual = reducers.player(undefined, action).currentPodcast;
 
-      expect(actual).toEqual(mediaUrl);
+      expect(actual).toEqual(url);
     });
 
     it('should return the previous state for any other action', () => {

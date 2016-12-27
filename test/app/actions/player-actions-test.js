@@ -5,13 +5,13 @@ import * as types from '../../../app/actions/types';
 describe('player actions', () => {
   describe('changePodcast', () => {
     it('should create an action for changing the playing podcast', () => {
-      const mediaUrl = 'www.popularpodcast.com/latest.mp3';
+      const url = 'www.popularpodcast.com/latest.mp3';
       const expectedAction = {
         type: types.CHANGE_PODCAST,
-        mediaUrl: mediaUrl
+        url: url
       };
 
-      expect(actions.changePodcast(mediaUrl)).toEqual(expectedAction);
+      expect(actions.changePodcast(url)).toEqual(expectedAction);
     });
   });
 

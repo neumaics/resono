@@ -30,7 +30,7 @@ function status(state = statusTypes.STOPPED, action) {
 function currentPodcast(state = '/', action) {
   switch (action.type) {
     case CHANGE_PODCAST: {
-      return action.mediaUrl;
+      return action.url;
     }
     default: {
       return state;

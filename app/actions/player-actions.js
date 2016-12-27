@@ -6,10 +6,10 @@ import {
   statusTypes
 } from './types';
 
-export function changePodcast(mediaUrl) {
+export function changePodcast(url) {
   return {
     type: CHANGE_PODCAST,
-    mediaUrl: mediaUrl
+    url: url
   };
 }
 
