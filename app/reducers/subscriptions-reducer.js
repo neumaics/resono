@@ -22,14 +22,14 @@ export function subscriptions(state = initialState, action) {
       return state;
     }
     case SUBSCRIBE: {
-      return state.set(action.podcast.get('id'), action.podcast);
+      return state.set(action.podcast.get('id').toString(), action.podcast);
     }
     case UPDATE_COMPLETE: {
       const updated = Immutable.Map().set(action.podcast.get('id'), action.podcast);
       return state.mergeDeep(updated);
     }
     case UNSUBSCRIBE: {
-      return state.delete(action.id);
+      return state.delete(action.id.toString());
     }
     default: {
       return state;

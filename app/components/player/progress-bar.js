@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 const propTypes = {
   duration: PropTypes.number.isRequired,
   position: PropTypes.number.isRequired,
+  bytesLoaded: PropTypes.number.isRequired,
+  bytesTotal: PropTypes.number.isRequired,
   onPositionChange: PropTypes.func.isRequired
 };
 
@@ -60,14 +62,20 @@ export default class ProgressBar extends React.Component {
   }
 
   render() {
-    const { duration, position, onPositionChange } = this.props;
+    const { duration, position, bytesLoaded, bytesTotal, onPositionChange } = this.props;
     const playProgress = ((position / duration) * 100).toFixed(2);
+    const loadProgress = bytesTotal > 0 ? ((bytesLoaded / bytesTotal) * 100).toFixed(2) : 0;
 
     return (
       <div className="progress-bar-container"
         onMouseUp={(e) => this.onParentClick(e, onPositionChange)}>
 
-        <div className="progress-bar-ribbon"
+        <div className="progress-bar-ribbon load-progress"
+          style={{width: `${loadProgress}%`}}
+          onClick={(e) => this.onRibbonClick(e, onPositionChange)}>
+        </div>
+
+        <div className="progress-bar-ribbon play-progress"
           style={{width: `${playProgress}%`}}
           onMouseUp={(e) => this.onRibbonClick(e, onPositionChange)}>
 
@@ -77,9 +85,6 @@ export default class ProgressBar extends React.Component {
             onMouseMove={this.onMouseMove}>
           </div>
         </div>
-
-        <div className="progress-bar-ribbon"
-          onClick={(e) => this.onRibbonClick(e, onPositionChange)}></div>
       </div>
 
     );

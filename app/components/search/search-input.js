@@ -12,12 +12,12 @@ export default class SearchInput extends React.Component {
 
   onSubmit(event, onSearchClick) {
     event.preventDefault();
-
-    if (!this.input.value.trim()) {
+    const value = this.input.value.trim();
+    if (!value) {
       return;
     }
 
-    onSearchClick(this.input.value);
+    onSearchClick(value);
   }
 
   render() {

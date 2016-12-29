@@ -3,7 +3,7 @@ import expect from 'expect';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-describe.only('config middleware', () => {
+describe('config middleware', () => {
   let middlewares;
   let mockStore;
 

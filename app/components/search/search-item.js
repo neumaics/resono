@@ -3,7 +3,9 @@ import React, { PropTypes } from 'react';
 const propTypes = {
   title: PropTypes.string.isRequired,
   podcastId: PropTypes.number.isRequired,
-  onSubscribeClick: PropTypes.func
+  onSubscribeClick: PropTypes.func,
+  onUnsubscribeClick: PropTypes.func,
+  isSubbed: PropTypes.bool
 };
 
 export default class SearchItem extends React.Component {
@@ -11,8 +13,25 @@ export default class SearchItem extends React.Component {
     console.info(event, item);
   }
 
+  subscribeButton(item, onSubscribeClick) {
+    return (<p>
+      <button className="btn btn-primary btn-sm" onClick={() => onSubscribeClick(item.collectionId, item.feedUrl)}>
+        <i className="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </p>);
+  }
+
+  unsubscribeButton(item, onUnsubscribeClick) {
+    return (<p>
+      <button className="btn btn-danger btn-sm" onClick={() => onUnsubscribeClick(item.collectionId)}>
+        <i className="fa fa-trash-o" aria-hidden="true"></i>
+      </button>
+    </p>);
+  }
+
   render() {
-    const { item, onSubscribeClick } = this.props;
+    const { item, onSubscribeClick, isSubbed, onUnsubscribeClick } = this.props;
+    const subscribeButton = isSubbed ? this.unsubscribeButton(item, onUnsubscribeClick) : this.subscribeButton(item, onSubscribeClick);
 
     return (
       <div className="card" onClick={(e) => this.onClick(e, item)}>
@@ -26,11 +45,7 @@ export default class SearchItem extends React.Component {
             <div className="media-body">
               <h4 className="media-heading"></h4>
               <p>{item.trackName}</p>
-              <p>
-                <button className="btn btn-primary btn-sm" onClick={() => onSubscribeClick(item.collectionId, item.feedUrl)}>
-                  <i className="fa fa-plus" aria-hidden="true"></i>
-                </button>
-              </p>
+              {subscribeButton}
             </div>
           </div>
         </div>

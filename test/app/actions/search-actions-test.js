@@ -12,59 +12,72 @@ const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
 describe('search actions', () => {
-  it('should create an action for searching for podcasts', () => {
-    const query = 'freq eq';
-    const expectedAction = {
-      type: types.SEARCH_PODCASTS,
-      query: query
-    };
+  describe('searchPodcasts', () => {
+    it('should provide an action for searching for podcasts', () => {
+      const query = 'freq eq';
+      const expectedAction = {
+        type: types.SEARCH_PODCASTS,
+        query: query
+      };
 
-    expect(actions.searchPodcasts(query)).toEqual(expectedAction);
+      expect(actions.searchPodcasts(query)).toEqual(expectedAction);
+    });
   });
 
-  it('should create an action for initiating podcast queries', () => {
-    const query = 'this am';
-    const expectedAction = {
-      type: types.PODCASTS_REQUEST,
-      query: query
-    };
+  describe('podcastsRequest', () => {
+    it('should create an action for initiating podcast queries', () => {
+      const query = 'this am';
+      const expectedAction = {
+        type: types.PODCASTS_REQUEST,
+        query: query
+      };
 
-    expect(actions.podcastsRequest(query)).toEqual(expectedAction);
+      expect(actions.podcastsRequest(query)).toEqual(expectedAction);
+    });
   });
 
-  it('should create an action for podcasts receiving podcast search results', () => {
-    const query = 'planet m';
-    const json = [{ title: 'planet money' }];
+  describe('podcastsReceive', () => {
+    it('should create an action for receiving podcast search results', () => {
+      const query = 'planet m';
+      const json = [{ title: 'planet money' }];
 
-    const expectedAction = {
-      type: types.PODCASTS_RECEIVE,
-      query: query,
-      podcasts: json
-    };
+      const expectedAction = {
+        type: types.PODCASTS_RECEIVE,
+        query: query,
+        podcasts: json
+      };
 
-    expect(actions.podcastsReceive(query, json)).toEqual(expectedAction);
+      expect(actions.podcastsReceive(query, json)).toEqual(expectedAction);
+    });
   });
 
-  it('should create an action to notify of podcast search failures', () => {
-    const query = 'very fail';
-    const error = 'error = very yes';
+  describe('podcastsRequestFailure', () => {
+    it('should create an action to notify of podcast search failures', () => {
+      const query = 'very fail';
+      const error = 'error = very yes';
 
-    const expectedAction = {
-      type: types.PODCASTS_FAILURE,
-      query: query,
-      error: error
-    };
+      const expectedAction = {
+        type: types.PODCASTS_FAILURE,
+        query: query,
+        error: error
+      };
 
-    expect(actions.podcastsRequestFailure(query, error)).toEqual(expectedAction);
+      expect(actions.podcastsRequestFailure(query, error)).toEqual(expectedAction);
+    });
   });
 
-  describe('async actions', () => {
+  describe('fetchPodcasts', () => {
+    const mockSearchEndpoint = 'http://podcast.rss/search';
+    const config = Immutable.fromJS({ itunes: { searchEndpoint: mockSearchEndpoint }});
+
     afterEach(() => {
       nock.cleanAll();
     });
 
     it('should create actions to organize itunes api requests', () => {
-      nock('https://itunes.apple.com/')
+      const store = mockStore({ config: config });
+
+      nock('http://podcast.rss')
         .get('/search')
         .query({
           term: 'this am',
@@ -76,11 +89,13 @@ describe('search actions', () => {
       const podcasts = [{
         id: 201671138,
         title: 'This American Life',
-        feedUrl: 'http://feed.thisamericanlife.org/talpodcast'
+        feedUrl: 'http://feed.thisamericanlife.org/talpodcast',
+        item: sampleItunesResponse.results[0]
       }, {
         id: 917918570,
         title: 'Serial',
-        feedUrl: 'http://feeds.serialpodcast.org/serialpodcast'
+        feedUrl: 'http://feeds.serialpodcast.org/serialpodcast',
+        item: sampleItunesResponse.results[1]
       }];
 
       const query = 'this am';
@@ -89,8 +104,6 @@ describe('search actions', () => {
         { type: types.PODCASTS_RECEIVE, query: query, podcasts: podcasts }
       ];
 
-      const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
-
       return store.dispatch(actions.fetchPodcasts('this am'))
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions);
@@ -98,10 +111,11 @@ describe('search actions', () => {
     });
 
     it('should create actions for api request failures', () => {
+      const store = mockStore({ config: config });
       const query = 'star trekkin\'';
       const error = { message: 'no can do, bub' };
 
-      nock('https://itunes.apple.com/')
+      nock('http://podcast.rss')
         .get('/search')
         .query({
           term: query,
@@ -114,8 +128,6 @@ describe('search actions', () => {
         { type: types.PODCASTS_REQUEST, query: query },
         { type: types.PODCASTS_FAILURE, query: query, error: error }
       ];
-
-      const store = mockStore(Immutable.fromJS({ query: 'this', podcasts: [] }));
 
       return store.dispatch(actions.fetchPodcasts(query))
         .then(() => {

@@ -2,7 +2,6 @@ import {
   RSS_REQUEST,
   RSS_RECEIVE,
   RSS_FAILURE,
-  FETCH_SUBSCRIPTIONS,
   SUBSCRIBE,
   UNSUBSCRIBE,
   SUBSCRIBE_FAILURE,
@@ -22,16 +21,21 @@ export function subscriptionsLoaded(subscriptions) {
   };
 }
 
-export function subscribeAndSave(id, feedUrl) {
+export function fetchAndSubscribe(id, feedUrl) {
   return function (dispatch) {
-    return dispatch(fetchRssFeed(id, feedUrl))
+    dispatch(rssRequest(feedUrl));
+
+    return fetchRss(feedUrl)
       .then((detail) => {
         const podcast = Podcast.fromRss(id, feedUrl, detail);
         dispatch(subscribe(Podcast.toMap(podcast)));
       })
-      .catch((err) => {
-        console.error(err);
-        dispatch(subscribeFailure(id));
+      .catch((error) => {
+        if (error.response) {
+          dispatch(subscribeFailure(id, error.response));
+        } else {
+          dispatch(subscribeFailure(id, { message: error.message }));
+        }
       });
   };
 }
@@ -50,35 +54,29 @@ export function unsubscribe(id) {
   };
 }
 
-export function subscribeFailure(id) {
+export function subscribeFailure(id, error) {
   return {
     type: SUBSCRIBE_FAILURE,
     id: id,
-    message: `Podcast with id [${id}] has already been subscribed`
+    error: error
   };
 }
 
-export function fetchSubscriptions() {
-  return {
-    type: FETCH_SUBSCRIPTIONS,
-  };
-}
-
-function updateRequest(id) {
+export function updateRequest(id) {
   return {
     type: UPDATE_REQUEST,
     id: id
   };
 }
 
-function updateComplete(podcast) {
+export function updateComplete(podcast) {
   return {
     type: UPDATE_COMPLETE,
     podcast: podcast
   };
 }
 
-function updateError(id, error) {
+export function updateError(id, error) {
   return {
     type: UPDATE_ERROR,
     id: id,
@@ -93,27 +91,30 @@ export function updateSubscription(id) {
     const subscription = getState().subscriptions.get(id.toString());
     const feedUrl = subscription.get('feedUrl');
 
-    return dispatch(fetchRssFeed(id, feedUrl))
+    return fetchRss(feedUrl)
       .then((detail) => {
         const podcast = Podcast.fromRss(id, feedUrl, detail);
 
         dispatch(updateComplete(Podcast.toMap(podcast)));
       })
-      .catch((err) => {
-        console.error(err);
-        dispatch(updateError(id, err));
+      .catch((error) => {
+        if (error.response) {
+          dispatch(updateError(id, error.response));
+        } else {
+          dispatch(updateError(id, { message: error.message }));
+        }
       });
   };
 }
 
-function rssRequest(feedUrl) {
+export function rssRequest(feedUrl) {
   return {
     type: RSS_REQUEST,
     feedUrl: feedUrl
   };
 }
 
-function rssReceive(id, data) {
+export function rssReceive(id, data) {
   return {
     type: RSS_RECEIVE,
     id: id,
@@ -121,7 +122,7 @@ function rssReceive(id, data) {
   };
 }
 
-function rssRequestFailure(feedUrl, error) {
+export function rssRequestFailure(feedUrl, error) {
   return {
     type: RSS_FAILURE,
     feedUrl: feedUrl,
@@ -129,18 +130,10 @@ function rssRequestFailure(feedUrl, error) {
   };
 }
 
-export function fetchRssFeed(id, feedUrl) {
-  return function (dispatch) {
-    dispatch(rssRequest(feedUrl));
-
-    return (axios.get(feedUrl)
-      .then((response) => {
-        const data = parser.toJson(response.data, { object: true });
-        dispatch(rssReceive(id, data.rss));
-        return data.rss.channel;
-      })
-      .catch((error) => {
-        dispatch(rssRequestFailure(feedUrl, error));
-      }));
-  };
+function fetchRss(feedUrl) {
+  return axios.get(feedUrl)
+    .then((response) => {
+      const data = parser.toJson(response.data, { object: true });
+      return data.rss.channel;
+    });
 }

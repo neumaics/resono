@@ -20,7 +20,7 @@ export default function createFileMiddleware(readFile, writeFile, options = {}) 
     return (next) => (action) => {
       const result = next(action);
 
-      if (isSubscriptionAction(action.type)) {
+      if (_.includes(subscriptionActions, action.type)) {
         const subscriptions = store.getState().subscriptions.toJS();
         writeFile(path, subscriptions, { spaces: 2 });
       }
@@ -28,10 +28,6 @@ export default function createFileMiddleware(readFile, writeFile, options = {}) 
       return result;
     };
   };
-}
-
-function isSubscriptionAction(actionType) {
-  return _.includes(subscriptionActions, actionType);
 }
 
 function connect(readFile, store, path) {

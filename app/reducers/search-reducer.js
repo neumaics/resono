@@ -7,7 +7,7 @@ import {
 import { combineReducers } from 'redux';
 import Immutable from 'immutable';
 
-function query(state = '', action) {
+export function query(state = '', action) {
   switch (action.type) {
     case SEARCH_PODCASTS: {
       return action.query;
@@ -18,7 +18,7 @@ function query(state = '', action) {
   }
 }
 
-function isFetching(state = false, action) {
+export function isFetching(state = false, action) {
   switch (action.type) {
     case PODCASTS_REQUEST: {
       return true;
@@ -34,7 +34,7 @@ function isFetching(state = false, action) {
   }
 }
 
-function results(state = Immutable.List(), action) {
+export function results(state = Immutable.List(), action) {
   switch (action.type) {
     case PODCASTS_RECEIVE: {
       return Immutable.List(action.podcasts);

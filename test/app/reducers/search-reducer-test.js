@@ -1,9 +1,9 @@
-import expect from 'expect'
-import * as reducers from '../../../app/reducers/search-reducer'
-import * as actions from '../../../app/actions/types'
-import Immutable from 'immutable'
+import expect from 'expect';
+import * as reducers from '../../../app/reducers/search-reducer';
+import * as actions from '../../../app/actions/types';
+import Immutable from 'immutable';
 
-describe('podcast search reducer', () => {
+describe('search reducer', () => {
   describe('query', () => {
     it('should return an initial state', () => {
       expect(reducers.query(undefined, {})).toEqual('');
@@ -30,26 +30,53 @@ describe('podcast search reducer', () => {
     });
   });
 
-  describe('podcastSearch', () => {
+  describe('isFetching', () => {
     it('should return an initial state', () => {
-      const initialState = Immutable.fromJS({
-        fetching: false,
-        podcasts: []
-      });
-
-      expect(reducers.podcastSearch(undefined, {})).toEqual(initialState);
+      expect(reducers.isFetching(undefined, {})).toEqual(false);
     });
 
-    it('should handle the PODCASTS_REQUEST action', () => {
+    it('should handle PODCASTS_REQUEST action', () => {
+      const currentState = false;
       const action = {
         type: actions.PODCASTS_REQUEST
-      }
-      const expectedState = Immutable.fromJS({
-        fetching: true,
-        podcasts: []
-      });
+      };
 
-      expect(reducers.podcastSearch(undefined, action)).toEqual(expectedState);
+      expect(reducers.isFetching(currentState, action)).toEqual(true);
+    });
+
+    it('should handle PODCASTS_RECIEVE action', () => {
+      const currentState = true;
+      const action = {
+        type: actions.PODCASTS_RECEIVE
+      };
+
+      expect(reducers.isFetching(currentState, action)).toEqual(false);
+    });
+
+    it('should handle PODCASTS_FAILURE action', () => {
+      const currentState = true;
+      const action = {
+        type: actions.PODCASTS_FAILURE
+      };
+
+      expect(reducers.isFetching(currentState, action)).toEqual(false);
+    });
+
+    it('should return the previous state for any other action', () => {
+      const currentState = true;
+      const action = {
+        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
+      };
+
+      expect(reducers.isFetching(currentState, action)).toEqual(true);
+    });
+  });
+
+  describe('results', () => {
+    it('should return an initial state', () => {
+      const initialState = Immutable.List();
+
+      expect(reducers.results(undefined, {})).toEqual(initialState);
     });
 
     it('should handle the PODCASTS_RECEIVE action', () => {
@@ -59,41 +86,29 @@ describe('podcast search reducer', () => {
         podcasts: podcasts
       };
 
-      const expectedState = Immutable.fromJS({
-        fetching: false,
-        podcasts: podcasts
-      });
+      const expectedState = Immutable.List(podcasts);
 
-      expect(reducers.podcastSearch(undefined, action)).toEqual(expectedState);
+      expect(reducers.results(undefined, action)).toEqual(expectedState);
     });
 
     it('should handle the PODCASTS_FAILURE action', () => {
+      const currentState = Immutable.List([{ title: 'got this' }]);
       const action = {
         type: actions.PODCASTS_FAILURE,
-        query: 'broken',
-        error: 'stuffs messed up, yo'
       };
 
-      const expectedState = Immutable.fromJS({
-        fetching: false,
-        podcasts: []
-      });
-
-      expect(reducers.podcastSearch(undefined, action)).toEqual(expectedState);
+      expect(reducers.results(currentState, action)).toEqual(currentState);
     });
 
     it('should return the previous state for any other action', () => {
-      const currentState = Immutable.fromJS({
-        fetching: false,
-        podcasts: [{ title: 'already here' }]
-      });
+      const currentState = Immutable.fromJS([{ title: 'already here' }]);
 
       const action = {
         type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE',
         payload: 'all the things'
       };
 
-      expect(reducers.podcastSearch(currentState, action)).toEqual(currentState);
+      expect(reducers.results(currentState, action)).toEqual(currentState);
     });
   });
 });

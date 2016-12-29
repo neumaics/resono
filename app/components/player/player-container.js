@@ -19,7 +19,9 @@ class PlayerContainer extends React.Component {
     super(props);
     this.state = {
       position: 0,
-      duration: 1
+      duration: 1,
+      bytesLoaded: 0,
+      bytesTotal: 1
     };
 
     this.skipBack = this.skipBack.bind(this);
@@ -29,7 +31,12 @@ class PlayerContainer extends React.Component {
     this.whilePlaying = this.whilePlaying.bind(this);
   }
 
-  whileLoading() { }
+  whileLoading(event) {
+    this.setState({
+      bytesLoaded: event.bytesLoaded,
+      bytesTotal: event.bytesTotal
+    });
+  }
 
   whilePlaying(event) {
     this.setState({
@@ -78,6 +85,8 @@ class PlayerContainer extends React.Component {
           <ProgressBar
             duration={this.state.duration}
             position={this.state.position}
+            bytesLoaded={this.state.bytesLoaded}
+            bytesTotal={this.state.bytesTotal}
             onPositionChange={this.onChangePosition} />
         </div>
         <button onClick={this.skipForward} className="btn btn-outline-info">

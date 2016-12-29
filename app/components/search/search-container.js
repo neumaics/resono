@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPodcasts } from '../../actions/search-actions';
-import { subscribeAndSave } from '../../actions/subscription-actions';
+import { fetchAndSubscribe, unsubscribe } from '../../actions/subscription-actions';
 import SearchList from './search-list';
 import SearchInput from './search-input';
 
 class SearchContainer extends React.Component {
   render() {
-    const { results, onSearchClick, onSubscribeClick } = this.props;
+    const { results, subscriptions, onSearchClick, onSubscribeClick, onUnsubscribeClick } = this.props;
 
     return (
       <div>
         <SearchInput onSearchClick={onSearchClick} />
-        <SearchList podcasts={results} onSubscribeClick={onSubscribeClick} />
+        <SearchList podcasts={results} subscriptions={subscriptions} onSubscribeClick={onSubscribeClick} onUnsubscribeClick={onUnsubscribeClick} />
       </div>
     );
   }
@@ -21,17 +21,20 @@ class SearchContainer extends React.Component {
 function mapStateToProps(state) {
   const results = state.search.results;
   const query = state.search.query;
+  const subscriptions = state.subscriptions.keySeq().toJS();
 
   return {
     query,
-    results: results === undefined ? [] : results.toJS()
+    results: results === undefined ? [] : results.toJS(),
+    subscriptions: subscriptions
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     onSearchClick: (query) => { dispatch(fetchPodcasts(query)); },
-    onSubscribeClick: (id, feedUrl) => { dispatch(subscribeAndSave(id, feedUrl)); }
+    onSubscribeClick: (id, feedUrl) => { dispatch(fetchAndSubscribe(id, feedUrl)); },
+    onUnsubscribeClick: (id) => { dispatch(unsubscribe(id)); }
   };
 }
 
