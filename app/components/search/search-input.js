@@ -24,7 +24,7 @@ export default class SearchInput extends React.Component {
     const { onSearchClick } = this.props;
 
     return (
-      <form onSubmit={(event) => {this.onSubmit(event, onSearchClick);}}>
+      <form className="search-input" onSubmit={(event) => {this.onSubmit(event, onSearchClick);}}>
         <div className="input-group">
           <input
             className="form-control"

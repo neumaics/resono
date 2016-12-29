@@ -1,5 +1,9 @@
 {
   "itunes": {
     "searchEndpoint": "http://itunes.apple.com/search"
+  },
+  "player": {
+    "skipForwardDuration": 10000,
+    "skipBackwardDuration": 10000
   }
 }

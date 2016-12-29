@@ -9,8 +9,21 @@ const propTypes = {
 };
 
 export default class SearchItem extends React.Component {
-  onClick(event, item) {
-    console.info(event, item);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expanded: false
+    };
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    // TODO: remove 'transient' state
+    this.setState({
+      expanded: !this.state.expanded
+    });
   }
 
   subscribeButton(item, onSubscribeClick) {
@@ -32,22 +45,15 @@ export default class SearchItem extends React.Component {
   render() {
     const { item, onSubscribeClick, isSubbed, onUnsubscribeClick } = this.props;
     const subscribeButton = isSubbed ? this.unsubscribeButton(item, onUnsubscribeClick) : this.subscribeButton(item, onSubscribeClick);
+    const cardClasses = ['podcast-card'];
+    if (this.state.expanded) cardClasses.push('expanded');
 
     return (
-      <div className="card" onClick={(e) => this.onClick(e, item)}>
-        <div className="card-block">
-          <div className="media">
-            <div className="media-left">
-              <a href="#">
-                <img className="media-object" src={item.artworkUrl100}></img>
-              </a>
-            </div>
-            <div className="media-body">
-              <h4 className="media-heading"></h4>
-              <p>{item.trackName}</p>
-              {subscribeButton}
-            </div>
-          </div>
+      <div className={cardClasses.join(' ')} onClick={this.onClick}>
+        <img className="podcast-cover"  src={item.artworkUrl100}></img>
+        <div className="podcast-content">
+          <h6 className="truncate">{item.trackName}</h6>
+          {subscribeButton}
         </div>
       </div>
     );

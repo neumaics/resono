@@ -11,8 +11,8 @@ const statusMap = {
   STOPPED: Sound.status.STOPPED
 };
 
-const skipForwardDuration = 10000;
-const skipBackwardDuration = 10000;
+const defaultSkipForwardDuration = 10000;
+const defaultSkipBackwardDuration = 10000;
 
 class PlayerContainer extends React.Component {
   constructor(props) {
@@ -29,6 +29,10 @@ class PlayerContainer extends React.Component {
     this.onChangePosition = this.onChangePosition.bind(this);
     this.whileLoading = this.whileLoading.bind(this);
     this.whilePlaying = this.whilePlaying.bind(this);
+  }
+
+  componentDidMount () {
+    soundManager.setup({debugMode: false});
   }
 
   whileLoading(event) {
@@ -49,24 +53,31 @@ class PlayerContainer extends React.Component {
     this.setState({ position: newPosition });
   }
 
-  skipBack() {
+  skipBack(skipBackwardDuration) {
     const newPosition = this.state.position - skipBackwardDuration;
 
     if (newPosition >= 0.0) {
       this.setState({ position: newPosition });
+    } else {
+      this.setState({ position: 0.0 });
     }
   }
 
-  skipForward() {
+  skipForward(skipForwardDuration) {
     const newPosition = this.state.position + skipForwardDuration;
 
     if (newPosition < this.state.duration) {
       this.setState({ position: newPosition });
+    } else {
+      this.setState({ position: this.state.duration });
     }
   }
 
   render() {
-    const { url, status, play, pause } = this.props;
+    const { url, status, play, pause, config } = this.props;
+    const skipForwardDuration = config.skipForwardDuration || defaultSkipForwardDuration;
+    const skipBackwardDuration = config.skipBackwardDuration || defaultSkipBackwardDuration;
+
     const playing = status === statusTypes.PLAYING;
     const icon = playing ? 'fa-pause' : 'fa-play';
     const clickAction = playing ? pause : play;
@@ -75,10 +86,10 @@ class PlayerContainer extends React.Component {
 
     return (
       <div className="player">
-        <button onClick={clickAction} className={`btn ${buttonClass}`} disabled={!mediaSelected}>
+        <button onClick={clickAction} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
           <i className={`fa ${icon}`} aria-hidden="true"></i>
         </button>
-        <button onClick={this.skipBack} className="btn btn-outline-info">
+        <button onClick={() => this.skipBack(skipBackwardDuration)} className="btn btn-outline-info borderless">
           <i className="fa fa-angle-double-left" aria-hidden="true"></i>
         </button>
         <div style={{width: '60%'}}>
@@ -89,7 +100,7 @@ class PlayerContainer extends React.Component {
             bytesTotal={this.state.bytesTotal}
             onPositionChange={this.onChangePosition} />
         </div>
-        <button onClick={this.skipForward} className="btn btn-outline-info">
+        <button onClick={() => this.skipForward(skipBackwardDuration)} className="btn btn-outline-info borderless">
           <i className="fa fa-angle-double-right" aria-hidden="true"></i>
         </button>
         <Sound
@@ -106,7 +117,8 @@ class PlayerContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     url: state.player.currentPodcast,
-    status: state.player.status
+    status: state.player.status,
+    config: state.config.get('player').toJS()
   };
 };
 

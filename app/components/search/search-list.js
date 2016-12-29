@@ -28,7 +28,7 @@ export default class SearchList extends React.Component {
     });
 
     return (
-      <div>
+      <div className="search-results">
         {podcastItems}
       </div>
     );

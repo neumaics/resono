@@ -4,6 +4,10 @@ const propTypes = {
   visible: PropTypes.bool
 };
 
+const defaultProps = {
+  visible: false
+};
+
 export default class Spinner extends React.Component {
   render() {
     const isVisible = this.props.visible;
@@ -20,3 +24,4 @@ export default class Spinner extends React.Component {
 }
 
 Spinner.propTypes = propTypes;
+Spinner.defaultProps = defaultProps;
