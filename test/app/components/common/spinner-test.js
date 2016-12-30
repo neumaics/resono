@@ -4,7 +4,7 @@ import expect from 'expect';
 
 import Spinner from '../../../../app/components/common/Spinner';
 
-describe.only('<Spinner />', () => {
+describe('<Spinner />', () => {
   it('should not be visible if visibilty is not provided', () => {
     const wrapper = shallow(<Spinner />);
 
