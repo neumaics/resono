@@ -3,15 +3,36 @@ import { connect } from 'react-redux';
 import { updateSubscription } from '../../actions/subscription-actions';
 import { changePodcast } from '../../actions/player-actions';
 
-import _ from 'lodash';
+// import _ from 'lodash';
 
 class SubscriptionsContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.updateAll = this.updateAll(this.props.updateSubscription).bind(this);
+  }
+
+  updateAll(updateFunc) {
+    return (ids) => {
+      ids.forEach((id) => {
+        updateFunc(id);
+      });
+    };
+  }
 
   render() {
-    const { subscriptions, updateSubscription, changePodcast } = this.props;
-    const subjs = _.values(subscriptions.toJS());
+    const { subscriptions, changePodcast } = this.props;
+    const subjs = subscriptions.valueSeq();
+    const ids = subscriptions.keySeq().toJS();
 
-    const subs = subjs.map ? subjs.map((item) => {
+    const episodes = subjs.
+      map(p => { return [p.get('title'), p.get('episodes')]; }).
+      flatMap((p) => { return p[1].map(e => { return e.set('podcast', p[0]); }); }).
+      sortBy((e) => -e.get('pubDate')).
+      toJS().
+      map((e) => { return <li key={e.id}>{`${e.podcast} - ${e.title}`}</li>; });
+
+    /*const subs = subList.map ? subList.map((item) => {
       return (
         <div key={item.id}>
           <p>{item.title}</p>
@@ -26,12 +47,17 @@ class SubscriptionsContainer extends React.Component {
           </ul>
         </div>
       );
-    }) : <span></span>;
+    }) : <span></span>;*/
 
     return(
       <div>
         <h4>Subscriptions</h4>
-        {subs}
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => this.updateAll(ids)}>
+          <i className="fa fa-refresh"></i>
+        </button>
+        <ul>{episodes}</ul>
       </div>
     );
   }

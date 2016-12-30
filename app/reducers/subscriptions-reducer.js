@@ -25,7 +25,9 @@ export function subscriptions(state = initialState, action) {
       return state.set(action.podcast.get('id').toString(), action.podcast);
     }
     case UPDATE_COMPLETE: {
-      const updated = Immutable.Map().set(action.podcast.get('id'), action.podcast);
+      const id = action.podcast.get('id').toString();
+      const updated = Immutable.Map().set(id, action.podcast);
+
       return state.mergeDeep(updated);
     }
     case UNSUBSCRIBE: {

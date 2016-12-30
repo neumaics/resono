@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 class SettingsContainer extends React.Component {
   render() {
     const { config } = this.props;
-    const str = JSON.stringify(config, null, '  ');
+    // const str = JSON.stringify(config, null, '  ');
 
     return(
       <div>
         <h4>Settings</h4>
-        <p>{str}</p>
+        // <p>{str}</p>
       </div>
     );
   }
@@ -17,7 +17,7 @@ class SettingsContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    config: state.config.toJS()
+    config: state.config
   };
 }
 

@@ -1,5 +1,6 @@
 import Episode from './Episode';
 import Immutable from 'immutable';
+import moment from 'moment';
 
 const Podcast = function () { };
 
@@ -18,7 +19,7 @@ Podcast.fromRss = function (id, feedUrl, rssDetail) {
     episodes: rssDetail.item.map((item) => {
       return Episode.fromRss(item);
     }),
-    lastUpdated: new Date()
+    lastUpdated: moment().utc().valueOf()
   };
 };
 
