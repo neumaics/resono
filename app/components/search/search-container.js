@@ -7,12 +7,16 @@ import SearchInput from './search-input';
 
 class SearchContainer extends React.Component {
   render() {
-    const { results, subscriptions, onSearchClick, onSubscribeClick, onUnsubscribeClick } = this.props;
+    const { results, query, subscriptions, onSearchClick, onSubscribeClick, onUnsubscribeClick } = this.props;
 
     return (
       <div className="search-container">
-        <SearchInput onSearchClick={onSearchClick} />
-        <SearchList podcasts={results} subscriptions={subscriptions} onSubscribeClick={onSubscribeClick} onUnsubscribeClick={onUnsubscribeClick} />
+        <SearchInput onSearchClick={onSearchClick} query={query} />
+        <SearchList
+          podcasts={results}
+          subscriptions={subscriptions}
+          onSubscribeClick={onSubscribeClick}
+          onUnsubscribeClick={onUnsubscribeClick} />
       </div>
     );
   }
@@ -20,11 +24,10 @@ class SearchContainer extends React.Component {
 
 function mapStateToProps(state) {
   const results = state.search.results;
-  const query = state.search.query;
   const subscriptions = state.subscriptions.keySeq().toJS();
 
   return {
-    query,
+    query: state.search.query,
     results: results === undefined ? [] : results.toJS(),
     subscriptions: subscriptions
   };

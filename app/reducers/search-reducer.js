@@ -1,5 +1,4 @@
 import {
-  SEARCH_PODCASTS,
   PODCASTS_REQUEST,
   PODCASTS_RECEIVE,
   PODCASTS_FAILURE
@@ -9,7 +8,7 @@ import Immutable from 'immutable';
 
 export function query(state = '', action) {
   switch (action.type) {
-    case SEARCH_PODCASTS: {
+    case PODCASTS_REQUEST: {
       return action.query;
     }
     default: {

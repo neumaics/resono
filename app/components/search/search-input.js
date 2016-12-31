@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
+  query: PropTypes.string,
   onSearchClick: PropTypes.func.isRequired
 };
 
@@ -21,7 +22,7 @@ export default class SearchInput extends React.Component {
   }
 
   render() {
-    const { onSearchClick } = this.props;
+    const { onSearchClick, query } = this.props;
 
     return (
       <form className="search-input" onSubmit={(event) => {this.onSubmit(event, onSearchClick);}}>
@@ -30,7 +31,8 @@ export default class SearchInput extends React.Component {
             className="form-control"
             ref={(node) => { this.input = node; }}
             type="text"
-            placeholder="Search podcasts..." />
+            placeholder="Search podcasts..."
+            defaultValue={query} />
           <span className="input-group-btn">
             <button className="btn btn-secondary"
               type="button"
