@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync } from 'jsonfile';
 import reducers from './reducers';
 
 const reducer = storage.reducer(reducers);
-const engine = filter(createEngine('my-save-key'), ['player', ['search', ['query']]]);
+const engine = filter(createEngine('podcast-player'), ['player', ['search', ['query']]], [['player', 'status']]);
 
 const middleware = [
   thunkMiddleware,
