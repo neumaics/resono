@@ -8,7 +8,8 @@ import {
   UPDATE_REQUEST,
   UPDATE_COMPLETE,
   UPDATE_ERROR,
-  SUBSCRIPTIONS_LOADED
+  SUBSCRIPTIONS_LOADED,
+  CHANGE_SORT_ORDER
 } from './types';
 import Podcast from '../models/Podcast';
 import axios from 'axios';
@@ -136,4 +137,11 @@ function fetchRss(feedUrl) {
       const data = parser.toJson(response.data, { object: true });
       return data.rss.channel;
     });
+}
+
+export function changeSortOrder(sortOrder) {
+  return {
+    type: CHANGE_SORT_ORDER,
+    order: sortOrder
+  };
 }

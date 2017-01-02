@@ -4,7 +4,8 @@ import {
   SUBSCRIBE,
   UNSUBSCRIBE,
   UPDATE_COMPLETE,
-  SUBSCRIPTIONS_LOADED
+  SUBSCRIPTIONS_LOADED,
+  CHANGE_SORT_ORDER
 } from '../actions/types';
 import Immutable from 'immutable';
 
@@ -25,11 +26,24 @@ export function subscriptions(state = initialState, action) {
       return state.set(action.podcast.get('id').toString(), action.podcast);
     }
     case UPDATE_COMPLETE: {
-      const updated = Immutable.Map().set(action.podcast.get('id'), action.podcast);
+      const id = action.podcast.get('id').toString();
+      const updated = Immutable.Map().set(id, action.podcast);
+
       return state.mergeDeep(updated);
     }
     case UNSUBSCRIBE: {
       return state.delete(action.id.toString());
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export function playlist(state = initialState, action) {
+  switch(action.type) {
+    case CHANGE_SORT_ORDER: {
+      return state.set('order', action.order);
     }
     default: {
       return state;

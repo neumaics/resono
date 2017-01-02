@@ -16,6 +16,7 @@ const defaultSkipBackwardDuration = 10000;
 
 class PlayerContainer extends React.Component {
   constructor(props) {
+    // TODO: move state to store.
     super(props);
     this.state = {
       position: 0,
@@ -32,7 +33,9 @@ class PlayerContainer extends React.Component {
   }
 
   componentDidMount () {
-    soundManager.setup({debugMode: false});
+    // This is defined and attached by the <Sound ... /> element, therefore...
+    // eslint-disable-next-line no-undef
+    soundManager.setup({ debugMode: false });
   }
 
   whileLoading(event) {
@@ -50,17 +53,22 @@ class PlayerContainer extends React.Component {
   }
 
   onChangePosition(newPosition) {
-    this.setState({ position: newPosition });
+    const url = this.props.url;
+    if (url !== '/') {
+      this.setState({ position: newPosition });
+    }
   }
 
   skipBack(skipBackwardDuration) {
-    const newPosition = this.state.position - skipBackwardDuration;
+    return () => {
+      const newPosition = this.state.position - skipBackwardDuration;
 
-    if (newPosition >= 0.0) {
-      this.setState({ position: newPosition });
-    } else {
-      this.setState({ position: 0.0 });
-    }
+      if (newPosition >= 0.0) {
+        this.setState({ position: newPosition });
+      } else {
+        this.setState({ position: 0.0 });
+      }
+    };
   }
 
   skipForward(skipForwardDuration) {
@@ -100,7 +108,7 @@ class PlayerContainer extends React.Component {
             bytesTotal={this.state.bytesTotal}
             onPositionChange={this.onChangePosition} />
         </div>
-        <button onClick={() => this.skipForward(skipBackwardDuration)} className="btn btn-outline-info borderless">
+        <button onClick={() => this.skipForward(skipForwardDuration)} className="btn btn-outline-info borderless">
           <i className="fa fa-angle-double-right" aria-hidden="true"></i>
         </button>
         <Sound

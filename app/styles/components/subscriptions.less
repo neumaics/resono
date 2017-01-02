@@ -1,0 +1,38 @@
+.subscriptions-container {
+  // ul {
+  //   padding: 0;
+  // }
+
+  .episode-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+
+    .status-tag {
+      border-left-style: solid;
+      border-left-width: 7px;
+      padding-left: 8px;
+    }
+
+    .status-default {
+      border-color: #777;
+    }
+
+    .status-new {
+      border-color: blue;
+    }
+
+    .episode-item {
+      border-radius: 0.25rem;
+      background-color: white;
+      font-size: 0.9em;
+      margin-bottom: 8px;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -25,6 +25,13 @@ export const SUBSCRIBE_FAILURE = 'SUBSCRIBE_ERROR';
 export const UNSUBSCRIBE_FAILURE = 'SUBSCRIBE_FAILURE';
 export const SUBSCRIPTIONS_LOADED = 'SUBSCRIPTIONS_LOADED';
 
+export const orderTypes = {
+  ASCENDING: 'asc',
+  DESCENDING: 'desc'
+};
+
+export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER';
+
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const UPDATE_COMPLETE = 'UPDATE_COMPLETE';
 export const UPDATE_ERROR = 'UPDATE_ERROR';

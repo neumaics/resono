@@ -13,7 +13,16 @@ import { readFileSync, writeFileSync } from 'jsonfile';
 import reducers from './reducers';
 
 const reducer = storage.reducer(reducers);
-const engine = filter(createEngine('podcast-player'), ['player', ['search', ['query']]], [['player', 'status']]);
+const whitelist = [
+  'player',
+  'playlist',
+  ['search', ['query']]
+];
+const blacklist = [
+  ['player', 'status']
+];
+
+const engine = filter(createEngine('podcast-player'), whitelist, blacklist);
 
 const middleware = [
   thunkMiddleware,
@@ -23,9 +32,10 @@ const middleware = [
 ];
 
 const store = createStore(reducer, applyMiddleware(...middleware));
-export default store;
 
 const load = storage.createLoader(engine);
 load(store)
   .then((newState) => console.log('Loaded state:', newState))
   .catch(() => console.log('Failed to load previous state'));
+
+export default store;
