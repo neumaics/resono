@@ -7,9 +7,12 @@ class SettingsContainer extends React.Component {
     // const str = JSON.stringify(config, null, '  ');
 
     return(
-      <div>
-        <h4>Settings</h4>
-        // <p>{str}</p>
+      <div className="settings-container">
+        <div className="menu">
+          <ul>
+            <li><a href="#">Player</a></li>
+          </ul>
+        </div>
       </div>
     );
   }

@@ -5,7 +5,7 @@ export default class Menu extends React.Component {
   render() {
     //TODO: Make this dynamic.
     return (
-      <div className="menu-container">
+      <div className="menu">
         <ul>
           <li><Link to={'/podcast'} activeClassName="active"><i className="fa fa-search" aria-hidden="true"></i></Link></li>
           <li><Link to={'/subscriptions'} activeClassName="active"><i className="fa fa-inbox" aria-hidden="true"></i></Link></li>
