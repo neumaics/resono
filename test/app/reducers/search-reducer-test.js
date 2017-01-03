@@ -9,16 +9,6 @@ describe('search reducer', () => {
       expect(reducers.query(undefined, {})).toEqual('');
     });
 
-    it('should handle the SEARCH_PODCASTS action', () => {
-      const query = 'testing 123';
-      const action = {
-        type: actions.SEARCH_PODCASTS,
-        query: query
-      };
-
-      expect(reducers.query('', action)).toEqual(query);
-    });
-
     it('should return the previous state for any other action', () => {
       const currentState = 'sparkles';
       const action = {

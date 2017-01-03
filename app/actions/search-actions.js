@@ -1,17 +1,9 @@
 import {
-  SEARCH_PODCASTS,
   PODCASTS_REQUEST,
   PODCASTS_RECEIVE,
   PODCASTS_FAILURE
 } from './types';
 import axios from 'axios';
-
-export function searchPodcasts(query) {
-  return {
-    type: SEARCH_PODCASTS,
-    query: query
-  };
-}
 
 export function podcastsRequest(query) {
   return {

@@ -12,18 +12,6 @@ const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
 describe('search actions', () => {
-  describe('searchPodcasts', () => {
-    it('should provide an action for searching for podcasts', () => {
-      const query = 'freq eq';
-      const expectedAction = {
-        type: types.SEARCH_PODCASTS,
-        query: query
-      };
-
-      expect(actions.searchPodcasts(query)).toEqual(expectedAction);
-    });
-  });
-
   describe('podcastsRequest', () => {
     it('should create an action for initiating podcast queries', () => {
       const query = 'this am';
