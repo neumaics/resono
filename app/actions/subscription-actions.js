@@ -13,7 +13,9 @@ import {
 } from './types';
 import Podcast from '../models/Podcast';
 import axios from 'axios';
-import parser from 'xml2json';
+import { Parser } from 'xml2js';
+
+const parser = new Parser({ explicitArray : false });
 
 export function subscriptionsLoaded(subscriptions) {
   return {
@@ -134,8 +136,15 @@ export function rssRequestFailure(feedUrl, error) {
 function fetchRss(feedUrl) {
   return axios.get(feedUrl)
     .then((response) => {
-      const data = parser.toJson(response.data, { object: true });
-      return data.rss.channel;
+      return new Promise((resolve, reject) => {
+        parser.parseString(response.data, (err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      });
+    })
+    .then((data) => {
+       return data.rss.channel;
     });
 }
 
