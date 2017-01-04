@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-  title: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
   podcastId: PropTypes.number.isRequired,
   onSubscribeClick: PropTypes.func,
   onUnsubscribeClick: PropTypes.func,

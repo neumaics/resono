@@ -18,7 +18,7 @@ export default class SearchList extends React.Component {
 
       return <PodcastItem
         title={item.title}
-        key={index}
+        key={item.id}
         podcastId={item.id}
         item={item.item}
         isSubbed={isSubbed}
