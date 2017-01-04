@@ -8,5 +8,6 @@ describe('<Menu />', () => {
   it('should render', () => {
     const wrapper = shallow(<Menu />);
 
+    expect(wrapper.find('.menu').length).toEqual(1);
   });
 });
