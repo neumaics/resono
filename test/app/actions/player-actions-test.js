@@ -36,4 +36,15 @@ describe('player actions', () => {
       expect(actions.pausePodcast()).toEqual(expectedAction);
     });
   });
+
+  describe('stopPodcast', () => {
+    it('should create an action to stop playing', () => {
+      const expectedAction = {
+        type: types.STOP_PODCAST,
+        status: types.statusTypes.STOPPED
+      };
+
+      expect(actions.stopPodcast()).toEqual(expectedAction);
+    });
+  });
 });

@@ -22,7 +22,7 @@ export default class EpisodeList extends React.Component {
       const podcast = episode.get('podcast');
 
       return <EpisodeItem key={id} podcastName={podcast} episode={episode} onClick={onClick} />;
-    });
+    }).toJS();
 
     return (
       <ul className="episode-list">
