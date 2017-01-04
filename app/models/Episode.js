@@ -9,7 +9,7 @@ Episode.fromRss = function(rssItem) {
     title: rssItem.title,
     description: rssItem.description,
     pubDate: moment(rssItem.pubDate, "ddd, DD MMM YYYY HH:mm:ss ZZ").utc().valueOf(),
-    url: rssItem.enclosure.url,
+    url: rssItem.enclosure.$.url,
     listened: false,
     removed: false
   };
