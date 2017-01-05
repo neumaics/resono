@@ -10,7 +10,6 @@ import {
   statusTypes
 } from '../actions/types';
 import { combineReducers } from 'redux';
-import Immutable from 'immutable';
 
 function status(state = statusTypes.STOPPED, action) {
   switch (action.type) {
@@ -47,7 +46,10 @@ function currentPodcast(state = '/', action) {
 function position(state = 0.0, action) {
   switch (action.type) {
     case CHANGE_POSITION: {
-      return action.position
+      return action.position;
+    }
+    case CHANGE_PODCAST: {
+      return 0.0;
     }
     default: {
       return state;
@@ -60,6 +62,9 @@ function length(state = 1.0, action) {
     case CHANGE_LENGTH: {
       return action.length;
     }
+    case CHANGE_PODCAST: {
+      return 1.0;
+    }
     default: {
       return state;
     }
@@ -71,6 +76,9 @@ function bytesTotal(state = 1.0, action) {
     case CHANGE_BYTES_TOTAL: {
       return action.bytesTotal ? action.bytesTotal : state;
     }
+    case CHANGE_PODCAST: {
+      return 1.0;
+    }
     default: {
       return state;
     }
@@ -80,6 +88,9 @@ function bytesLoaded(state = 0.0, action) {
   switch (action.type) {
     case CHANGE_BYTES_LOADED: {
       return action.bytesLoaded ? action.bytesLoaded : state;
+    }
+    case CHANGE_PODCAST: {
+      return 0.0;
     }
     default: {
       return state;

@@ -1,7 +1,6 @@
-import expect from 'expect'
-import * as reducers from '../../../app/reducers/player-reducer'
-import * as actions from '../../../app/actions/types'
-import Immutable from 'immutable'
+import expect from 'expect';
+import * as reducers from '../../../app/reducers/player-reducer';
+import * as actions from '../../../app/actions/types';
 
 describe('player reducer', () => {
   describe('status', () => {
@@ -95,6 +94,44 @@ describe('player reducer', () => {
       const actual = reducers.player(currentState, action).currentPodcast;
 
       expect(actual).toEqual(currentState.currentPodcast);
+    });
+  });
+
+  describe('position', () => {
+    it('should return an initial state at the begining', () => {
+      expect(reducers.player(undefined, {}).position).toEqual(0);
+    });
+
+    it('should handle the CHANGE_POSITION action', () => {
+      const newPosition = 0.4;
+      const action = {
+        type: actions.CHANGE_POSITION,
+        position: newPosition
+      };
+
+      const actual = reducers.player(undefined, action).position;
+      expect(actual).toEqual(newPosition);
+    });
+
+    it('should handle the CHANGE_PODCAST action by resetting state', () => {
+      const url = 'www.feed.rss/podcast.mp3';
+      const action = {
+        type: actions.CHANGE_PODCAST,
+        url: url
+      };
+
+      const actual = reducers.player(0.4, action).position;
+      expect(actual).toEqual(0.0);
+    });
+
+    it('should return the previous state for any other action', () => {
+      const action = {
+        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
+      };
+      const currentState = 0.6;
+
+      const actual = reducers.player(currentState, action).position;
+      expect(actual).toEqual(currentState);
     });
   });
 });
