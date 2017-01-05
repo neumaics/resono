@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { playPodcast, pausePodcast } from '../../actions/player-actions';
+import * as actions from '../../actions/player-actions';
 import { statusTypes } from '../../actions/types';
 import ProgressBar from './progress-bar';
 import Sound from 'react-sound';
@@ -19,8 +19,6 @@ class PlayerContainer extends React.Component {
     // TODO: move state to store.
     super(props);
     this.state = {
-      position: 0,
-      duration: 1,
       bytesLoaded: 0,
       bytesTotal: 1
     };
@@ -39,50 +37,47 @@ class PlayerContainer extends React.Component {
   }
 
   whileLoading(event) {
-    this.setState({
-      bytesLoaded: event.bytesLoaded,
-      bytesTotal: event.bytesTotal
-    });
+    this.props.changeBytesTotal(event.bytesTotal);
+    this.props.changeBytesLoaded(event.bytesLoaded);
   }
 
   whilePlaying(event) {
-    this.setState({
-      position: event.position,
-      duration: event.duration
-    });
+    this.props.changePosition(event.position);
+    this.props.changeLength(event.duration);
   }
 
   onChangePosition(newPosition) {
     const url = this.props.url;
     if (url !== '/') {
-      this.setState({ position: newPosition });
+      this.props.changePosition(newPosition);
     }
   }
 
   skipBack(skipBackwardDuration) {
     return () => {
-      const newPosition = this.state.position - skipBackwardDuration;
+      const newPosition = this.props.position - skipBackwardDuration;
 
       if (newPosition >= 0.0) {
-        this.setState({ position: newPosition });
+        this.props.changePosition(newPosition);
       } else {
-        this.setState({ position: 0.0 });
+        this.props.changePosition(0.0);
       }
     };
   }
 
   skipForward(skipForwardDuration) {
-    const newPosition = this.state.position + skipForwardDuration;
+    const newPosition = this.props.position + skipForwardDuration;
 
-    if (newPosition < this.state.duration) {
-      this.setState({ position: newPosition });
+    if (newPosition < this.props.duration) {
+      this.props.changePosition(newPosition);
     } else {
-      this.setState({ position: this.state.duration });
+      this.props.changePosition(this.props.duration);
     }
   }
 
   render() {
     const { url, status, play, pause, config } = this.props;
+    const { bytesLoaded, bytesTotal, length, position } = this.props;
     const skipForwardDuration = config.skipForwardDuration || defaultSkipForwardDuration;
     const skipBackwardDuration = config.skipBackwardDuration || defaultSkipBackwardDuration;
 
@@ -102,10 +97,10 @@ class PlayerContainer extends React.Component {
         </button>
         <div style={{width: '60%'}}>
           <ProgressBar
-            duration={this.state.duration}
-            position={this.state.position}
-            bytesLoaded={this.state.bytesLoaded}
-            bytesTotal={this.state.bytesTotal}
+            duration={length}
+            position={position}
+            bytesLoaded={bytesLoaded}
+            bytesTotal={bytesTotal}
             onPositionChange={this.onChangePosition} />
         </div>
         <button onClick={() => this.skipForward(skipForwardDuration)} className="btn btn-outline-info borderless">
@@ -114,7 +109,7 @@ class PlayerContainer extends React.Component {
         <Sound
           url={url}
           playStatus={statusMap[status]}
-          position={this.state.position}
+          position={position}
           onLoading={this.whileLoading}
           onPlaying={this.whilePlaying} />
       </div>
@@ -126,14 +121,22 @@ const mapStateToProps = (state) => {
   return {
     url: state.player.currentPodcast,
     status: state.player.status,
-    config: state.config.get('player').toJS()
+    config: state.config.get('player').toJS(),
+    position: state.player.position,
+    length: state.player.length,
+    bytesTotal: state.player.bytesTotal,
+    bytesLoaded: state.player.bytesLoaded
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    play: () => { dispatch(playPodcast()); },
-    pause: () => { dispatch(pausePodcast()); }
+    play: () => { dispatch(actions.playPodcast()); },
+    pause: () => { dispatch(actions.pausePodcast()); },
+    changePosition: (position) => { dispatch(actions.changePosition(position)); },
+    changeLength: (length) => { dispatch(actions.changeLength(length)); },
+    changeBytesTotal: (bytesTotal) => { dispatch(actions.changeBytesTotal(bytesTotal)); },
+    changeBytesLoaded: (bytesLoaded) => { dispatch(actions.changeBytesLoaded(bytesLoaded)); }
   };
 };
 
