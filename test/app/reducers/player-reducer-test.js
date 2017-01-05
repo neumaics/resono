@@ -1,6 +1,7 @@
 import expect from 'expect';
 import * as reducers from '../../../app/reducers/player-reducer';
 import * as actions from '../../../app/actions/types';
+import Immutable from 'immutable';
 
 describe('player reducer', () => {
   describe('status', () => {
@@ -98,6 +99,15 @@ describe('player reducer', () => {
   });
 
   describe('position', () => {
+    const initialState = Immutable.Map({
+      status: actions.statusTypes.STOPPED,
+      currentPodcast: 'www.feed.rss/1/pocast.mp3',
+      position: 2.0,
+      length: 4.0,
+      bytesTotal: 1.0,
+      bytesLoaded: 0.5
+    });
+
     it('should return an initial state at the begining', () => {
       expect(reducers.player(undefined, {}).position).toEqual(0);
     });
@@ -109,7 +119,7 @@ describe('player reducer', () => {
         position: newPosition
       };
 
-      const actual = reducers.player(undefined, action).position;
+      const actual = reducers.player(initialState.toJS(), action).position;
       expect(actual).toEqual(newPosition);
     });
 
@@ -120,7 +130,9 @@ describe('player reducer', () => {
         url: url
       };
 
-      const actual = reducers.player(0.4, action).position;
+      const currentState = initialState.set('position', 0.4).toJS();
+      const actual = reducers.player(currentState, action).position;
+
       expect(actual).toEqual(0.0);
     });
 
@@ -128,10 +140,11 @@ describe('player reducer', () => {
       const action = {
         type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
       };
-      const currentState = 0.6;
 
+      const currentState = initialState.set('position', 0.6).toJS();
       const actual = reducers.player(currentState, action).position;
-      expect(actual).toEqual(currentState);
+
+      expect(actual).toEqual(currentState.position);
     });
   });
 });
