@@ -10,6 +10,10 @@ export const CHANGE_PODCAST = 'CHANGE_PODCAST';
 export const PLAY_PODCAST = 'PLAY_PODCAST';
 export const PAUSE_PODCAST = 'PAUSE_PODCAST';
 export const STOP_PODCAST = 'STOP_PODCAST';
+export const CHANGE_POSITION = 'CHANGE_POSITION';
+export const CHANGE_LENGTH = 'CHANGE_LENGTH';
+export const CHANGE_BYTES_LOADED = 'CHANGE_BYTES_LOADED';
+export const CHANGE_BYTES_TOTAL = 'CHANGE_BYTES_TOTAL';
 
 export const statusTypes = {
   PLAYING: 'PLAYING',

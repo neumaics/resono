@@ -47,4 +47,52 @@ describe('player actions', () => {
       expect(actions.stopPodcast()).toEqual(expectedAction);
     });
   });
+
+  describe('changePosition', () => {
+    it('should create an action to change the currently playing position', () => {
+      const newPosition = 0.4;
+      const expectedAction = {
+        type: types.CHANGE_POSITION,
+        position: newPosition
+      };
+
+      expect(actions.changePosition(newPosition)).toEqual(expectedAction);
+    });
+  });
+
+  describe('changeLength', () => {
+    it('should create an action to change the length of the playing episode', () => {
+      const newLength = 4.0;
+      const expectedAction = {
+        type: types.CHANGE_LENGTH,
+        length: newLength
+      };
+
+      expect(actions.changeLength(newLength)).toEqual(expectedAction);
+    });
+  });
+
+  describe('changeBytesTotal', () => {
+    it('should create an action that changes the size of the playing episode', () => {
+      const newSize = 3.0;
+      const expectedAction = {
+        type: types.CHANGE_BYTES_TOTAL,
+        bytesTotal: newSize
+      };
+
+      expect(actions.changeBytesTotal(newSize)).toEqual(expectedAction);
+    });
+  });
+
+  describe('changeBytesLoaded', () => {
+    it('should create an action that changes the size of the playing episode', () => {
+      const newSize = 1.0;
+      const expectedAction = {
+        type: types.CHANGE_BYTES_LOADED,
+        bytesLoaded: newSize
+      };
+
+      expect(actions.changeBytesLoaded(newSize)).toEqual(expectedAction);
+    });
+  });
 });
