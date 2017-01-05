@@ -7,6 +7,7 @@ import Layout from './components/layout';
 import SearchContainer from './components/search/search-container';
 import SubscriptionsContainer from './components/subscriptions/subscriptions-container';
 import SettingsContainer from './components/settings/settings-container';
+import PlayerSettings from './components/settings/player-settings';
 
 import store from './store';
 const root = document.getElementById('app');
@@ -18,7 +19,10 @@ ReactDom.render(
         <IndexRoute component={SearchContainer} />
         <Route path="podcast" component={SearchContainer} />
         <Route path="subscriptions" component={SubscriptionsContainer} />
-        <Route path="settings" component={SettingsContainer} />
+        <Route path="settings" component={SettingsContainer}>
+          <IndexRoute component={PlayerSettings} />
+          <Route path="player" component={PlayerSettings} />
+        </Route>
       </Route>
     </Router>
   </Provider>, root);

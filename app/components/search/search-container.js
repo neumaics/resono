@@ -10,7 +10,7 @@ class SearchContainer extends React.Component {
     const { results, query, subscriptions, onSearchClick, onSubscribeClick, onUnsubscribeClick } = this.props;
 
     return (
-      <div className="search-container">
+      <div className="search-container component-container">
         <SearchInput onSearchClick={onSearchClick} query={query} />
         <SearchList
           podcasts={results}

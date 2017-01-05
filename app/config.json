@@ -4,6 +4,7 @@
   },
   "player": {
     "skipForwardDuration": 10000,
-    "skipBackwardDuration": 10000
-  }
+    "skipBackwardDuration": "10000"
+  },
+  "isLoaded": true
 }

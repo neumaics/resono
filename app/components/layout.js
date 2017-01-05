@@ -7,7 +7,7 @@ export default class Layout extends React.Component {
     return (
       <div>
         <Menu />
-        <div className="container main-container">
+        <div className="main-container">
           {this.props.children}
         </div>
         <PlayerContainer />

@@ -44,8 +44,7 @@ class SubscriptionsContainer extends React.Component {
       .reduce((a, b) => { return b.get('listened') ? a : a + 1; }, 0);
 
     return(
-      <div className="subscriptions-container">
-        <h4>Subscriptions <span className="tag tag-default">{numEpisodes}</span></h4>
+      <div className="subscriptions-container component-container">
         <button
           className="btn btn-primary btn-sm"
           onClick={() => this.updateAll(ids)}>

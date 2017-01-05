@@ -26,7 +26,7 @@ const engine = filter(createEngine('podcast-player'), whitelist, blacklist);
 
 const middleware = [
   thunkMiddleware,
-  createConfigMiddleware(readFileSync, watchFile, { path: './app/config.json' }),
+  createConfigMiddleware(readFileSync, writeFileSync, watchFile, { path: './app/config.json' }),
   createFileMiddleware(readFileSync, writeFileSync, { path: './app/subscriptions.json' }),
   storage.createMiddleware(engine)
 ];
