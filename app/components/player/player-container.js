@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/player-actions';
 import { statusTypes } from '../../actions/types';
 import ProgressBar from './progress-bar';
+import Time from './time';
 import Sound from 'react-sound';
 
 const statusMap = {
@@ -16,18 +17,16 @@ const defaultSkipBackwardDuration = 10000;
 
 class PlayerContainer extends React.Component {
   constructor(props) {
-    // TODO: move state to store.
     super(props);
-    this.state = {
-      bytesLoaded: 0,
-      bytesTotal: 1
-    };
 
-    this.skipBack = this.skipBack.bind(this);
-    this.skipForward = this.skipForward.bind(this);
+    const { skipForwardDuration, skipBackwardDuration } = this.props.config;
+
+    this.skipBack = this.skipBack(skipBackwardDuration || defaultSkipBackwardDuration).bind(this);
+    this.skipForward = this.skipForward(skipForwardDuration || defaultSkipForwardDuration).bind(this);
     this.onChangePosition = this.onChangePosition.bind(this);
     this.whileLoading = this.whileLoading.bind(this);
     this.whilePlaying = this.whilePlaying.bind(this);
+    this.onFinishedPlaying = this.onFinishedPlaying.bind(this);
   }
 
   componentDidMount () {
@@ -46,9 +45,12 @@ class PlayerContainer extends React.Component {
     this.props.changeLength(event.duration);
   }
 
+  onFinishedPlaying(event) {
+    this.props.pause();
+  }
+
   onChangePosition(newPosition) {
-    const url = this.props.url;
-    if (url !== '/') {
+    if (this.props.url !== '/') {
       this.props.changePosition(newPosition);
     }
   }
@@ -66,33 +68,34 @@ class PlayerContainer extends React.Component {
   }
 
   skipForward(skipForwardDuration) {
-    const newPosition = this.props.position + skipForwardDuration;
+    return () => {
+      const newPosition = this.props.position + skipForwardDuration;
 
-    if (newPosition < this.props.duration) {
-      this.props.changePosition(newPosition);
-    } else {
-      this.props.changePosition(this.props.duration);
-    }
+      if (newPosition < this.props.length) {
+        this.props.changePosition(newPosition);
+      } else {
+        this.props.changePosition(this.props.length);
+      }
+    };
   }
 
   render() {
     const { url, status, play, pause, config } = this.props;
     const { bytesLoaded, bytesTotal, length, position } = this.props;
-    const skipForwardDuration = config.skipForwardDuration || defaultSkipForwardDuration;
-    const skipBackwardDuration = config.skipBackwardDuration || defaultSkipBackwardDuration;
 
     const playing = status === statusTypes.PLAYING;
     const icon = playing ? 'fa-pause' : 'fa-play';
     const clickAction = playing ? pause : play;
     const mediaSelected = url !== '/';
     const buttonClass = mediaSelected ? 'btn-outline-primary' : 'btn-outline-secondary';
-
+        // <Time length={position} />
     return (
       <div className="player">
         <button onClick={clickAction} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
           <i className={`fa ${icon}`} aria-hidden="true"></i>
         </button>
-        <button onClick={() => this.skipBack(skipBackwardDuration)} className="btn btn-outline-info borderless">
+
+        <button onClick={this.skipBack} className="btn btn-outline-info borderless">
           <i className="fa fa-angle-double-left" aria-hidden="true"></i>
         </button>
         <div style={{width: '60%'}}>
@@ -103,15 +106,17 @@ class PlayerContainer extends React.Component {
             bytesTotal={bytesTotal}
             onPositionChange={this.onChangePosition} />
         </div>
-        <button onClick={() => this.skipForward(skipForwardDuration)} className="btn btn-outline-info borderless">
+        <button onClick={this.skipForward} className="btn btn-outline-info borderless">
           <i className="fa fa-angle-double-right" aria-hidden="true"></i>
         </button>
+        <Time length={position} totalLength={length} fromEnd={true} />
         <Sound
           url={url}
           playStatus={statusMap[status]}
           position={position}
           onLoading={this.whileLoading}
-          onPlaying={this.whilePlaying} />
+          onPlaying={this.whilePlaying}
+          onFinishedPlaying={this.onFinishedPlaying} />
       </div>
     );
   }

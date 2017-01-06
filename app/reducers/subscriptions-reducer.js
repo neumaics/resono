@@ -9,7 +9,7 @@ import {
 } from '../actions/types';
 import Immutable from 'immutable';
 
-const initialState = Immutable.Map();
+const initialState = Immutable.OrderedMap();
 
 export function subscriptions(state = initialState, action) {
   switch (action.type) {
