@@ -4,6 +4,7 @@ import * as actions from '../../actions/player-actions';
 import { statusTypes } from '../../actions/types';
 import ProgressBar from './progress-bar';
 import Time from './time';
+import Volume from './volume';
 import Sound from 'react-sound';
 
 const statusMap = {
@@ -82,19 +83,22 @@ class PlayerContainer extends React.Component {
   render() {
     const { url, status, play, pause, config } = this.props;
     const { bytesLoaded, bytesTotal, length, position } = this.props;
+    const { changeVolume } = this.props;
+    const volume = parseFloat(this.props.volume);
 
     const playing = status === statusTypes.PLAYING;
     const icon = playing ? 'fa-pause' : 'fa-play';
     const clickAction = playing ? pause : play;
     const mediaSelected = url !== '/';
     const buttonClass = mediaSelected ? 'btn-outline-primary' : 'btn-outline-secondary';
-        // <Time length={position} />
+
     return (
       <div className="player">
         <button onClick={clickAction} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
           <i className={`fa ${icon}`} aria-hidden="true"></i>
         </button>
 
+        <Volume volume={volume} onVolumeChange={changeVolume} />
         <button onClick={this.skipBack} className="btn btn-outline-info borderless">
           <i className="fa fa-angle-double-left" aria-hidden="true"></i>
         </button>
@@ -116,7 +120,8 @@ class PlayerContainer extends React.Component {
           position={position}
           onLoading={this.whileLoading}
           onPlaying={this.whilePlaying}
-          onFinishedPlaying={this.onFinishedPlaying} />
+          onFinishedPlaying={this.onFinishedPlaying}
+          volume={volume} />
       </div>
     );
   }
@@ -130,7 +135,8 @@ const mapStateToProps = (state) => {
     position: state.player.position,
     length: state.player.length,
     bytesTotal: state.player.bytesTotal,
-    bytesLoaded: state.player.bytesLoaded
+    bytesLoaded: state.player.bytesLoaded,
+    volume: state.player.volume
   };
 };
 
@@ -141,7 +147,8 @@ const mapDispatchToProps = (dispatch) => {
     changePosition: (position) => { dispatch(actions.changePosition(position)); },
     changeLength: (length) => { dispatch(actions.changeLength(length)); },
     changeBytesTotal: (bytesTotal) => { dispatch(actions.changeBytesTotal(bytesTotal)); },
-    changeBytesLoaded: (bytesLoaded) => { dispatch(actions.changeBytesLoaded(bytesLoaded)); }
+    changeBytesLoaded: (bytesLoaded) => { dispatch(actions.changeBytesLoaded(bytesLoaded)); },
+    changeVolume: (newVolume) => { dispatch(actions.changeVolume(newVolume)); }
   };
 };
 

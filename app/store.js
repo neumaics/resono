@@ -35,7 +35,7 @@ const store = createStore(reducer, applyMiddleware(...middleware));
 
 const load = storage.createLoader(engine);
 load(store)
-  .then((newState) => console.log('Loaded state:', newState))
-  .catch(() => console.log('Failed to load previous state'));
+  .then((newState) => console.info('Loaded state:', newState))
+  .catch(() => console.info('Failed to load previous state'));
 
 export default store;

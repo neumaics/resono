@@ -7,6 +7,7 @@ import {
   CHANGE_LENGTH,
   CHANGE_BYTES_TOTAL,
   CHANGE_BYTES_LOADED,
+  CHANGE_VOLUME,
   statusTypes
 } from '../actions/types';
 import { combineReducers } from 'redux';
@@ -84,6 +85,7 @@ function bytesTotal(state = 1.0, action) {
     }
   }
 }
+
 function bytesLoaded(state = 0.0, action) {
   switch (action.type) {
     case CHANGE_BYTES_LOADED: {
@@ -98,11 +100,23 @@ function bytesLoaded(state = 0.0, action) {
   }
 }
 
+function volume(state = 80, action) {
+  switch (action.type) {
+    case CHANGE_VOLUME: {
+      return action.volume;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 export const player = combineReducers({
   status,
   currentPodcast,
   position,
   length,
   bytesTotal,
-  bytesLoaded
+  bytesLoaded,
+  volume
 });

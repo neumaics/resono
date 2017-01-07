@@ -14,6 +14,7 @@ export const CHANGE_POSITION = 'CHANGE_POSITION';
 export const CHANGE_LENGTH = 'CHANGE_LENGTH';
 export const CHANGE_BYTES_LOADED = 'CHANGE_BYTES_LOADED';
 export const CHANGE_BYTES_TOTAL = 'CHANGE_BYTES_TOTAL';
+export const CHANGE_VOLUME = 'CHANGE_VOLUME';
 
 export const statusTypes = {
   PLAYING: 'PLAYING',

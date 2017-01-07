@@ -3,6 +3,15 @@ import * as reducers from '../../../app/reducers/player-reducer';
 import * as actions from '../../../app/actions/types';
 import Immutable from 'immutable';
 
+const initialState = Immutable.Map({
+  status: actions.statusTypes.STOPPED,
+  currentPodcast: 'www.feed.rss/1/pocast.mp3',
+  position: 2.0,
+  length: 4.0,
+  bytesTotal: 1.0,
+  bytesLoaded: 0.5
+});
+
 describe('player reducer', () => {
   describe('status', () => {
     it('should return an initial state', () => {
@@ -99,15 +108,6 @@ describe('player reducer', () => {
   });
 
   describe('position', () => {
-    const initialState = Immutable.Map({
-      status: actions.statusTypes.STOPPED,
-      currentPodcast: 'www.feed.rss/1/pocast.mp3',
-      position: 2.0,
-      length: 4.0,
-      bytesTotal: 1.0,
-      bytesLoaded: 0.5
-    });
-
     it('should return an initial state at the begining', () => {
       expect(reducers.player(undefined, {}).position).toEqual(0);
     });
@@ -145,6 +145,157 @@ describe('player reducer', () => {
       const actual = reducers.player(currentState, action).position;
 
       expect(actual).toEqual(currentState.position);
+    });
+  });
+
+  describe('length', () => {
+    it('should return an initial state', () => {
+      expect(reducers.player(undefined, {}).length).toEqual(1.0);
+    });
+
+    it('should handle the CHANGE_LENGTH action', () => {
+      const newLength = 4000.00;
+      const action = {
+        type: actions.CHANGE_LENGTH,
+        length: newLength
+      };
+
+      const actual = reducers.player(initialState.toJS(), action).length;
+      expect(actual).toEqual(newLength);
+    });
+
+    it('should handle the CHANGE_PODCAST action by resetting state', () => {
+      const url = 'www.feed.rss/podcast.mp3';
+      const action = {
+        type: actions.CHANGE_PODCAST,
+        url: url
+      };
+
+      const currentState = initialState.set('length', 10000.0).toJS();
+      const actual = reducers.player(currentState, action).length;
+
+      expect(actual).toEqual(1.0);
+    });
+
+    it('should return previous state for any other action', () => {
+      const action = {
+        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
+      };
+
+      const currentState = initialState.set('length', 2010.0).toJS();
+      const actual = reducers.player(currentState, action).length;
+
+      expect(actual).toEqual(currentState.length);
+    });
+  });
+
+  describe('bytesTotal', () => {
+    it('should return an initial state', () => {
+      expect(reducers.player(undefined, {}).bytesTotal).toEqual(1.0);
+    });
+
+    it('should handle the CHANGE_BYTES_TOTAL action', () => {
+      const newBytesTotal = 4000.00;
+      const action = {
+        type: actions.CHANGE_BYTES_TOTAL,
+        bytesTotal: newBytesTotal
+      };
+
+      const actual = reducers.player(initialState.toJS(), action).bytesTotal;
+      expect(actual).toEqual(newBytesTotal);
+    });
+
+    it('should handle the CHANGE_PODCAST action by resetting state', () => {
+      const url = 'www.feed.rss/podcast.mp3';
+      const action = {
+        type: actions.CHANGE_PODCAST,
+        url: url
+      };
+
+      const currentState = initialState.set('bytesTotal', 10030.0).toJS();
+      const actual = reducers.player(currentState, action).bytesTotal;
+
+      expect(actual).toEqual(1.0);
+    });
+
+    it('should return previous state for any other action', () => {
+      const action = {
+        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
+      };
+
+      const currentState = initialState.set('bytesTotal', 2017.0).toJS();
+      const actual = reducers.player(currentState, action).bytesTotal;
+
+      expect(actual).toEqual(currentState.bytesTotal);
+    });
+  });
+
+  describe('bytesLoaded', () => {
+    it('should return an initial state', () => {
+      expect(reducers.player(undefined, {}).bytesLoaded).toEqual(0.0);
+    });
+
+    it('should handle the CHANGE_BYTES_LOADED action', () => {
+      const newBytesLoaded = 3999.00;
+      const action = {
+        type: actions.CHANGE_BYTES_LOADED,
+        bytesLoaded: newBytesLoaded
+      };
+
+      const actual = reducers.player(initialState.toJS(), action).bytesLoaded;
+      expect(actual).toEqual(newBytesLoaded);
+    });
+
+    it('should handle the CHANGE_PODCAST action by resetting state', () => {
+      const url = 'www.feed.rss/podcast.mp3';
+      const action = {
+        type: actions.CHANGE_PODCAST,
+        url: url
+      };
+
+      const currentState = initialState.set('bytesLoaded', 3999.0).toJS();
+      const actual = reducers.player(currentState, action).bytesLoaded;
+
+      expect(actual).toEqual(0.0);
+    });
+
+    it('should return previous state for any other action', () => {
+      const action = {
+        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
+      };
+
+      const currentState = initialState.set('bytesLoaded', 2014.0).toJS();
+      const actual = reducers.player(currentState, action).bytesLoaded;
+
+      expect(actual).toEqual(currentState.bytesLoaded);
+    });
+  });
+
+  describe('volume', () => {
+    it('should return an initial state', () => {
+      expect(reducers.player(undefined, {}).volume).toEqual(80);
+    });
+
+    it('should handle the CHANGE_VOLUME action', () => {
+      const newVolume = 20.00;
+      const action = {
+        type: actions.CHANGE_VOLUME,
+        volume: newVolume
+      };
+
+      const actual = reducers.player(initialState.toJS(), action).volume;
+      expect(actual).toEqual(newVolume);
+    });
+
+    it('should return previous state for any other action', () => {
+      const action = {
+        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
+      };
+
+      const currentState = initialState.set('volume', 66.0).toJS();
+      const actual = reducers.player(currentState, action).volume;
+
+      expect(actual).toEqual(currentState.volume);
     });
   });
 });
