@@ -16,11 +16,17 @@ export default class SearchItem extends React.Component {
       expanded: false
     };
 
+    const { item, onSubscribeClick, onUnsubscribeClick } = this.props;
+
+    this.subscribeButton = this.subscribeButton(item, onSubscribeClick);
+    this.unsubscribeButton = this.unsubscribeButton(item, onUnsubscribeClick);
     this.onClick = this.onClick.bind(this);
   }
 
-  onClick() {
+  onClick(event) {
     // TODO: remove 'transient' state
+    event.preventDefault();
+    event.stopPropagation();
     this.setState({
       expanded: !this.state.expanded
     });
@@ -44,7 +50,7 @@ export default class SearchItem extends React.Component {
 
   render() {
     const { item, onSubscribeClick, isSubbed, onUnsubscribeClick } = this.props;
-    const subscribeButton = isSubbed ? this.unsubscribeButton(item, onUnsubscribeClick) : this.subscribeButton(item, onSubscribeClick);
+    const subscribeButton = isSubbed ? this.unsubscribeButton : this.subscribeButton;
     const cardClasses = ['podcast-card'];
     if (this.state.expanded) cardClasses.push('expanded');
 

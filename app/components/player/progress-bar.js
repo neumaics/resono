@@ -12,8 +12,10 @@ export default class ProgressBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onParentClick = this.onParentClick.bind(this);
-    this.onRibbonClick = this.onRibbonClick.bind(this);
+    const { onPositionChange } = this.props;
+
+    this.onParentClick = this.onParentClick(onPositionChange).bind(this);
+    this.onRibbonClick = this.onRibbonClick(onPositionChange).bind(this);
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
@@ -30,14 +32,18 @@ export default class ProgressBar extends React.Component {
     return newPosition;
   }
 
-  onParentClick(event, callback) {
-    event.stopPropagation();
-    callback(this.calculateNewPostion(event.clientX, this.props.duration, event.target));
+  onParentClick(onPositionChange) {
+    return (event) => {
+      event.stopPropagation();
+      onPositionChange(this.calculateNewPostion(event.clientX, this.props.duration, event.target));
+    }
   }
 
-  onRibbonClick(event, callback) {
-    event.stopPropagation();
-    callback(this.calculateNewPostion(event.clientX, this.props.duration, event.target.parentNode));
+  onRibbonClick(onPositionChange) {
+    return (event) => {
+      event.stopPropagation();
+      onPositionChange(this.calculateNewPostion(event.clientX, this.props.duration, event.target.parentNode));
+    }
   }
 
   onMouseDown(event) {
@@ -62,22 +68,22 @@ export default class ProgressBar extends React.Component {
   }
 
   render() {
-    const { duration, position, bytesLoaded, bytesTotal, onPositionChange } = this.props;
+    const { duration, position, bytesLoaded, bytesTotal } = this.props;
     const playProgress = ((position / duration) * 100).toFixed(2);
     const loadProgress = bytesTotal > 0 ? ((bytesLoaded / bytesTotal) * 100).toFixed(2) : 0;
 
     return (
       <div className="progress-bar-container"
-        onMouseUp={(e) => this.onParentClick(e, onPositionChange)}>
+        onMouseUp={this.onParentClick}>
 
         <div className="progress-bar-ribbon load-progress"
           style={{width: `${loadProgress}%`}}
-          onClick={(e) => this.onRibbonClick(e, onPositionChange)}>
+          onClick={this.onRibbonClick}>
         </div>
 
         <div className="progress-bar-ribbon play-progress"
           style={{width: `${playProgress}%`}}
-          onMouseUp={(e) => this.onRibbonClick(e, onPositionChange)}>
+          onMouseUp={this.onRibbonClick}>
 
           <div className="progress-bar-handle"
             onMouseUp={this.onMouseUp}

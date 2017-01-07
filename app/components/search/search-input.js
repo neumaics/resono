@@ -8,24 +8,28 @@ const propTypes = {
 export default class SearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+
+    const { onSearchClick } = this.props;
+    this.onSubmit = this.onSubmit(onSearchClick).bind(this);
   }
 
-  onSubmit(event, onSearchClick) {
-    event.preventDefault();
-    const value = this.input.value.trim();
-    if (!value) {
-      return;
-    }
+  onSubmit(onSearchClick) {
+    return (event) => {
+      event.preventDefault();
+      const value = this.input.value.trim();
+      if (!value) {
+        return;
+      }
 
-    onSearchClick(value);
+      onSearchClick(value);
+    }
   }
 
   render() {
-    const { onSearchClick, query } = this.props;
+    const { query } = this.props;
 
     return (
-      <form className="search-input" onSubmit={(event) => {this.onSubmit(event, onSearchClick);}}>
+      <form className="search-input" onSubmit={this.onSubmit}>
         <div className="input-group">
           <input
             className="form-control"
@@ -36,7 +40,7 @@ export default class SearchInput extends React.Component {
           <span className="input-group-btn">
             <button className="btn btn-secondary"
               type="button"
-              onClick={(event) => {this.onSubmit(event, onSearchClick);}}>
+              onClick={this.onSubmit}>
               <i className="fa fa-search" aria-hidden="true"></i>
             </button>
           </span>
