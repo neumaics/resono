@@ -4,12 +4,11 @@ import {
   UPDATE_COMPLETE
 } from '../actions/types';
 import { subscriptionsLoaded } from '../actions/subscription-actions';
-import _ from 'lodash';
 import Immutable from 'immutable';
 
-const subscriptionActions = [
+const subscriptionActions = Immutable.Set([
   SUBSCRIBE, UNSUBSCRIBE, UPDATE_COMPLETE
-];
+]);
 
 export default function createFileMiddleware(readFile, writeFile, options = {}) {
   const path = options.path || './app/subscriptions.json';
@@ -20,7 +19,7 @@ export default function createFileMiddleware(readFile, writeFile, options = {}) 
     return (next) => (action) => {
       const result = next(action);
 
-      if (_.includes(subscriptionActions, action.type)) {
+      if (subscriptionActions.has(action.type)) {
         const subscriptions = store.getState().subscriptions.toJS();
         writeFile(path, subscriptions, { spaces: 2 });
       }

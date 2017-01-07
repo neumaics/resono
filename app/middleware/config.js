@@ -1,25 +1,30 @@
+import { CONFIG_CHANGED } from '../actions/types';
 import { configChanged, configLoaded } from '../actions/config-actions';
+import Immutable from 'immutable';
 
-export default function createConfigMiddleware(readFile, watchFile, options = {}) {
+const configActions = Immutable.Set([CONFIG_CHANGED]);
+
+export default function createConfigMiddleware(readFile, writeFile, options = {}) {
   const path = options.path || './app/config.js';
 
   return (store) => {
-    setupConfig(readFile, watchFile, store, path);
+    connect(readFile, store, path);
 
     return (next) => (action) => {
-      return next(action);
+      const result = next(action);
+
+      if (configActions.has(action.type)) {
+        const config = store.getState().config.toJS();
+        writeFile(path, config, { spaces: 2 });
+      }
+
+      return result;
     };
   };
 }
 
-function setupConfig(readFile, watchFile, store, path) {
-  store.dispatch(configLoaded(readFile(path)));
+function connect(readFile, store, path) {
+  const contents = Immutable.fromJS(readFile(path));
 
-  watchFile(path, (eventType, fileName) => {
-    if (fileName) {
-      const contents = readFile(path);
-
-      store.dispatch(configChanged(contents));
-    }
-  });
+  store.dispatch(configLoaded(contents));
 }

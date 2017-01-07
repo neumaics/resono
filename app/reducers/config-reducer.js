@@ -1,7 +1,7 @@
 import { CONFIG_CHANGED, CONFIG_LOADED } from '../actions/types';
 import Immutable from 'immutable';
 
-const initialState = Immutable.Map().set('isLoaded', false);
+const initialState = Immutable.Map({ isLoaded: false});
 
 export function config(state = initialState, action) {
   switch (action.type) {
@@ -9,7 +9,7 @@ export function config(state = initialState, action) {
       return state.merge(action.config);
     }
     case CONFIG_LOADED: {
-      return Immutable.fromJS(action.config).set('isLoaded', true);
+      return action.config.set('isLoaded', true);
     }
     default: {
       return state;
