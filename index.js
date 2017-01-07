@@ -1,9 +1,12 @@
 const { app, BrowserWindow } = require('electron');
+const platformConfig = require(`./resources/${process.platform}`)
 
 let win;
 
 function createWindow () {
-  win = new BrowserWindow({ width: 500, height: 300, titleBarStyle: 'hidden' });
+  const { width, height } = platformConfig.browser;
+
+  win = new BrowserWindow({ width: width, height: height, titleBarStyle: 'hidden' });
 
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
