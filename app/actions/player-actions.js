@@ -7,6 +7,7 @@ import {
   CHANGE_LENGTH,
   CHANGE_BYTES_LOADED,
   CHANGE_BYTES_TOTAL,
+  CHANGE_VOLUME,
   statusTypes
 } from './types';
 
@@ -63,5 +64,12 @@ export function changeBytesLoaded(bytesLoaded) {
   return {
     type: CHANGE_BYTES_LOADED,
     bytesLoaded: bytesLoaded
+  };
+}
+
+export function changeVolume(newVolume) {
+  return {
+    type: CHANGE_VOLUME,
+    volume: newVolume
   };
 }

@@ -95,4 +95,17 @@ describe('player actions', () => {
       expect(actions.changeBytesLoaded(newSize)).toEqual(expectedAction);
     });
   });
+
+  describe('changeVolume', () => {
+    it('should create an action to change the volume of the player', () => {
+      const newVolume = 20.0;
+      const expectedAction = {
+        type: types.CHANGE_VOLUME,
+        volume: newVolume
+      };
+
+      expect(actions.changeVolume(newVolume)).toEqual(expectedAction);
+
+    });
+  });
 });
