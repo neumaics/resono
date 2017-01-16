@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 const platformConfig = require(`./resources/${process.platform}`)
 
 let win;
@@ -13,6 +13,14 @@ function createWindow () {
   win.on('closed', () => {
     win = null;
   });
+
+  const ret = globalShortcut.register('MediaPlayPause', () => {
+    win.webContents.send('MediaPlayPause');
+  })
+
+  if (!ret) {
+    console.error('registration failed');
+  }
 }
 
 app.on('ready', createWindow);
@@ -27,4 +35,9 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+  ipcMain.removeAllListeners();
 });

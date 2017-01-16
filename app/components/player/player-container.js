@@ -6,6 +6,7 @@ import ProgressBar from './progress-bar';
 import Time from './time';
 import Volume from './volume';
 import Sound from 'react-sound';
+import electron from 'electron';
 
 const statusMap = {
   PLAYING: Sound.status.PLAYING,
@@ -19,6 +20,8 @@ const defaultSkipBackwardDuration = 10000;
 class PlayerContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    electron.ipcRenderer.on('MediaPlayPause', this.togglePlaying.bind(this));
 
     const { skipForwardDuration, skipBackwardDuration } = this.props.config;
 
@@ -78,6 +81,16 @@ class PlayerContainer extends React.Component {
         this.props.changePosition(this.props.length);
       }
     };
+  }
+
+  togglePlaying() {
+    const playing = this.props.status === statusTypes.PLAYING;
+
+    if (playing) {
+      this.props.pause();
+    } else {
+      this.props.play();
+    }
   }
 
   render() {
