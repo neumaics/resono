@@ -46,7 +46,7 @@ class PlayerContainer extends React.Component {
     this.props.changeLength(event.duration);
   }
 
-  onFinishedPlaying(event) {
+  onFinishedPlaying() {
     this.props.pause();
   }
 
@@ -81,7 +81,7 @@ class PlayerContainer extends React.Component {
   }
 
   render() {
-    const { url, status, play, pause, config } = this.props;
+    const { url, status, play, pause } = this.props;
     const { bytesLoaded, bytesTotal, length, position } = this.props;
     const { changeVolume } = this.props;
     const volume = parseFloat(this.props.volume);

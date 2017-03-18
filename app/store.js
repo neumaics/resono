@@ -7,7 +7,6 @@ import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-localstorage';
 import filter from 'redux-storage-decorator-filter';
 
-import { watchFile } from 'fs';
 import { readFileSync, writeFileSync } from 'jsonfile';
 
 import reducers from './reducers';

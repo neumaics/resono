@@ -13,7 +13,7 @@ export default class SearchList extends React.Component {
   render() {
     const { podcasts, onSubscribeClick, onUnsubscribeClick, subscriptions } = this.props;
 
-    const podcastItems = podcasts.map((item, index) => {
+    const podcastItems = podcasts.map((item) => {
       const isSubbed = _.includes(subscriptions, item.id.toString());
 
       return <PodcastItem

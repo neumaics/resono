@@ -3,4 +3,4 @@ module.exports = {
     width: 515,
     height: 356
   }
-}
+};

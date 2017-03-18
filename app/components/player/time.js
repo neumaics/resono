@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import Immutable, { OrderedMap } from 'immutable'
 
 const propTypes = {
   length: PropTypes.number.isRequired,
@@ -34,13 +33,10 @@ export default class Time extends React.Component {
   }
 
   render() {
-    const { length, totalLength, fromEnd } = this.props;
+    const { length, totalLength } = this.props;
 
     const start = length;
     const end = totalLength - length;
-
-    // const span = fromEnd ? totalLength - length : length - 0;
-    // const sign = fromEnd ? '-' : '';{sign}
 
     return <h6 className="time-display">{this.formatTime(start)}-{this.formatTime(end)}</h6>;
   }
