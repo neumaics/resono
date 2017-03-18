@@ -1,5 +1,6 @@
-const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
-const platformConfig = require(`./resources/${process.platform}`)
+const { app, BrowserWindow, globalShortcut } = require('electron');
+const commonConfig = require('./conf/common');
+const platformConfig = require(`./conf/${process.platform}`);
 
 let win;
 
@@ -9,14 +10,18 @@ function createWindow () {
   win = new BrowserWindow({ width: width, height: height, titleBarStyle: 'hidden' });
 
   win.loadURL(`file://${__dirname}/index.html`);
-  win.webContents.openDevTools();
+
+  if (commonConfig.debug) {
+    win.webContents.openDevTools();
+  }
+
   win.on('closed', () => {
     win = null;
   });
 
   const ret = globalShortcut.register('MediaPlayPause', () => {
     win.webContents.send('MediaPlayPause');
-  })
+  });
 
   if (!ret) {
     console.error('registration failed');
@@ -39,5 +44,5 @@ app.on('activate', () => {
 
 app.on('will-quit', () => {
   globalShortcut.unregisterAll();
-  ipcMain.removeAllListeners();
+  // ipcMain.removeAllListeners();
 });
