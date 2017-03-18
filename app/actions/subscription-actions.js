@@ -34,6 +34,7 @@ export function fetchAndSubscribe(id, feedUrl) {
         dispatch(subscribe(Podcast.toMap(podcast)));
       })
       .catch((error) => {
+        console.error(error);
         if (error.response) {
           dispatch(subscribeFailure(id, error.response));
         } else {
