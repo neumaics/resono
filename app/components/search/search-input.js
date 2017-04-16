@@ -22,7 +22,7 @@ export default class SearchInput extends React.Component {
       }
 
       onSearchClick(value);
-    }
+    };
   }
 
   render() {

@@ -1,5 +1,5 @@
 const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
-const platformConfig = require(`./resources/${process.platform}`)
+const platformConfig = require(`./resources/${process.platform}`);
 
 let win;
 
@@ -16,7 +16,7 @@ function createWindow () {
 
   const ret = globalShortcut.register('MediaPlayPause', () => {
     win.webContents.send('MediaPlayPause');
-  })
+  });
 
   if (!ret) {
     console.error('registration failed');

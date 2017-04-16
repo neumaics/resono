@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateSubscription, changeSortOrder } from '../../actions/subscription-actions';
 import { changePodcast } from '../../actions/player-actions';
-import { orderTypes } from '../../actions/types';
+import { orderTypes as order } from '../../actions/types';
 
 import EpisodeList from './episode-list';
 
@@ -22,7 +22,7 @@ class SubscriptionsContainer extends React.Component {
 
   toggleSortOrder(changeSortOrder) {
     return (currentOrder) => {
-      const newOrder = currentOrder === orderTypes.ASCENDING ? orderTypes.DESCENDING : orderTypes.ASCENDING;
+      const newOrder = currentOrder === order.ASCENDING ? order.DESCENDING : order.ASCENDING;
 
       changeSortOrder(newOrder);
     };
@@ -38,7 +38,7 @@ class SubscriptionsContainer extends React.Component {
       }); });
 
     const ids = subscriptions.keySeq().toJS();
-    const order = playlist.get('order');
+    const order = playlist.order;
 
     const numEpisodes = episodes
       .reduce((a, b) => { return b.get('listened') ? a : a + 1; }, 0);

@@ -145,7 +145,7 @@ function fetchRss(feedUrl) {
       });
     })
     .then((data) => {
-       return data.rss.channel;
+      return data.rss.channel;
     });
 }
 

@@ -36,14 +36,14 @@ export default class ProgressBar extends React.Component {
     return (event) => {
       event.stopPropagation();
       onPositionChange(this.calculateNewPostion(event.clientX, this.props.duration, event.target));
-    }
+    };
   }
 
   onRibbonClick(onPositionChange) {
     return (event) => {
       event.stopPropagation();
       onPositionChange(this.calculateNewPostion(event.clientX, this.props.duration, event.target.parentNode));
-    }
+    };
   }
 
   onMouseDown(event) {

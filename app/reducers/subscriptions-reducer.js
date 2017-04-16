@@ -4,8 +4,7 @@ import {
   SUBSCRIBE,
   UNSUBSCRIBE,
   UPDATE_COMPLETE,
-  SUBSCRIPTIONS_LOADED,
-  CHANGE_SORT_ORDER
+  SUBSCRIPTIONS_LOADED
 } from '../actions/types';
 import Immutable from 'immutable';
 
@@ -33,17 +32,6 @@ export function subscriptions(state = initialState, action) {
     }
     case UNSUBSCRIBE: {
       return state.delete(action.id.toString());
-    }
-    default: {
-      return state;
-    }
-  }
-}
-
-export function playlist(state = initialState, action) {
-  switch(action.type) {
-    case CHANGE_SORT_ORDER: {
-      return state.set('order', action.order);
     }
     default: {
       return state;

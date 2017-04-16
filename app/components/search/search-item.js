@@ -49,7 +49,7 @@ export default class SearchItem extends React.Component {
   }
 
   render() {
-    const { item, onSubscribeClick, isSubbed, onUnsubscribeClick } = this.props;
+    const { item, /*onSubscribeClick,*/ isSubbed, /*onUnsubscribeClick*/ } = this.props;
     const subscribeButton = isSubbed ? this.unsubscribeButton : this.subscribeButton;
     const cardClasses = ['podcast-card'];
     if (this.state.expanded) cardClasses.push('expanded');

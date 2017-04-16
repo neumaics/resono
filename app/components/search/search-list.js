@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import PodcastItem from './search-item';
-import _ from 'lodash';
 
 const propTypes = {
   podcasts: PropTypes.array,
@@ -13,8 +12,8 @@ export default class SearchList extends React.Component {
   render() {
     const { podcasts, onSubscribeClick, onUnsubscribeClick, subscriptions } = this.props;
 
-    const podcastItems = podcasts.map((item, index) => {
-      const isSubbed = _.includes(subscriptions, item.id.toString());
+    const podcastItems = podcasts.map((item) => {
+      const isSubbed = subscriptions.includes(item.id.toString());
 
       return <PodcastItem
         title={item.title}
