@@ -1,5 +1,6 @@
 import { CONFIG_CHANGED } from '../actions/types';
-import { /*configChanged,*/ configLoaded } from '../actions/config-actions';
+import { configLoaded } from '../actions/config-actions';
+
 import Immutable from 'immutable';
 
 const configActions = Immutable.Set([CONFIG_CHANGED]);

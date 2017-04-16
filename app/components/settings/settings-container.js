@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 
 class SettingsContainer extends React.Component {
   render() {
-    // const { /config } = this.props;
-    // const str = JSON.stringify(config, null, '  ');
-
     return(
       <div className="settings-container">
         <div className="menu">
