@@ -24,4 +24,4 @@ const playlistSelector = (subscriptions, sort) => {
   return episodes;
 };
 
-export const getPlayLists = createSelector(inputs, playlistSelector);
+export const getPlayList = createSelector(inputs, playlistSelector);

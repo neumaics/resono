@@ -8,6 +8,8 @@ import {
   CHANGE_BYTES_TOTAL,
   CHANGE_BYTES_LOADED,
   CHANGE_VOLUME,
+  NEXT_EPISODE,
+  PREV_EPISODE,
   statusTypes
 } from '../actions/types';
 import { combineReducers } from 'redux';
@@ -49,6 +51,8 @@ function position(state = 0.0, action) {
     case CHANGE_POSITION: {
       return action.position;
     }
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
     case CHANGE_PODCAST: {
       return 0.0;
     }
@@ -63,6 +67,8 @@ function length(state = 1.0, action) {
     case CHANGE_LENGTH: {
       return action.length;
     }
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
     case CHANGE_PODCAST: {
       return 1.0;
     }
@@ -77,6 +83,8 @@ function bytesTotal(state = 1.0, action) {
     case CHANGE_BYTES_TOTAL: {
       return action.bytesTotal ? action.bytesTotal : state;
     }
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
     case CHANGE_PODCAST: {
       return 1.0;
     }
@@ -91,6 +99,8 @@ function bytesLoaded(state = 0.0, action) {
     case CHANGE_BYTES_LOADED: {
       return action.bytesLoaded ? action.bytesLoaded : state;
     }
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
     case CHANGE_PODCAST: {
       return 0.0;
     }

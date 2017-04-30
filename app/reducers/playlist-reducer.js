@@ -35,6 +35,7 @@ function getNext(currentId, episodes) {
   }
 }
 
+// TODO: Corner cases. So many corner cases.
 function current(state = '', action) {
   switch (action.type) {
     case NEXT_EPISODE: {

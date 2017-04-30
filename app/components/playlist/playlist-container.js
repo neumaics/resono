@@ -1,29 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getPlayLists } from '../../selectors/playlist-selector';
+import { getPlayList } from '../../selectors/playlist-selector';
 import * as actions from '../../actions/playlist-actions';
+import PlayList from './playlist';
 
 class PlaylistContainer extends React.Component {
   render() {
     const { playlist, current } = this.props;
-    const { toggleSort, nextEpisode, prevEpisode } = this.props;
-
-    const episodeElements = playlist
-      .map((episode) => {
-        if (current == episode.get('id')) {
-          return <p key={episode.get('id')}>{episode.get('title')} - current</p>;
-        } else {
-          return <p key={episode.get('id')}>{episode.get('title')}</p>;
-        }
-
-      });
+    const { toggleSort } = this.props;
 
     return (
-      <div className="playlist-container">
+      <div>
         <button onClick={() => toggleSort.bind(this)()} className="btn btn-primary">change sort</button>
-        <button onClick={() => prevEpisode.bind(this)(current, playlist)} className="btn btn-primary">prev</button>
-        <button onClick={() => nextEpisode.bind(this)(current, playlist)} className="btn btn-primary">next</button>
-        {episodeElements}
+        <PlayList episodes={playlist} current={current} />
       </div>
     );
   }
@@ -31,16 +20,14 @@ class PlaylistContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    playlist: getPlayLists(state),
+    playlist: getPlayList(state),
     current: state.playlist.current
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleSort: () => dispatch(actions.toggleSort()),
-    nextEpisode: (currentId, episodes) => dispatch(actions.nextEpisode(currentId, episodes)),
-    prevEpisode: (currentId, episodes) => dispatch(actions.prevEpisode(currentId, episodes))
+    toggleSort: () => dispatch(actions.toggleSort())
   };
 }
 
