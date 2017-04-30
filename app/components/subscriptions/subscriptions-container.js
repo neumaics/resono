@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateSubscription, changeSortOrder } from '../../actions/subscription-actions';
-import { changePodcast } from '../../actions/player-actions';
 import { orderTypes as order } from '../../actions/types';
 
 import EpisodeList from './episode-list';
@@ -29,7 +28,7 @@ class SubscriptionsContainer extends React.Component {
   }
 
   render() {
-    const { subscriptions, playlist, changePodcast } = this.props;
+    const { subscriptions, playlist } = this.props;
     const episodes = subscriptions
       .valueSeq()
       .map(p => { return [p.get('title'), p.get('episodes')]; })
@@ -56,7 +55,7 @@ class SubscriptionsContainer extends React.Component {
           onClick={() => this.toggleSortOrder(order)}>
           <i className="fa fa-sort-down"></i>
         </button>
-        <EpisodeList episodes={episodes} onClick={changePodcast} sortBy="pubDate" order={order} />
+        <EpisodeList episodes={episodes} sortBy="pubDate" order={order} />
       </div>
     );
   }
@@ -72,7 +71,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateSubscription: (id) => { dispatch(updateSubscription(id)); },
-    changePodcast: (url) => { dispatch(changePodcast(url)); },
     changeSortOrder: (order) => { dispatch(changeSortOrder(order)); }
   };
 }

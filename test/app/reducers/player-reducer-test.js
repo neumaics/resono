@@ -78,19 +78,6 @@ describe('player reducer', () => {
       expect(reducers.player(undefined, {}).currentPodcast).toEqual('/');
     });
 
-    it('should handle the CHANGE_PODCAST action', () => {
-      const url = 'www.feed.rss/pocast.mp3';
-
-      const action = {
-        type: actions.CHANGE_PODCAST,
-        url: url
-      };
-
-      const actual = reducers.player(undefined, action).currentPodcast;
-
-      expect(actual).toEqual(url);
-    });
-
     it('should return the previous state for any other action', () => {
       const currentState = {
         currentPodcast: 'get-ye-flask.mp3',
@@ -123,19 +110,6 @@ describe('player reducer', () => {
       expect(actual).toEqual(newPosition);
     });
 
-    it('should handle the CHANGE_PODCAST action by resetting state', () => {
-      const url = 'www.feed.rss/podcast.mp3';
-      const action = {
-        type: actions.CHANGE_PODCAST,
-        url: url
-      };
-
-      const currentState = initialState.set('position', 0.4).toJS();
-      const actual = reducers.player(currentState, action).position;
-
-      expect(actual).toEqual(0.0);
-    });
-
     it('should return the previous state for any other action', () => {
       const action = {
         type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
@@ -162,19 +136,6 @@ describe('player reducer', () => {
 
       const actual = reducers.player(initialState.toJS(), action).length;
       expect(actual).toEqual(newLength);
-    });
-
-    it('should handle the CHANGE_PODCAST action by resetting state', () => {
-      const url = 'www.feed.rss/podcast.mp3';
-      const action = {
-        type: actions.CHANGE_PODCAST,
-        url: url
-      };
-
-      const currentState = initialState.set('length', 10000.0).toJS();
-      const actual = reducers.player(currentState, action).length;
-
-      expect(actual).toEqual(1.0);
     });
 
     it('should return previous state for any other action', () => {
@@ -205,19 +166,6 @@ describe('player reducer', () => {
       expect(actual).toEqual(newBytesTotal);
     });
 
-    it('should handle the CHANGE_PODCAST action by resetting state', () => {
-      const url = 'www.feed.rss/podcast.mp3';
-      const action = {
-        type: actions.CHANGE_PODCAST,
-        url: url
-      };
-
-      const currentState = initialState.set('bytesTotal', 10030.0).toJS();
-      const actual = reducers.player(currentState, action).bytesTotal;
-
-      expect(actual).toEqual(1.0);
-    });
-
     it('should return previous state for any other action', () => {
       const action = {
         type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE'
@@ -244,19 +192,6 @@ describe('player reducer', () => {
 
       const actual = reducers.player(initialState.toJS(), action).bytesLoaded;
       expect(actual).toEqual(newBytesLoaded);
-    });
-
-    it('should handle the CHANGE_PODCAST action by resetting state', () => {
-      const url = 'www.feed.rss/podcast.mp3';
-      const action = {
-        type: actions.CHANGE_PODCAST,
-        url: url
-      };
-
-      const currentState = initialState.set('bytesLoaded', 3999.0).toJS();
-      const actual = reducers.player(currentState, action).bytesLoaded;
-
-      expect(actual).toEqual(0.0);
     });
 
     it('should return previous state for any other action', () => {

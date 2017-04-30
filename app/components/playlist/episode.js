@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
+  isCurrent: PropTypes.bool.is
 };
 
 export default class Episode extends React.Component {

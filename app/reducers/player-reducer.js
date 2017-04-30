@@ -1,5 +1,4 @@
 import {
-  CHANGE_PODCAST,
   PLAY_PODCAST,
   PAUSE_PODCAST,
   STOP_PODCAST,
@@ -16,9 +15,6 @@ import { combineReducers } from 'redux';
 
 function status(state = statusTypes.STOPPED, action) {
   switch (action.type) {
-    case CHANGE_PODCAST: {
-      return statusTypes.STOPPED;
-    }
     case PLAY_PODCAST: {
       return action.status;
     }
@@ -36,9 +32,6 @@ function status(state = statusTypes.STOPPED, action) {
 
 function currentPodcast(state = '/', action) {
   switch (action.type) {
-    case CHANGE_PODCAST: {
-      return action.url;
-    }
     default: {
       return state;
     }
@@ -52,8 +45,7 @@ function position(state = 0.0, action) {
       return action.position;
     }
     case NEXT_EPISODE:
-    case PREV_EPISODE:
-    case CHANGE_PODCAST: {
+    case PREV_EPISODE: {
       return 0.0;
     }
     default: {
@@ -68,8 +60,7 @@ function length(state = 1.0, action) {
       return action.length;
     }
     case NEXT_EPISODE:
-    case PREV_EPISODE:
-    case CHANGE_PODCAST: {
+    case PREV_EPISODE: {
       return 1.0;
     }
     default: {
@@ -84,8 +75,7 @@ function bytesTotal(state = 1.0, action) {
       return action.bytesTotal ? action.bytesTotal : state;
     }
     case NEXT_EPISODE:
-    case PREV_EPISODE:
-    case CHANGE_PODCAST: {
+    case PREV_EPISODE: {
       return 1.0;
     }
     default: {
@@ -100,8 +90,7 @@ function bytesLoaded(state = 0.0, action) {
       return action.bytesLoaded ? action.bytesLoaded : state;
     }
     case NEXT_EPISODE:
-    case PREV_EPISODE:
-    case CHANGE_PODCAST: {
+    case PREV_EPISODE: {
       return 0.0;
     }
     default: {
