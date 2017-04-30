@@ -34,7 +34,9 @@ export const orderTypes = {
   DESCENDING: 'desc'
 };
 
-export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER';
+export const TOGGLE_SORT_ORDER = 'TOGGLE_SORT_ORDER';
+export const NEXT_EPISODE = 'NEXT_EPISODE';
+export const PREV_EPISODE = 'PREV_EPISODE';
 
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const UPDATE_COMPLETE = 'UPDATE_COMPLETE';

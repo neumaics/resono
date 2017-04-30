@@ -4,6 +4,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 
 import Layout from './components/layout';
+import PlaylistContainer from './components/playlist/playlist-container';
 import SearchContainer from './components/search/search-container';
 import SubscriptionsContainer from './components/subscriptions/subscriptions-container';
 import SettingsContainer from './components/settings/settings-container';
@@ -18,6 +19,7 @@ ReactDom.render(
         <IndexRoute component={SearchContainer} />
         <Route path="podcast" component={SearchContainer} />
         <Route path="subscriptions" component={SubscriptionsContainer} />
+        <Route path="playlists" component={PlaylistContainer} />
         <Route path="settings" component={SettingsContainer} />
       </Route>
     </Router>
