@@ -21,7 +21,6 @@ const playlistSelector = (subscriptions, sort) => {
     })
     .sortBy((p) => { return ascending * p.get('pubDate'); });
 
-  console.log('recalcing');
   return episodes;
 };
 

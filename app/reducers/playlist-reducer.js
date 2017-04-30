@@ -24,34 +24,31 @@ function getCurrentIndex(currentId, episodes) {
   return currentIdx;
 }
 
+function getNext(currentId, episodes) {
+  const numEpisodes = episodes.size;
+  const currentIdx = getCurrentIndex(currentId, episodes);
+
+  if (currentIdx + 1 >= numEpisodes) {
+    return currentId;
+  } else {
+    return episodes.get(currentIdx + 1).get('id');
+  }
+}
+
 function current(state = '', action) {
   switch (action.type) {
     case NEXT_EPISODE: {
       if (!state) {
         return action.episodes.get(0).get('id');
-      }
-      const numEpisodes = action.episodes.size;
-      const currentIdx = getCurrentIndex(action.current, action.episodes);
-
-      if (currentIdx + 1 > numEpisodes) {
-        return state;
       } else {
-        const next = action.episodes.get(currentIdx + 1);
-        return next.get('id');
+        return getNext(action.current, action.episodes);
       }
     }
     case PREV_EPISODE: {
       if (!state) {
         return action.episodes.get(0).get('id');
-      }
-
-      const currentIdx = getCurrentIndex(action.current, action.episodes);
-
-      if (currentIdx - 1 < 0) {
-        return state;
       } else {
-        const next = action.episodes.get(currentIdx - 1);
-        return next.get('id');
+        return getNext(action.current, action.episodes.reverse());
       }
     }
     default: {

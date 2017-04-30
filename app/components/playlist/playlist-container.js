@@ -7,7 +7,6 @@ class PlaylistContainer extends React.Component {
   render() {
     const { playlist, current } = this.props;
     const { toggleSort, nextEpisode, prevEpisode } = this.props;
-    console.log(current);
 
     const episodeElements = playlist
       .map((episode) => {
