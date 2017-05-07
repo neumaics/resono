@@ -35,6 +35,7 @@ export const orderTypes = {
 
 export const TOGGLE_SORT_ORDER = 'TOGGLE_SORT_ORDER';
 export const NEXT_EPISODE = 'NEXT_EPISODE';
+export const PLAY_EPISODE = 'PLAY_EPISODE';
 export const PREV_EPISODE = 'PREV_EPISODE';
 
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';

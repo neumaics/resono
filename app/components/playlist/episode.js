@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  isCurrent: PropTypes.bool.isRequired
+  isCurrent: PropTypes.bool.isRequired,
+  play: PropTypes.func.isRequired
 };
 
 export default class Episode extends React.Component {
@@ -11,9 +12,13 @@ export default class Episode extends React.Component {
   }
 
   render() {
-    const { title, isCurrent } = this.props;
+    const { play, title, isCurrent } = this.props;
 
-    return <p>{title}{isCurrent ? '-current' : ''}</p>;
+    return (
+      <div className="episode-item">
+        <span>{title}{isCurrent ? '-current' : ''}</span>
+      </div>
+    );
   }
 }
 

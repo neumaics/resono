@@ -157,7 +157,6 @@ class PlayerContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.player.currentPodcast,
     status: state.player.status,
     config: state.config.get('player').toJS(),
     position: state.player.position,

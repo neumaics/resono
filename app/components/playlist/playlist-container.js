@@ -7,12 +7,12 @@ import PlayList from './playlist';
 class PlaylistContainer extends React.Component {
   render() {
     const { playlist, current } = this.props;
-    const { toggleSort } = this.props;
+    const { toggleSort, playEpisode } = this.props;
 
     return (
-      <div>
+      <div className="playlist-container">
         <button onClick={() => toggleSort.bind(this)()} className="btn btn-primary">change sort</button>
-        <PlayList episodes={playlist} current={current} />
+        <PlayList episodes={playlist} current={current} onPlayEpisode={playEpisode} />
       </div>
     );
   }
@@ -27,7 +27,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleSort: () => dispatch(actions.toggleSort())
+    toggleSort: () => dispatch(actions.toggleSort()),
+    playEpisode: (episodeId) => dispatch(actions.playEpisode(episodeId))
   };
 }
 

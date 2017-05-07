@@ -5,7 +5,6 @@ import Immutable from 'immutable';
 
 const initialState = Immutable.Map({
   status: actions.statusTypes.STOPPED,
-  currentPodcast: 'www.feed.rss/1/pocast.mp3',
   position: 2.0,
   length: 4.0,
   bytesTotal: 1.0,
@@ -59,7 +58,6 @@ describe('player reducer', () => {
 
     it('should return the previous state for any other action', () => {
       const currentState = {
-        currentPodcast: 'JavaScript',
         status: actions.statusTypes.PLAYING
       };
 
@@ -70,27 +68,6 @@ describe('player reducer', () => {
       const actual = reducers.player(currentState, action).status;
 
       expect(actual).toEqual(actions.statusTypes.PLAYING);
-    });
-  });
-
-  describe('currentPodcast', () => {
-    it('should return an initial state', () => {
-      expect(reducers.player(undefined, {}).currentPodcast).toEqual('/');
-    });
-
-    it('should return the previous state for any other action', () => {
-      const currentState = {
-        currentPodcast: 'get-ye-flask.mp3',
-        status: actions.statusTypes.PAUSED
-      };
-
-      const action = {
-        type: 'FAKE_ACTION_DONT_IMPLEMENT_PLEASE',
-        payload: 'ye flask'
-      };
-      const actual = reducers.player(currentState, action).currentPodcast;
-
-      expect(actual).toEqual(currentState.currentPodcast);
     });
   });
 
