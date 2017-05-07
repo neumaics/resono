@@ -6,7 +6,6 @@ export const RSS_REQUEST = 'RSS_REQUEST';
 export const RSS_RECEIVE = 'RSS_RECEIVE';
 export const RSS_FAILURE = 'RSS_FAILURE';
 
-export const CHANGE_PODCAST = 'CHANGE_PODCAST';
 export const PLAY_PODCAST = 'PLAY_PODCAST';
 export const PAUSE_PODCAST = 'PAUSE_PODCAST';
 export const STOP_PODCAST = 'STOP_PODCAST';
@@ -34,7 +33,10 @@ export const orderTypes = {
   DESCENDING: 'desc'
 };
 
-export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER';
+export const TOGGLE_SORT_ORDER = 'TOGGLE_SORT_ORDER';
+export const NEXT_EPISODE = 'NEXT_EPISODE';
+export const PLAY_EPISODE = 'PLAY_EPISODE';
+export const PREV_EPISODE = 'PREV_EPISODE';
 
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const UPDATE_COMPLETE = 'UPDATE_COMPLETE';

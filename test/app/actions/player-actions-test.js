@@ -3,18 +3,6 @@ import * as actions from '../../../app/actions/player-actions';
 import * as types from '../../../app/actions/types';
 
 describe('player actions', () => {
-  describe('changePodcast', () => {
-    it('should create an action for changing the playing podcast', () => {
-      const url = 'www.popularpodcast.com/latest.mp3';
-      const expectedAction = {
-        type: types.CHANGE_PODCAST,
-        url: url
-      };
-
-      expect(actions.changePodcast(url)).toEqual(expectedAction);
-    });
-  });
-
   describe('playPodcast', () => {
     it('should create an action to start playing', () => {
       const expectedAction = {

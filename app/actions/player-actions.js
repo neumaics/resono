@@ -1,5 +1,4 @@
 import {
-  CHANGE_PODCAST,
   PLAY_PODCAST,
   PAUSE_PODCAST,
   STOP_PODCAST,
@@ -10,13 +9,6 @@ import {
   CHANGE_VOLUME,
   statusTypes
 } from './types';
-
-export function changePodcast(url) {
-  return {
-    type: CHANGE_PODCAST,
-    url: url
-  };
-}
 
 export function playPodcast() {
   return {

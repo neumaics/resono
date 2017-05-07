@@ -7,6 +7,8 @@ import Time from './time';
 import Volume from './volume';
 import Sound from 'react-sound';
 import electron from 'electron';
+import { getPlayList } from '../../selectors/playlist-selector';
+import * as playListActions from '../../actions/playlist-actions';
 
 const statusMap = {
   PLAYING: Sound.status.PLAYING,
@@ -14,8 +16,8 @@ const statusMap = {
   STOPPED: Sound.status.STOPPED
 };
 
-const defaultSkipForwardDuration = 10000;
-const defaultSkipBackwardDuration = 10000;
+const defaultSkipForwardDuration = 100000;
+const defaultSkipBackwardDuration = 100000;
 
 class PlayerContainer extends React.Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class PlayerContainer extends React.Component {
     electron.ipcRenderer.on('MediaPlayPause', this.togglePlaying.bind(this));
 
     const { skipForwardDuration, skipBackwardDuration } = this.props.config;
+    const { nextEpisode, prevEpisode } = this.props;
 
     this.skipBack = this.skipBack(skipBackwardDuration || defaultSkipBackwardDuration).bind(this);
     this.skipForward = this.skipForward(skipForwardDuration || defaultSkipForwardDuration).bind(this);
@@ -31,6 +34,8 @@ class PlayerContainer extends React.Component {
     this.whileLoading = this.whileLoading.bind(this);
     this.whilePlaying = this.whilePlaying.bind(this);
     this.onFinishedPlaying = this.onFinishedPlaying.bind(this);
+    this.nextEpisode = nextEpisode.bind(this);
+    this.prevEpisode = prevEpisode.bind(this);
   }
 
   componentDidMount () {
@@ -49,8 +54,8 @@ class PlayerContainer extends React.Component {
     this.props.changeLength(event.duration);
   }
 
-  onFinishedPlaying() {
-    this.props.pause();
+  onFinishedPlaying(current, episodes) {
+    this.nextEpisode(current, episodes);
   }
 
   onChangePosition(newPosition) {
@@ -94,11 +99,15 @@ class PlayerContainer extends React.Component {
   }
 
   render() {
-    const { url, status, play, pause, /*config*/ } = this.props;
+    const { status, play, pause, /*config*/ } = this.props;
     const { bytesLoaded, bytesTotal, length, position } = this.props;
+    const { playlist, current } = this.props;
     const { changeVolume } = this.props;
-    const volume = parseFloat(this.props.volume);
 
+    const volume = parseFloat(this.props.volume);
+    const episode = playlist.find((ep) => ep.get('id') == current);
+
+    const url = episode ? episode.get('url') : '/';
     const playing = status === statusTypes.PLAYING;
     const icon = playing ? 'fa-pause' : 'fa-play';
     const clickAction = playing ? pause : play;
@@ -107,8 +116,14 @@ class PlayerContainer extends React.Component {
 
     return (
       <div className="player">
+        <button onClick={() => this.prevEpisode(current, playlist)} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
+          <i className={`fa fa-backward`} aria-hidden="true"></i>
+        </button>
         <button onClick={clickAction} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
           <i className={`fa ${icon}`} aria-hidden="true"></i>
+        </button>
+        <button onClick={() => this.nextEpisode(current, playlist)} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
+          <i className={`fa fa-forward`} aria-hidden="true"></i>
         </button>
 
         <Volume volume={volume} onVolumeChange={changeVolume} />
@@ -133,7 +148,7 @@ class PlayerContainer extends React.Component {
           position={position}
           onLoading={this.whileLoading}
           onPlaying={this.whilePlaying}
-          onFinishedPlaying={this.onFinishedPlaying}
+          onFinishedPlaying={() => this.onFinishedPlaying(current, playlist)}
           volume={volume} />
       </div>
     );
@@ -142,14 +157,15 @@ class PlayerContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.player.currentPodcast,
     status: state.player.status,
     config: state.config.get('player').toJS(),
     position: state.player.position,
     length: state.player.length,
     bytesTotal: state.player.bytesTotal,
     bytesLoaded: state.player.bytesLoaded,
-    volume: state.player.volume
+    volume: state.player.volume,
+    playlist: getPlayList(state),
+    current: state.playlist.current
   };
 };
 
@@ -161,7 +177,9 @@ const mapDispatchToProps = (dispatch) => {
     changeLength: (length) => { dispatch(actions.changeLength(length)); },
     changeBytesTotal: (bytesTotal) => { dispatch(actions.changeBytesTotal(bytesTotal)); },
     changeBytesLoaded: (bytesLoaded) => { dispatch(actions.changeBytesLoaded(bytesLoaded)); },
-    changeVolume: (newVolume) => { dispatch(actions.changeVolume(newVolume)); }
+    changeVolume: (newVolume) => { dispatch(actions.changeVolume(newVolume)); },
+    nextEpisode: (current, episodes) => dispatch(playListActions.nextEpisode(current, episodes)),
+    prevEpisode: (current, episodes) => dispatch(playListActions.prevEpisode(current, episodes))
   };
 };
 

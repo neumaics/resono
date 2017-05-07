@@ -1,5 +1,4 @@
 import {
-  CHANGE_PODCAST,
   PLAY_PODCAST,
   PAUSE_PODCAST,
   STOP_PODCAST,
@@ -8,21 +7,17 @@ import {
   CHANGE_BYTES_TOTAL,
   CHANGE_BYTES_LOADED,
   CHANGE_VOLUME,
+  NEXT_EPISODE,
+  PLAY_EPISODE,
+  PREV_EPISODE,
   statusTypes
 } from '../actions/types';
 import { combineReducers } from 'redux';
 
 function status(state = statusTypes.STOPPED, action) {
   switch (action.type) {
-    case CHANGE_PODCAST: {
-      return statusTypes.STOPPED;
-    }
-    case PLAY_PODCAST: {
-      return action.status;
-    }
-    case PAUSE_PODCAST: {
-      return action.status;
-    }
+    case PLAY_PODCAST:
+    case PAUSE_PODCAST:
     case STOP_PODCAST:{
       return action.status;
     }
@@ -32,24 +27,14 @@ function status(state = statusTypes.STOPPED, action) {
   }
 }
 
-function currentPodcast(state = '/', action) {
-  switch (action.type) {
-    case CHANGE_PODCAST: {
-      return action.url;
-    }
-    default: {
-      return state;
-    }
-  }
-}
-
-
 function position(state = 0.0, action) {
   switch (action.type) {
     case CHANGE_POSITION: {
       return action.position;
     }
-    case CHANGE_PODCAST: {
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
+    case PLAY_EPISODE: {
       return 0.0;
     }
     default: {
@@ -63,7 +48,9 @@ function length(state = 1.0, action) {
     case CHANGE_LENGTH: {
       return action.length;
     }
-    case CHANGE_PODCAST: {
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
+    case PLAY_EPISODE: {
       return 1.0;
     }
     default: {
@@ -77,7 +64,9 @@ function bytesTotal(state = 1.0, action) {
     case CHANGE_BYTES_TOTAL: {
       return action.bytesTotal ? action.bytesTotal : state;
     }
-    case CHANGE_PODCAST: {
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
+    case PLAY_EPISODE: {
       return 1.0;
     }
     default: {
@@ -91,7 +80,9 @@ function bytesLoaded(state = 0.0, action) {
     case CHANGE_BYTES_LOADED: {
       return action.bytesLoaded ? action.bytesLoaded : state;
     }
-    case CHANGE_PODCAST: {
+    case NEXT_EPISODE:
+    case PREV_EPISODE:
+    case PLAY_EPISODE: {
       return 0.0;
     }
     default: {
@@ -113,7 +104,6 @@ function volume(state = 80, action) {
 
 export const player = combineReducers({
   status,
-  currentPodcast,
   position,
   length,
   bytesTotal,
