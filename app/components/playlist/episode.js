@@ -16,6 +16,7 @@ export default class Episode extends React.Component {
 
     return (
       <div className="episode-item">
+        <button className="btn btn-sm" onClick={play}><i className="fa fa-play"></i></button>
         <span>{title}{isCurrent ? '-current' : ''}</span>
       </div>
     );
