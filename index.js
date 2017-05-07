@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut } = require('electron');
+const { app, BrowserWindow, globalShortcut, Menu, ipcMain } = require('electron');
 const commonConfig = require('./conf/common');
 const platformConfig = require(`./conf/${process.platform}`);
 
@@ -7,7 +7,9 @@ let win;
 function createWindow () {
   const { width, height } = platformConfig.browser;
 
-  win = new BrowserWindow({ width: width, height: height, titleBarStyle: 'hidden' });
+  Menu.setApplicationMenu(null); // Removes menu
+
+  win = new BrowserWindow({ width: width, height: height, titleBarStyle: 'hidden', frame: false });
 
   win.loadURL(`file://${__dirname}/index.html`);
 
@@ -17,6 +19,18 @@ function createWindow () {
 
   win.on('closed', () => {
     win = null;
+  });
+
+  win.on('maximize', () => {
+    ipcMain.send('window-maximized');
+  });
+
+  ipcMain.on('window-minimize', () => win.minimize());
+  ipcMain.on('window-maximize', () => win.maximize());
+  ipcMain.on('window-restore', () => win.unmaximize());
+  ipcMain.on('window-close', () => win.close());
+  ipcMain.on('window-is-maximized', (event) => {
+    event.returnValue = win.isMaximized();
   });
 
   const ret = globalShortcut.register('MediaPlayPause', () => {
@@ -44,5 +58,4 @@ app.on('activate', () => {
 
 app.on('will-quit', () => {
   globalShortcut.unregisterAll();
-  // ipcMain.removeAllListeners();
 });

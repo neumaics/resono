@@ -1,0 +1,28 @@
+.window-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow:hidden;
+  -webkit-app-region: drag;
+  height: 24px;
+  position: absolute;
+
+  li {
+    display: inline;
+    float: right;
+    -webkit-app-region: no-drag;
+
+    button {
+      border: none;
+      background-color: white;
+      font-size: 12px;
+      -webkit-transition-duration: 0.2s;
+
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+}

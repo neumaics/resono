@@ -1,6 +1,6 @@
 module.exports = {
   browser: {
-    width: 515,
-    height: 356
+    width: 500,
+    height: 300
   }
 };
