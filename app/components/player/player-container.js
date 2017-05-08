@@ -4,8 +4,9 @@ import * as actions from '../../actions/player-actions';
 import { statusTypes } from '../../actions/types';
 import ProgressBar from './progress-bar';
 import Time from './time';
-import Volume from './volume';
+// import Volume from './volume';
 import Sound from 'react-sound';
+import Info from './info';
 import electron from 'electron';
 import { getPlayList } from '../../selectors/playlist-selector';
 import * as playListActions from '../../actions/playlist-actions';
@@ -102,7 +103,7 @@ class PlayerContainer extends React.Component {
     const { status, play, pause, /*config*/ } = this.props;
     const { bytesLoaded, bytesTotal, length, position } = this.props;
     const { playlist, current } = this.props;
-    const { changeVolume } = this.props;
+    // const { changeVolume } = this.props;
 
     const volume = parseFloat(this.props.volume);
     const episode = playlist.find((ep) => ep.get('id') == current);
@@ -114,23 +115,14 @@ class PlayerContainer extends React.Component {
     const mediaSelected = url !== '/';
     const buttonClass = mediaSelected ? 'btn-outline-primary' : 'btn-outline-secondary';
 
+    const podcast = episode ? episode.get('podcast') : '';
+    const title = episode ? episode.get('title') : '';
+
     return (
       <div className="player">
-        <button onClick={() => this.prevEpisode(current, playlist)} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
-          <i className={`fa fa-backward`} aria-hidden="true"></i>
-        </button>
-        <button onClick={clickAction} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
-          <i className={`fa ${icon}`} aria-hidden="true"></i>
-        </button>
-        <button onClick={() => this.nextEpisode(current, playlist)} className={`btn borderless ${buttonClass}`} disabled={!mediaSelected}>
-          <i className={`fa fa-forward`} aria-hidden="true"></i>
-        </button>
+        <Info podcast={podcast} title={title} />
 
-        <Volume volume={volume} onVolumeChange={changeVolume} />
-        <button onClick={this.skipBack} className="btn btn-outline-info borderless">
-          <i className="fa fa-angle-double-left" aria-hidden="true"></i>
-        </button>
-        <div style={{width: '60%'}}>
+        <div className="player-progress-bar">
           <ProgressBar
             duration={length}
             position={position}
@@ -138,10 +130,31 @@ class PlayerContainer extends React.Component {
             bytesTotal={bytesTotal}
             onPositionChange={this.onChangePosition} />
         </div>
-        <button onClick={this.skipForward} className="btn btn-outline-info borderless">
-          <i className="fa fa-angle-double-right" aria-hidden="true"></i>
-        </button>
+
         <Time length={position} totalLength={length} fromEnd={true} />
+
+        <div className="player-controls">
+          <button onClick={this.skipBack} className="btn btn-sm btn-outline-info borderless">
+            <i className="fa fa-angle-double-left" aria-hidden="true"></i>
+          </button>
+
+          <button onClick={() => this.prevEpisode(current, playlist)} className={`btn btn-sm borderless ${buttonClass}`} disabled={!mediaSelected}>
+            <i className={`fa fa-backward`} aria-hidden="true"></i>
+          </button>
+          <button onClick={clickAction} className={`btn btn-lg borderless ${buttonClass}`} disabled={!mediaSelected}>
+            <i className={`fa ${icon}`} aria-hidden="true"></i>
+          </button>
+          <button onClick={() => this.nextEpisode(current, playlist)} className={`btn btn-sm borderless ${buttonClass}`} disabled={!mediaSelected}>
+            <i className={`fa fa-forward`} aria-hidden="true"></i>
+          </button>
+
+          <button onClick={this.skipForward} className="btn btn-sm btn-outline-info borderless">
+            <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        {/*<Volume volume={volume} onVolumeChange={changeVolume} />*/}
+
         <Sound
           url={url}
           playStatus={statusMap[status]}

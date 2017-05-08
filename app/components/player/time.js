@@ -38,7 +38,12 @@ export default class Time extends React.Component {
     const start = length;
     const end = totalLength - length;
 
-    return <h6 className="time-display">{this.formatTime(start)}-{this.formatTime(end)}</h6>;
+    return (
+      <div className="time-display">
+        <div><p>{this.formatTime(start)}</p></div>
+        <div><p>{this.formatTime(end)}</p></div>
+      </div>
+    );
   }
 }
 

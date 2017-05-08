@@ -3,18 +3,45 @@
   background-color: #f1f1f1;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-around;
+  justify-content: flex-start;
 
   position: fixed;
   left: 0px;
   bottom: 0px;
-  height: 40px;
   width: 100%;
+
+  font-size: small;
 
   .borderless {
     border-color: transparent;
+  }
+
+  .player-controls .player-progress-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .player-podcast-info {
+    align-self: flex-start;
+    margin: 0;
+  }
+
+  .player-progress-bar {
+    width: 100%;
+  }
+
+  .time-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
   }
 }
 
